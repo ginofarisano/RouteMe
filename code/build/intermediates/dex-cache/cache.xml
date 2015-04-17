@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/libs/internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-c8597b720bd58b43599c0d05105680d04c352b36.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4cd0b093824b3228fffc21ea369b98d0b1db6566">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-f39f48f73a86f481fb1e007e5f3e1222825c367c.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9224bc4c54ba95147c7eabd874573763c07cb6be">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-65f3d7499266d664abcc9cbf0395ab6f0377afaa.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c976518693e89ad44fbfccfc654941eaec198d08">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-5124ede741dccc28cbfaa0a8e3a771f28a604d98.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appstate/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7ff613bf78ab057293892fdbd4169eda899c89b9">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-7e051edb62ba965afb789e1fd984a2854dc41ca5.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-93938299f749494361e43d7ddbcf350370ab75ed.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-a46d1e9969233a0e139f11f94711b7abc42b8b99.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Documents/android-sdk-macosx/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-f79fce7d6433c4eb6a118525c26500d432af625c.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3c0b099f9de16b265ecd6122fcb603e7d0d29f90">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-7606f777bec3cc1d68aa668d559875b2c31b50a7.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ef5f051e7308febe289dc93c67c5f32785b4260a">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-6fa3a85c2f8144cf9b7a4d4af5d3d0a0b5d08343.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="055783146ba9654a725442563be78cad303aad1f">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-ca767849f8ab7ff2b095c912b8c2334692f6a473.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="73ccb92b70112f2e463e415ef8d7275de7da6516">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-b2fb59a2bd58e552eabafbb850ccca1c4ad61db3.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="fb04b12526b0073c7fb1ebb70c5842d82ee95596">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-f1479fe8043985f6138d7844b24b441285ae1dcb.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="17f8750d5c0749e44dd7c54aa390d9c937803825">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-4c577134b1edd06a264387dfe858fb40102fa5f1.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4c93d99d454c975536bbe3b42283eee847f03ea3">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-6cc2d0d77db7c29821101578aa7c904a9bc3f90f.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a08d65794b844d8e7540bf9a33859bf3b2482d7f">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-412966a7c35d090478b29c25eaa7b208ba09d678.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a96b762bde4139de855735f175ec4d17dca55a6d">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-da387d741d9a9b8c7919db9ec77630a8a9d8efd4.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="41b3870cbe5fa546d8095b5b89d42cb69f3dd175">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-a4c515f60f9e8f2dc1fdd4bc45e859c133d1151f.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1c5a76debf0c2857ccad422c4a80ed785982f8df">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-dfe67bbb9b32fcbf51620939e4e3288d7156620d.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e3d791b42eaa90416cd0b2d2e608092794a3baa4">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-cdc6ff00e63d23753b0bf2eef82e1f4a36d71948.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0e8228b4bc69c6a2c8d7c18498a77e53417d2574">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-5836816556662b48a4c2ec6d39892cce07394891.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="29fd6d3794b71491c2789708cd8d03c71feb8954">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-0c7a8991ba433cfec46076d98bf7adfc0e22d35b.jar" />
+    </item>
+    <item
+        jar="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3033cc3a2c68dff3e5b646d6d084bdbdf7d00b25">
+        <dex dex="/Users/ginofarisano/Desktop/iumus/RouteMe/app/build/intermediates/pre-dexed/debug/classes-d32b99b0f047efdbc2525c8b6f45e352ff5c881e.jar" />
+    </item>
+
+</items>

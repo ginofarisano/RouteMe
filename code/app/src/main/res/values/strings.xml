@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">RouteMe</string>
+
+    <string name="nomeCognome">Mario Rossi</string>
+    <string name="creaItinerario">Crea itinerario</string>
+    <string name="mieiItinerari">Miei itinerari</string>
+    <string name="itinerariAcquistati">Itinerari acquistati</string>
+    <string name="cercaItinerario">Cerca itinerario</string>
+    <string name="iMieiDesideri">I miei desideri</string>
+    <string name="logOut">Log-out</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_maps">Map</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

@@ -107,7 +107,7 @@ public class SplashActivity extends Activity {
 
         if (currentUser != null) {
             showProfileLoggedIn();
-        }
+        } 
 
         SplashActivity.this.finish();
 

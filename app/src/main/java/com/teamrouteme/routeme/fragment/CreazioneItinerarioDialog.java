@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,37 +18,36 @@ import com.teamrouteme.routeme.R;
 /**
  * Created by massimo299 on 14/05/15.
  */
-public class InserimentoTappaDialog extends DialogFragment {
+public class CreazioneItinerarioDialog extends DialogFragment{
 
-    private EditText nomeTappaEditText, descrizioneTappaEditText;
+    private EditText nomeItinerarioEditText, descrizioneItinerarioEditText;
     private TextView campiVuotiTextView;
 
-    public InserimentoTappaDialog() {
+    public CreazioneItinerarioDialog() {
         // Empty constructor required for DialogFragment
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_inserimento_tappa_dialog, container);
-        nomeTappaEditText = (EditText) view.findViewById(R.id.editText_nome_tappa);
-        descrizioneTappaEditText = (EditText) view.findViewById(R.id.editText_descrizione_tappa);
-        campiVuotiTextView = (TextView) view.findViewById(R.id.lbl_campi_vuoti_tappa);
+        View view = inflater.inflate(R.layout.fragment_creazione_itinerario_dialog, container);
+        nomeItinerarioEditText = (EditText) view.findViewById(R.id.editText_nome_itinerario);
+        descrizioneItinerarioEditText = (EditText) view.findViewById(R.id.editText_descrizione_itinerario);
+        campiVuotiTextView = (TextView) view.findViewById(R.id.lbl_campi_vuoti_itinerario);
 
-        Button btn_confermaTappa = (Button)view.findViewById(R.id.btn_conferma_tappa);
-        btn_confermaTappa.setOnClickListener(new View.OnClickListener() {
+        Button btn_confermaItinerario = (Button)view.findViewById(R.id.btn_conferma_itinerario);
+        btn_confermaItinerario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!isEmpty()) {
                     Intent i = new Intent();
-                    i.putExtra("nome_tappa", nomeTappaEditText.getText().toString());
-                    i.putExtra("descrizione_tappa", descrizioneTappaEditText.getText().toString());
+                    i.putExtra("nome_itinerario", nomeItinerarioEditText.getText().toString());
+                    i.putExtra("descrizione_itinerario", descrizioneItinerarioEditText.getText().toString());
                     getTargetFragment().onActivityResult(getTargetRequestCode(), getTargetRequestCode(), i);
-                    closeKeyboard(getActivity(), nomeTappaEditText.getWindowToken());
-                    closeKeyboard(getActivity(), descrizioneTappaEditText.getWindowToken());
+                    closeKeyboard(getActivity(), nomeItinerarioEditText.getWindowToken());
+                    closeKeyboard(getActivity(), descrizioneItinerarioEditText.getWindowToken());
                     getDialog().dismiss();
-                }
-                else
+                } else
                     campiVuotiTextView.setVisibility(View.VISIBLE);
             }
         });
@@ -63,7 +61,7 @@ public class InserimentoTappaDialog extends DialogFragment {
     }
 
     private boolean isEmpty(){
-        if(nomeTappaEditText.getText().toString().equals("") || descrizioneTappaEditText.getText().toString().equals("")){
+        if(nomeItinerarioEditText.getText().toString().equals("") || descrizioneItinerarioEditText.getText().toString().equals("")){
             return true;
         }
         return false;

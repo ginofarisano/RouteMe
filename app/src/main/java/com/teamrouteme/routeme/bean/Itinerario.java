@@ -19,4 +19,8 @@ public class Itinerario {
     public void rimuoviTappa(Tappa t){
         tappe.remove(t);
     }
+
+    public int getSize(){
+        return tappe.size();
+    }
 }

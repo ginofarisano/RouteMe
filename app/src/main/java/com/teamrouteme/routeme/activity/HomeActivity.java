@@ -1,6 +1,7 @@
 package com.teamrouteme.routeme.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,9 +50,12 @@ public class HomeActivity extends MaterialNavigationDrawer {
             public void onClick(MaterialSection materialSection) {
 
                 ParseUser.logOut();
-                ParseLoginBuilder loginBuilder = new ParseLoginBuilder(
-                        HomeActivity.this);
-                startActivityForResult(loginBuilder.build(), LOGIN_REQUEST);
+
+                Intent intent = new Intent(HomeActivity.this,SplashActivity.class);
+
+                startActivity(intent);
+
+                HomeActivity.this.finish();
 
             }
         }));

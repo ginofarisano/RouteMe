@@ -20,4 +20,25 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- star string login parse -->
+
+
+    !-- Please put your application's app ID and keys here -->
+    <string name="parse_app_id">61vwm3BXU0U6Vvz78Kasq5Ovih6HWw27UZn7WrAR</string>
+    <string name="parse_client_key">1SdHtYprusjttBtQwm5XQNM4pZ026WZizfbt749h</string>
+    <string name="facebook_app_id">1414125612242520</string>
+    <string name="twitter_consumer_key">dPnTONn2DzWYsexaQcjkm7rNZ</string>
+    <string name="twitter_consumer_secret">PkjAXwj1Q4qQqai5JH7ZMF7DwWiWkwchIiYyhSyvC1mT4vsGfq</string>
+
+
+    <string name="profile_logo_content_description">Logo</string>
+    <string name="profile_title_logged_in">Your are logged in as</string>
+    <string name="profile_logout_button_label">Log out</string>
+    <string name="profile_title_logged_out">You must be logged in to view your profile</string>
+    <string name="profile_login_button_label">Log in</string>
+
+    <!-- end login parse -->
+
 </resources>

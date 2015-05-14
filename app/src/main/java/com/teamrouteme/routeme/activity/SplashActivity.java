@@ -65,11 +65,10 @@ public class SplashActivity extends Activity {
 
                 if (currentUser != null) {
                     showProfileLoggedIn();
+                    SplashActivity.this.finish();
                 } else {
                     showProfileLoggedOut();
                 }
-
-                SplashActivity.this.finish();
 
             }
         }, SPLASH_DISPLAY_LENGTH);
@@ -97,6 +96,19 @@ public class SplashActivity extends Activity {
         ParseLoginBuilder loginBuilder = new ParseLoginBuilder(
                 SplashActivity.this);
         startActivityForResult(loginBuilder.build(), LOGIN_REQUEST);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        currentUser = ParseUser.getCurrentUser();
+
+        if (currentUser != null) {
+            showProfileLoggedIn();
+            SplashActivity.this.finish();
+        }
 
     }
 }

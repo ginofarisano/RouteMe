@@ -700,6 +700,7 @@ public class MapsFragment extends Fragment implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent i){
         if(resultCode==1) {
+            // Inserimento tappa
             String nomeTappa = i.getStringExtra("nome_tappa");
             Tappa t = new Tappa(i.getStringExtra("nome_tappa"), i.getStringExtra("descrizione_tappa"), addedPlaces.get(addedPlaces.size() - 1));
             itinerario.aggiungiTappa(t);
@@ -714,6 +715,7 @@ public class MapsFragment extends Fragment implements
                 btnFatto.setVisibility(View.VISIBLE);
         }
         else if(resultCode==2){
+            // Upload itinerario
             Log.e("",i.getStringExtra("nome_itinerario"));
 
             Toast.makeText(getActivity().getBaseContext(), "Itinerario creato", Toast.LENGTH_SHORT).show();
@@ -721,11 +723,13 @@ public class MapsFragment extends Fragment implements
             resetMapsFragment();
         }
         else if(resultCode==3){
+            // Cliccato modifica tappa
             int markerPosition = i.getIntExtra("markerPosition", - 1);
             Tappa t = itinerario.getTappa(markerPosition);
             showInserimentoTappaDialog(t.getNome(),t.getDescrizione(), markerPosition);
         }
         else if(resultCode==4){
+            // Cliccato elimina tappa
             int markerPosition = i.getIntExtra("markerPosition", -1);
             addedPlaces.remove(markerPosition).remove();
             Tappa t = itinerario.rimuoviTappaInPosizione(markerPosition);
@@ -734,6 +738,7 @@ public class MapsFragment extends Fragment implements
                 btnFatto.setVisibility(View.INVISIBLE);
         }
         else if(resultCode==5){
+            // Modifica tappa completata
             String nomeTappa = i.getStringExtra("nome_tappa");
             Tappa t = itinerario.getTappa(i.getIntExtra("markerPosition", -1));
             t.setNome(i.getStringExtra("nome_tappa"));

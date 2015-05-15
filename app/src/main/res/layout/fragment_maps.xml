@@ -33,10 +33,19 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Conferma"
+        android:text="Aggiungi"
         android:id="@+id/btn_conferma"
         android:visibility="invisible"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fatto"
+        android:id="@+id/btn_fatto"
+        android:visibility="invisible"
+        android:layout_below="@id/et_place"
         android:layout_alignParentRight="true"/>
 
  </RelativeLayout>

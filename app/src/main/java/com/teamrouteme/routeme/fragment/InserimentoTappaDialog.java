@@ -34,7 +34,7 @@ public class InserimentoTappaDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_inserimento_tappa_dialog, container);
         nomeTappaEditText = (EditText) view.findViewById(R.id.editText_nome_tappa);
         descrizioneTappaEditText = (EditText) view.findViewById(R.id.editText_descrizione_tappa);
-        campiVuotiTextView = (TextView) view.findViewById(R.id.lbl_campi_vuoti);
+        campiVuotiTextView = (TextView) view.findViewById(R.id.lbl_campi_vuoti_tappa);
 
         Button btn_confermaTappa = (Button)view.findViewById(R.id.btn_conferma_tappa);
         btn_confermaTappa.setOnClickListener(new View.OnClickListener() {

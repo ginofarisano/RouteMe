@@ -22,7 +22,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-    <!-- star string login parse -->
+    <!-- start string login parse -->
 
 
     !-- Please put your application's app ID and keys here -->
@@ -40,5 +40,11 @@
     <string name="profile_login_button_label">Log in</string>
 
     <!-- end login parse -->
+
+
+    <!-- start seekBar -->
+    <string name="demo_min_label">Min</string>
+    <string name="demo_max_label">Max</string>
+    <!-- end seekBar -->
 
 </resources>

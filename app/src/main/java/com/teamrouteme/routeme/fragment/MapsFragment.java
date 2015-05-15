@@ -71,7 +71,7 @@ public class MapsFragment extends Fragment implements
     private ArrayAdapter<String> foundPlaces;
     private ArrayList<Marker> addedPlaces = new ArrayList<Marker>();
     private static View view;
-    private Button btnConferma, btnAnnulla;
+    private Button btnConferma, btnAnnulla, btnFatto;
     private boolean it=false;
     private Itinerario itinerario = new Itinerario();
 
@@ -126,6 +126,15 @@ public class MapsFragment extends Fragment implements
                 btnConferma.setVisibility(View.INVISIBLE);
                 btnAnnulla.setVisibility(View.INVISIBLE);
                 etPlace.setText("");
+            }
+        });
+
+        btnFatto = (Button) view.findViewById(R.id.btn_fatto);
+
+        btnFatto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCreazioneItinerarioDialog();
             }
         });
 
@@ -214,6 +223,10 @@ public class MapsFragment extends Fragment implements
     }
 
     private void setUpMapOnItaly(){
+        if (mMap != null) {
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(ITALY, 5);
+            mMap.animateCamera(cameraUpdate);
+        }
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) ((FragmentActivity)getActivity()).getSupportFragmentManager().findFragmentById(R.id.map))
@@ -662,18 +675,46 @@ public class MapsFragment extends Fragment implements
         FragmentManager fm = getFragmentManager();
         final InserimentoTappaDialog inserimentoTappaDialog = new InserimentoTappaDialog();
         inserimentoTappaDialog.show(fm, "fragment_inserimento_tappa_dialog");
-        inserimentoTappaDialog.setTargetFragment(this,1);
+        inserimentoTappaDialog.setTargetFragment(this, 1);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent i){
-        String nomeTappa = i.getStringExtra("nome_tappa");
-        Tappa t = new Tappa(i.getStringExtra("nome_tappa"),i.getStringExtra("descrizione_tappa"), addedPlaces.get(addedPlaces.size()-1));
-        itinerario.aggiungiTappa(t);
-        btnConferma.setVisibility(View.INVISIBLE);
-        btnAnnulla.setVisibility(View.INVISIBLE);
-        etPlace.setText("");
-        Toast.makeText(getActivity().getBaseContext(), "Aggiunta tappa "+nomeTappa, Toast.LENGTH_SHORT).show();
+        if(requestCode==1) {
+            String nomeTappa = i.getStringExtra("nome_tappa");
+            Tappa t = new Tappa(i.getStringExtra("nome_tappa"), i.getStringExtra("descrizione_tappa"), addedPlaces.get(addedPlaces.size() - 1));
+            itinerario.aggiungiTappa(t);
+            btnConferma.setVisibility(View.INVISIBLE);
+            btnAnnulla.setVisibility(View.INVISIBLE);
+            etPlace.setText("");
+            Toast.makeText(getActivity().getBaseContext(), "Aggiunta tappa " + nomeTappa, Toast.LENGTH_SHORT).show();
+
+            if (itinerario.getSize() > 0)
+                btnFatto.setVisibility(View.VISIBLE);
+        }
+        else if(requestCode==2){
+            Log.e("",i.getStringExtra("nome_itinerario"));
+
+            Toast.makeText(getActivity().getBaseContext(), "Itinerario creato", Toast.LENGTH_SHORT).show();
+            //Call it when all is saved on the db
+            resetMapsFragment();
+        }
+    }
+
+    private void resetMapsFragment() {
+        itinerario = new Itinerario();
+        for(int i =0;i<addedPlaces.size();i++)
+            addedPlaces.get(i).remove();
+        addedPlaces = new ArrayList<Marker>();
+        btnFatto.setVisibility(View.INVISIBLE);
+        setUpMapOnItaly();
+    }
+
+    private void showCreazioneItinerarioDialog() {
+        FragmentManager fm = getFragmentManager();
+        final CreazioneItinerarioDialog creazioneItinerarioDialog = new CreazioneItinerarioDialog();
+        creazioneItinerarioDialog.show(fm, "fragment_creazione_itinerario_dialog");
+        creazioneItinerarioDialog.setTargetFragment(this, 2);
     }
 
 }

@@ -26,7 +26,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Nome itinerario"
-                    android:id="@+id/textView" />
+                    android:id="@+id/nomeItinerario" />
 
                 <ImageButton
                     android:layout_width="wrap_content"
@@ -37,31 +37,31 @@
 
 
             <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:weightSum="1">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Valutazione"
-                        android:id="@+id/textViewValutazione"
-                        android:width="70dp"
-                        android:layout_weight="0.36" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Valutazione"
+                    android:id="@+id/textViewValutazione"
+                    android:width="70dp"
+                    android:layout_weight="0.36" />
 
                 <RatingBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/ratingBar" />
+                    android:id="@+id/valutazione" />
 
             </LinearLayout>
 
 
             <Button
                 style="?android:textAppearanceSmall"
-                android:id="@+id/buttonAvviaItinerario"
+                android:id="@+id/btnAvviaItinerario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -89,10 +89,23 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:ems="10"
-                    android:id="@+id/editText2"
+                    android:id="@+id/feedback"
                     android:layout_weight="0.36" />
-
             </LinearLayout>
+
+
+
+            <Button
+                style="?android:textAppearanceSmall"
+                android:id="@+id/btnInviaFeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Invia feed"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal" />
+
+
+
 
         </LinearLayout>
 

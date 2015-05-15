@@ -22,7 +22,7 @@ import com.yahoo.mobile.client.android.util.RangeSeekBar;
  */
 public class UploadItinerarioDialog extends DialogFragment{
 
-    private EditText nomeItinerarioEditText, descrizioneItinerarioEditText;
+    private EditText nomeItinerarioEditText, descrizioneItinerarioEditText, cittaItinerarioEditText, tagsItinerarioEditText;
     private TextView campiVuotiTextView;
 
     public UploadItinerarioDialog() {
@@ -33,6 +33,9 @@ public class UploadItinerarioDialog extends DialogFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_upload_itinerario_dialog, container);
+
+        cittaItinerarioEditText = (EditText) view.findViewById(R.id.editText_citta_itinerario);
+        tagsItinerarioEditText = (EditText) view.findViewById(R.id.editText_tags_itinerario);
         nomeItinerarioEditText = (EditText) view.findViewById(R.id.editText_nome_itinerario);
         descrizioneItinerarioEditText = (EditText) view.findViewById(R.id.editText_descrizione_itinerario);
         campiVuotiTextView = (TextView) view.findViewById(R.id.lbl_campi_vuoti_itinerario);

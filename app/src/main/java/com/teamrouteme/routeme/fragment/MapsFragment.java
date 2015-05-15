@@ -37,11 +37,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
 import com.teamrouteme.routeme.utility.DirectionsJSONParser;
 import com.teamrouteme.routeme.utility.GeocodeJSONParser;
+import com.teamrouteme.routeme.utility.ParseCall;
 
 import org.json.JSONObject;
 
@@ -716,7 +718,25 @@ public class MapsFragment extends Fragment implements
         }
         else if(resultCode==2){
             // Upload itinerario
-            Log.e("",i.getStringExtra("nome_itinerario"));
+
+            ParseCall parseCall =new ParseCall();
+
+            Log.e("", i.getStringExtra("nome_itinerario"));
+            String citta = i.getStringExtra("citta_itinerario");
+
+
+            String tags=i.getStringExtra("tags_itinerario");
+
+
+            String nome=i.getStringExtra("nome_itinerario");
+            String descrizione =i.getStringExtra("descrizione_itinerario");
+            int min=i.getIntExtra("range_min_itinerario",1);
+            int max=i.getIntExtra("range_man_itinerario", 1);
+
+                                                            //daniele sostituisci il tuo array invece di quello statico
+            parseCall.saveDataToParse(citta,new String[]{"#prova1","#prova2"},nome,descrizione,min,max,itinerario);
+
+
 
             Toast.makeText(getActivity().getBaseContext(), "Itinerario creato", Toast.LENGTH_SHORT).show();
             //Call it when all is saved on the db

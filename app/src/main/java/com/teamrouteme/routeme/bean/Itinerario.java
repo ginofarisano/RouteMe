@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Created by massimo299 on 14/05/15.
  */
 public class Itinerario {
+
     private ArrayList<Tappa> tappe = new ArrayList<Tappa>();
 
     public String getCitta() {

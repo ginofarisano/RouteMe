@@ -21,8 +21,11 @@ import com.yahoo.mobile.client.android.util.RangeSeekBar;
  * Created by massimo299 on 14/05/15.
  */
 public class UploadItinerarioDialog extends DialogFragment{
-
+                                                                                                        //da cambiare con l'autocomplete di daniele
     private EditText nomeItinerarioEditText, descrizioneItinerarioEditText, cittaItinerarioEditText, tagsItinerarioEditText;
+
+    RangeSeekBar<Integer> rangeSeekBar;
+
     private TextView campiVuotiTextView;
 
     public UploadItinerarioDialog() {
@@ -41,7 +44,7 @@ public class UploadItinerarioDialog extends DialogFragment{
         campiVuotiTextView = (TextView) view.findViewById(R.id.lbl_campi_vuoti_itinerario);
 
         // Setup the new range seek bar
-        RangeSeekBar<Integer> rangeSeekBar = new RangeSeekBar<Integer>(getActivity());
+        rangeSeekBar = new RangeSeekBar<Integer>(getActivity());
         // Set the range
         rangeSeekBar.setRangeValues(0, 10);
         rangeSeekBar.setSelectedMinValue(1);
@@ -58,8 +61,14 @@ public class UploadItinerarioDialog extends DialogFragment{
             public void onClick(View v) {
                 if (!isEmpty()) {
                     Intent i = new Intent();
+                    i.putExtra("citta_itinerario", nomeItinerarioEditText.getText().toString());
+                    i.putExtra("tags_itinerario", descrizioneItinerarioEditText.getText().toString());
                     i.putExtra("nome_itinerario", nomeItinerarioEditText.getText().toString());
                     i.putExtra("descrizione_itinerario", descrizioneItinerarioEditText.getText().toString());
+                    i.putExtra("range_min_itinerario", rangeSeekBar.getSelectedMinValue());
+                    i.putExtra("range_max_itinerario", rangeSeekBar.getSelectedMaxValue());
+
+
                     getTargetFragment().onActivityResult(getTargetRequestCode(), getTargetRequestCode(), i);
                     closeKeyboard(getActivity(), nomeItinerarioEditText.getWindowToken());
                     closeKeyboard(getActivity(), descrizioneItinerarioEditText.getWindowToken());
@@ -80,7 +89,7 @@ public class UploadItinerarioDialog extends DialogFragment{
     }
 
     private boolean isEmpty(){
-        if(nomeItinerarioEditText.getText().toString().equals("") || descrizioneItinerarioEditText.getText().toString().equals("")){
+        if(cittaItinerarioEditText.getText().toString().equals("") || tagsItinerarioEditText.getText().toString().equals("") || nomeItinerarioEditText.getText().toString().equals("") || descrizioneItinerarioEditText.getText().toString().equals("")){
             return true;
         }
         return false;

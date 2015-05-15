@@ -74,6 +74,7 @@ public class MapsFragment extends Fragment implements
     private Button btnConferma, btnAnnulla, btnFatto;
     private boolean it=false;
     private Itinerario itinerario = new Itinerario();
+    private boolean canModificaCancellazione = true;
 
     public MapsFragment() {
         // Required empty public constructor
@@ -100,8 +101,9 @@ public class MapsFragment extends Fragment implements
 
 
         setUpMapOnItaly();
+
         if(addedPlaces.size()>0){
-            Marker last = addedPlaces.get(addedPlaces.size()-1);
+            Marker last = addedPlaces.get(addedPlaces.size() - 1);
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(last.getPosition(), 15);
             mMap.animateCamera(cameraUpdate);
         }
@@ -126,6 +128,7 @@ public class MapsFragment extends Fragment implements
                 btnConferma.setVisibility(View.INVISIBLE);
                 btnAnnulla.setVisibility(View.INVISIBLE);
                 etPlace.setText("");
+                canModificaCancellazione = true;
             }
         });
 
@@ -226,8 +229,9 @@ public class MapsFragment extends Fragment implements
         if (mMap != null) {
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(ITALY, 5);
             mMap.animateCamera(cameraUpdate);
+            setMapListener();
         }
-        if (mMap == null) {
+        else if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) ((FragmentActivity)getActivity()).getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
@@ -235,8 +239,29 @@ public class MapsFragment extends Fragment implements
             if (mMap != null) {
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(ITALY, 5);
                 mMap.animateCamera(cameraUpdate);
+                setMapListener();
             }
         }
+    }
+
+    private void setMapListener() {
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                if(canModificaCancellazione) {
+                    for (int i = 0; i < addedPlaces.size(); i++) {
+                        Marker marker = addedPlaces.get(i);
+                        if (Math.abs(marker.getPosition().latitude - latLng.latitude) < 0.0009 && Math.abs(marker.getPosition().longitude - latLng.longitude) < 0.0009) {
+                            showModificaCancellazioneDialog(i, itinerario.getTappa(i).getNome());
+                            //Toast.makeText(getActivity().getBaseContext(), "Trovato marker "+marker, Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                    }
+                }
+
+            }
+        });
     }
 
     /**
@@ -509,6 +534,7 @@ public class MapsFragment extends Fragment implements
                         downloadTask.execute(url);
                     }*/
 
+                    canModificaCancellazione = false;
                     closeKeyboard(getActivity(), etPlace.getWindowToken());
                     btnConferma.setVisibility(View.VISIBLE);
                     btnAnnulla.setVisibility(View.VISIBLE);
@@ -522,7 +548,7 @@ public class MapsFragment extends Fragment implements
 
     private boolean placeAlreadyPresent(LatLng position) {
         for(int i=0;i<addedPlaces.size();i++)
-            if(addedPlaces.get(i).equals(position))
+            if(addedPlaces.get(i).getPosition().equals(position))
                 return true;
         return false;
     }
@@ -671,6 +697,58 @@ public class MapsFragment extends Fragment implements
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent i){
+        if(resultCode==1) {
+            String nomeTappa = i.getStringExtra("nome_tappa");
+            Tappa t = new Tappa(i.getStringExtra("nome_tappa"), i.getStringExtra("descrizione_tappa"), addedPlaces.get(addedPlaces.size() - 1));
+            itinerario.aggiungiTappa(t);
+            Log.d(TAG,"Itinerario contiene "+itinerario.getSize()+" tappe");
+            btnConferma.setVisibility(View.INVISIBLE);
+            btnAnnulla.setVisibility(View.INVISIBLE);
+            etPlace.setText("");
+            canModificaCancellazione = true;
+            Toast.makeText(getActivity().getBaseContext(), "Aggiunta tappa " + nomeTappa, Toast.LENGTH_SHORT).show();
+
+            if (itinerario.getSize() > 0)
+                btnFatto.setVisibility(View.VISIBLE);
+        }
+        else if(resultCode==2){
+            Log.e("",i.getStringExtra("nome_itinerario"));
+
+            Toast.makeText(getActivity().getBaseContext(), "Itinerario creato", Toast.LENGTH_SHORT).show();
+            //Call it when all is saved on the db
+            resetMapsFragment();
+        }
+        else if(resultCode==3){
+            int markerPosition = i.getIntExtra("markerPosition", - 1);
+            Tappa t = itinerario.getTappa(markerPosition);
+            showInserimentoTappaDialog(t.getNome(),t.getDescrizione(), markerPosition);
+        }
+        else if(resultCode==4){
+            int markerPosition = i.getIntExtra("markerPosition", -1);
+            addedPlaces.remove(markerPosition).remove();
+            Tappa t = itinerario.rimuoviTappaInPosizione(markerPosition);
+            Toast.makeText(getActivity().getBaseContext(), "Eliminata tappa " + t.getNome(), Toast.LENGTH_SHORT).show();
+            if(addedPlaces.size()==0)
+                btnFatto.setVisibility(View.INVISIBLE);
+        }
+        else if(resultCode==5){
+            String nomeTappa = i.getStringExtra("nome_tappa");
+            Tappa t = itinerario.getTappa(i.getIntExtra("markerPosition", -1));
+            t.setNome(i.getStringExtra("nome_tappa"));
+            t.setDescrizione(i.getStringExtra("descrizione_tappa"));
+            btnConferma.setVisibility(View.INVISIBLE);
+            btnAnnulla.setVisibility(View.INVISIBLE);
+            etPlace.setText("");
+            canModificaCancellazione = true;
+            Toast.makeText(getActivity().getBaseContext(), "Modificata tappa " + nomeTappa, Toast.LENGTH_SHORT).show();
+
+            if (itinerario.getSize() > 0)
+                btnFatto.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void showInserimentoTappaDialog() {
         FragmentManager fm = getFragmentManager();
         final InserimentoTappaDialog inserimentoTappaDialog = new InserimentoTappaDialog();
@@ -678,27 +756,34 @@ public class MapsFragment extends Fragment implements
         inserimentoTappaDialog.setTargetFragment(this, 1);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent i){
-        if(requestCode==1) {
-            String nomeTappa = i.getStringExtra("nome_tappa");
-            Tappa t = new Tappa(i.getStringExtra("nome_tappa"), i.getStringExtra("descrizione_tappa"), addedPlaces.get(addedPlaces.size() - 1));
-            itinerario.aggiungiTappa(t);
-            btnConferma.setVisibility(View.INVISIBLE);
-            btnAnnulla.setVisibility(View.INVISIBLE);
-            etPlace.setText("");
-            Toast.makeText(getActivity().getBaseContext(), "Aggiunta tappa " + nomeTappa, Toast.LENGTH_SHORT).show();
+    private void showInserimentoTappaDialog(String nomeTappa, String descrizioneTappa, int markerPosition) {
+        FragmentManager fm = getFragmentManager();
+        final InserimentoTappaDialog inserimentoTappaDialog = new InserimentoTappaDialog();
+        Bundle b = new Bundle();
+        b.putString("nomeTappa", nomeTappa);
+        b.putString("descrizioneTappa", descrizioneTappa);
+        b.putInt("markerPosition", markerPosition);
+        inserimentoTappaDialog.setArguments(b);
+        inserimentoTappaDialog.show(fm, "fragment_inserimento_tappa_dialog");
+        inserimentoTappaDialog.setTargetFragment(this, 1);
+    }
 
-            if (itinerario.getSize() > 0)
-                btnFatto.setVisibility(View.VISIBLE);
-        }
-        else if(requestCode==2){
-            Log.e("",i.getStringExtra("nome_itinerario"));
+    private void showCreazioneItinerarioDialog() {
+        FragmentManager fm = getFragmentManager();
+        final CreazioneItinerarioDialog creazioneItinerarioDialog = new CreazioneItinerarioDialog();
+        creazioneItinerarioDialog.show(fm, "fragment_creazione_itinerario_dialog");
+        creazioneItinerarioDialog.setTargetFragment(this, 2);
+    }
 
-            Toast.makeText(getActivity().getBaseContext(), "Itinerario creato", Toast.LENGTH_SHORT).show();
-            //Call it when all is saved on the db
-            resetMapsFragment();
-        }
+    private void showModificaCancellazioneDialog(int markerPosition, String nomeTappa) {
+        FragmentManager fm = getFragmentManager();
+        final ModificaCancellazioneDialog modificaCancellazioneDialog = new ModificaCancellazioneDialog();
+        Bundle b = new Bundle();
+        b.putInt("markerPosition", markerPosition);
+        b.putString("nomeTappa", nomeTappa);
+        modificaCancellazioneDialog.setArguments(b);
+        modificaCancellazioneDialog.show(fm, "fragment_modifica_cancellazione_dialog");
+        modificaCancellazioneDialog.setTargetFragment(this, 3);
     }
 
     private void resetMapsFragment() {
@@ -707,14 +792,8 @@ public class MapsFragment extends Fragment implements
             addedPlaces.get(i).remove();
         addedPlaces = new ArrayList<Marker>();
         btnFatto.setVisibility(View.INVISIBLE);
+        canModificaCancellazione = false;
         setUpMapOnItaly();
-    }
-
-    private void showCreazioneItinerarioDialog() {
-        FragmentManager fm = getFragmentManager();
-        final CreazioneItinerarioDialog creazioneItinerarioDialog = new CreazioneItinerarioDialog();
-        creazioneItinerarioDialog.show(fm, "fragment_creazione_itinerario_dialog");
-        creazioneItinerarioDialog.setTargetFragment(this, 2);
     }
 
 }

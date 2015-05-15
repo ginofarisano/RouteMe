@@ -5,9 +5,19 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="MyNavigationDrawerTheme" parent="MaterialNavigationDrawerTheme">
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
+    <style name="MySectionTheme" >
+        <item name="sectionColorIcon">#000</item>
+        <item name="sectionColorText">#000</item>
+        <item name="sectionColorNotification">#000</item>
+        <item name="sectionBackgroundColorPressed">#C0C0C0</item>
+        <item name="sectionBackgroundColorSelected">#C0C0C0</item>
+        <item name="sectionBackgroundColor">#000000FF</item>
     </style>
-</resources>
+
+    <style name="MyNavigationDrawerTheme" parent="MaterialNavigationDrawerTheme" >
+        <!-- Other customization -->
+        <item name="drawerColor">#fff</item>
+        <item name="sectionStyle">@style/MySectionTheme</item>
+        <item name="singleAccount">true</item>
+
+    </style></resources>

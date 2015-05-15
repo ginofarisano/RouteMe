@@ -30,6 +30,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
     MaterialAccount account;
     private ParseUser currentUser;
 
+    //La borra
     @Override
     public void init(Bundle bundle) {
 

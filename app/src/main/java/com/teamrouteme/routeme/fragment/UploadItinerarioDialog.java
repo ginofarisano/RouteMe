@@ -20,19 +20,19 @@ import com.yahoo.mobile.client.android.util.RangeSeekBar;
 /**
  * Created by massimo299 on 14/05/15.
  */
-public class CreazioneItinerarioDialog extends DialogFragment{
+public class UploadItinerarioDialog extends DialogFragment{
 
     private EditText nomeItinerarioEditText, descrizioneItinerarioEditText;
     private TextView campiVuotiTextView;
 
-    public CreazioneItinerarioDialog() {
+    public UploadItinerarioDialog() {
         // Empty constructor required for DialogFragment
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_creazione_itinerario_dialog, container);
+        View view = inflater.inflate(R.layout.fragment_upload_itinerario_dialog, container);
         nomeItinerarioEditText = (EditText) view.findViewById(R.id.editText_nome_itinerario);
         descrizioneItinerarioEditText = (EditText) view.findViewById(R.id.editText_descrizione_itinerario);
         campiVuotiTextView = (TextView) view.findViewById(R.id.lbl_campi_vuoti_itinerario);

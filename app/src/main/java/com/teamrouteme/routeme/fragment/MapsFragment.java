@@ -770,9 +770,9 @@ public class MapsFragment extends Fragment implements
 
     private void showCreazioneItinerarioDialog() {
         FragmentManager fm = getFragmentManager();
-        final CreazioneItinerarioDialog creazioneItinerarioDialog = new CreazioneItinerarioDialog();
-        creazioneItinerarioDialog.show(fm, "fragment_creazione_itinerario_dialog");
-        creazioneItinerarioDialog.setTargetFragment(this, 2);
+        final UploadItinerarioDialog uploadItinerarioDialog = new UploadItinerarioDialog();
+        uploadItinerarioDialog.show(fm, "fragment_upload_itinerario_dialog");
+        uploadItinerarioDialog.setTargetFragment(this, 2);
     }
 
     private void showModificaCancellazioneDialog(int markerPosition, String nomeTappa) {

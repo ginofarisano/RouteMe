@@ -8,6 +8,16 @@ import java.util.ArrayList;
 public class Itinerario {
     private ArrayList<Tappa> tappe = new ArrayList<Tappa>();
 
+    public String getCitta() {
+        return citta;
+    }
+
+    public void setCitta(String citta) {
+        this.citta = citta;
+    }
+
+    private String citta;
+
     public void aggiungiTappa(Tappa t){
         tappe.add(t);
     }
@@ -22,5 +32,13 @@ public class Itinerario {
 
     public int getSize(){
         return tappe.size();
+    }
+
+    public Tappa getTappa(int position){
+        return tappe.get(position);
+    }
+
+    public Tappa rimuoviTappaInPosizione(int position){
+        return tappe.remove(position);
     }
 }

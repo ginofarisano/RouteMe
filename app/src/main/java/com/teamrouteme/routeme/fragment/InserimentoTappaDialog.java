@@ -23,6 +23,9 @@ public class InserimentoTappaDialog extends DialogFragment {
 
     private EditText nomeTappaEditText, descrizioneTappaEditText;
     private TextView campiVuotiTextView;
+    private String nomeTappa, descrizioneTappa;
+    private int markerPosition;
+    private boolean isModifica = false;
 
     public InserimentoTappaDialog() {
         // Empty constructor required for DialogFragment
@@ -31,10 +34,25 @@ public class InserimentoTappaDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater,container,savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_inserimento_tappa_dialog, container);
+
+        Bundle b = getArguments();
+        if(b != null) {
+            isModifica = true;
+            nomeTappa = b.getString("nomeTappa");
+            descrizioneTappa = b.getString("descrizioneTappa");
+            markerPosition = b.getInt("markerPosition");
+        }
+
         nomeTappaEditText = (EditText) view.findViewById(R.id.editText_nome_tappa);
         descrizioneTappaEditText = (EditText) view.findViewById(R.id.editText_descrizione_tappa);
         campiVuotiTextView = (TextView) view.findViewById(R.id.lbl_campi_vuoti_tappa);
+
+        if(nomeTappa != null){
+            nomeTappaEditText.setText(nomeTappa);
+            descrizioneTappaEditText.setText(descrizioneTappa);
+        }
 
         Button btn_confermaTappa = (Button)view.findViewById(R.id.btn_conferma_tappa);
         btn_confermaTappa.setOnClickListener(new View.OnClickListener() {
@@ -44,7 +62,13 @@ public class InserimentoTappaDialog extends DialogFragment {
                     Intent i = new Intent();
                     i.putExtra("nome_tappa", nomeTappaEditText.getText().toString());
                     i.putExtra("descrizione_tappa", descrizioneTappaEditText.getText().toString());
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), getTargetRequestCode(), i);
+
+                    if(isModifica) {
+                        i.putExtra("markerPosition", markerPosition);
+                        getTargetFragment().onActivityResult(5, 5, i);
+                    }
+                    else
+                        getTargetFragment().onActivityResult(getTargetRequestCode(), getTargetRequestCode(), i);
                     closeKeyboard(getActivity(), nomeTappaEditText.getWindowToken());
                     closeKeyboard(getActivity(), descrizioneTappaEditText.getWindowToken());
                     getDialog().dismiss();

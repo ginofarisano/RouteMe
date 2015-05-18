@@ -2,13 +2,12 @@ package com.teamrouteme.routeme.activity;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.parse.ParseUser;
-import com.parse.ui.ParseLoginBuilder;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.fragment.CercaItinerarioFragment;
 import com.teamrouteme.routeme.fragment.ItinerariScaricatiFragment;
@@ -29,6 +28,8 @@ public class HomeActivity extends MaterialNavigationDrawer {
 
     MaterialAccount account;
     private ParseUser currentUser;
+    private Bitmap profilo;
+    private Bitmap copertina;
 
     //La borra
     @Override
@@ -36,17 +37,25 @@ public class HomeActivity extends MaterialNavigationDrawer {
 
         currentUser = ParseUser.getCurrentUser();
 
-        account = new MaterialAccount(this.getResources(),ParseUser.getCurrentUser().getEmail(),currentUser.getString("name"),null,null);
+        //Caricare immagini copertina e profilo se loggati con facebook
+
+        profilo = BitmapFactory.decodeResource(getResources(), R.drawable.routeme);
+        copertina = BitmapFactory.decodeResource(getResources(), R.drawable.copertina);
+
+        account = new MaterialAccount(this.getResources(),ParseUser.getCurrentUser().getEmail(),currentUser.getString("name"),profilo,copertina);
         this.addAccount(account);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        this.addSection(newSection("Cerca Itinerario", new CercaItinerarioFragment()));
-        this.addSection(newSection("Crea Itinerario", new MapsFragment()));
-        this.addSection(newSection("Miei Itinerari", new MieiItinerariFragment()));
-        this.addSection(newSection("Itinerari Scaricati", new ItinerariScaricatiFragment()));
-        this.addSection(newSection("Lista Desideri", new ListaDesideriFragment()));
-        this.addSection(newSection("Profilo", new ProfiloFragment()));
-        this.addSection(newSection("Logout",new MaterialSectionListener() {
+        this.addSection(newSection("Cerca Itinerario", R.drawable.search, new CercaItinerarioFragment()));
+        this.addSection(newSection("Crea Itinerario", R.drawable.marker, new MapsFragment()));
+        this.addDivisor();
+        this.addSection(newSection("Miei Itinerari", R.drawable.list, new MieiItinerariFragment()));
+        this.addSection(newSection("Itinerari Scaricati", R.drawable.download_icon, new ItinerariScaricatiFragment()));
+        this.addSection(newSection("Lista Desideri", R.drawable.whishlist, new ListaDesideriFragment()));
+        this.addDivisor();
+        this.addSection(newSection("Profilo", R.drawable.profilo, new ProfiloFragment()));
+        this.addDivisor();
+        this.addSection(newSection("Logout",R.drawable.logout,new MaterialSectionListener() {
             @Override
             public void onClick(MaterialSection materialSection) {
 

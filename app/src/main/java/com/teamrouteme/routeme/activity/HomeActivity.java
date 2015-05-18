@@ -39,7 +39,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
 
         //Caricare immagini copertina e profilo se loggati con facebook
 
-        profilo = BitmapFactory.decodeResource(getResources(), R.drawable.routeme);
+        profilo = BitmapFactory.decodeResource(getResources(), R.drawable.routemelogo);
         copertina = BitmapFactory.decodeResource(getResources(), R.drawable.copertina);
 
         account = new MaterialAccount(this.getResources(),ParseUser.getCurrentUser().getEmail(),currentUser.getString("name"),profilo,copertina);

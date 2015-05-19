@@ -31,14 +31,13 @@ public class HomeActivity extends MaterialNavigationDrawer {
     private ParseUser currentUser;
     private Bitmap profilo;
     private Bitmap copertina;
+    private View mDecorView;
 
     //La borra
     @Override
     public void init(Bundle bundle) {
 
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
+        mDecorView = getWindow().getDecorView();
 
         currentUser = ParseUser.getCurrentUser();
 
@@ -71,13 +70,22 @@ public class HomeActivity extends MaterialNavigationDrawer {
                 startActivity(intent);
 
                 HomeActivity.this.finish();
-
             }
         }));
 
 
         enableToolbarElevation();
-
     }
 
+        public void onWindowFocusChanged(boolean hasFocus) {
+            super.onWindowFocusChanged(hasFocus);
+            if (hasFocus) {
+                mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+            }
+        }
 }

@@ -83,34 +83,6 @@
             app:arc_radius="@dimen/layout_radius_tumblr"
             >
 
-            <!--<Button
-                style="@style/Item.Tumblr"
-                android:id="@+id/btnCibo"
-                android:background="@drawable/tumblr_orange_oval"
-                android:text="Cibo"
-                />
-
-            <Button
-                style="@style/Item.Tumblr"
-                android:id="@+id/btnSport"
-                android:background="@drawable/tumblr_green_oval"
-                android:text="Sport"
-                />
-
-            <Button
-                style="@style/Item.Tumblr"
-                android:id="@+id/btnCultura"
-                android:background="@drawable/tumblr_white_oval"
-                android:text="Cultura"
-                />
-
-            <Button
-                style="@style/Item.Tumblr"
-                android:id="@+id/btnDivertimento"
-                android:background="@drawable/tumblr_grey_oval"
-                android:text="Fun"
-                /> -->
-
         </com.ogaclejapan.arclayout.ArcLayout>
 
         <Button

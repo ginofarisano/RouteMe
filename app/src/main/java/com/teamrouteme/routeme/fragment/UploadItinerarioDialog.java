@@ -4,12 +4,14 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.ActionBar;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,16 +22,21 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ogaclejapan.arclayout.Arc;
 import com.ogaclejapan.arclayout.ArcLayout;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.utility.AnimatorUtils;
+import com.teamrouteme.routeme.utility.ArcLayoutButton;
 import com.teamrouteme.routeme.widget.ClipRevealFrame;
 import com.yahoo.mobile.client.android.util.RangeSeekBar;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +46,6 @@ import java.util.List;
 public class UploadItinerarioDialog extends DialogFragment{
                                                                                                         //da cambiare con l'autocomplete di daniele
     private EditText nomeItinerarioEditText, descrizioneItinerarioEditText, cittaItinerarioEditText;
-    private TextView tagsItinerarioTextView;
     RangeSeekBar<Integer> rangeSeekBar;
 
     private Toast toast = null;
@@ -47,7 +53,7 @@ public class UploadItinerarioDialog extends DialogFragment{
     private View rootLayout;
     private ClipRevealFrame menuLayout;
     private ArcLayout arcLayout;
-    private View centerItem;
+    private Button centerItem;
     private  ArrayList<String> listTags;
 
     public UploadItinerarioDialog() {
@@ -60,7 +66,6 @@ public class UploadItinerarioDialog extends DialogFragment{
         View view = inflater.inflate(R.layout.fragment_upload_itinerario_dialog, container);
 
         cittaItinerarioEditText = (EditText) view.findViewById(R.id.editText_citta_itinerario);
-        tagsItinerarioTextView = (TextView) view.findViewById(R.id.lbl_tags_itinerario);
         nomeItinerarioEditText = (EditText) view.findViewById(R.id.editText_nome_itinerario);
         descrizioneItinerarioEditText = (EditText) view.findViewById(R.id.editText_descrizione_itinerario);
         campiVuotiTextView = (TextView) view.findViewById(R.id.lbl_campi_vuoti_itinerario);
@@ -68,13 +73,21 @@ public class UploadItinerarioDialog extends DialogFragment{
         rootLayout = view.findViewById(R.id.layout_dialog_creazione_itinerario);
         menuLayout = (ClipRevealFrame) view.findViewById(R.id.menu_layout);
         arcLayout = (ArcLayout) view.findViewById(R.id.arc_layout);
-        centerItem = view.findViewById(R.id.center_item);
+        centerItem = (Button) view.findViewById(R.id.center_item);
         listTags = new ArrayList<>();
 
 
-        centerItem.setOnTouchListener(new tagButtonOnClick());
+        String [] tags = {"Musica", "Fun", "Sport", "Cultura", "Food"};
+        ArrayList<Integer> colours = getTagsColours();
 
 
+        //setCenterButtonAttributes(centerItem, tags[0], colours.get(0));
+
+        for (int i = 0;i<tags.length; i++) {
+            ArcLayoutButton b = new ArcLayoutButton(getActivity().getApplicationContext());
+            b.setButtonAttributes(tags[i], colours.get(i % colours.size()));
+            arcLayout.addView(b);
+        }
 
         for (int i = 0, size = arcLayout.getChildCount(); i < size; i++) {
             arcLayout.getChildAt(i).setOnTouchListener(new tagButtonOnClick());
@@ -300,10 +313,6 @@ public class UploadItinerarioDialog extends DialogFragment{
                         if(!listTags.contains(tagName)){
                             listTags.add(((Button) v).getText().toString());
                             showToastAdd((Button) v);
-
-                            //aggiunge i tag a vista
-                            tagsItinerarioTextView.append(tagName);
-
                         } else {
                             listTags.remove(tagName);
                             showToastRemove((Button) v);
@@ -333,5 +342,32 @@ public class UploadItinerarioDialog extends DialogFragment{
         String text = "Rimosso: " + btn.getText();
         toast = Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+
+    private ArrayList<Integer> getTagsColours(){
+        Field[] fields = R.drawable.class.getFields();
+        ArrayList<Integer> drawables = new ArrayList<Integer>();
+        for (Field field : fields) {
+            // Take only those with name starting with "fr"
+            if (field.getName().startsWith("tumblr_")) {
+                try {
+                    drawables.add(field.getInt(null));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return drawables;
+    }
+
+    private void setCenterButtonAttributes(Button b, String text, int color){
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(90, 90);
+        b.setLayoutParams(params);
+        b.setTextSize(15);
+        b.setTextColor(getResources().getColor(R.color.tumblr_primary));
+        b.setBackgroundResource(color);
+        b.setText(text);
     }
 }

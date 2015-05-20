@@ -205,7 +205,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="24dp"
         android:layout_marginRight="24dp"
-        android:background="@drawable/tumblr_menu_oval"
+        android:background="@drawable/menu_tumblr_oval"
         android:text="+"
         android:textColor="@color/white"
         android:textSize="24sp"

@@ -7,55 +7,7 @@
     android:id="@+id/layout_dialog_creazione_itinerario">
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:id="@+id/lbl_citta_itinerario"
-            android:text="Città"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:id="@+id/editText_citta_itinerario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
-
-        <TextView
-            android:id="@+id/lbl_tags_itinerario"
-            android:text="Tags"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!--<EditText
-            android:id="@+id/editText_tags_itinerario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" /> -->
-        <Button
-            android:id="@+id/open_tags"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="24dp"
-            android:layout_marginRight="24dp"
-            android:background="@drawable/tumblr_menu_oval"
-            android:text="+"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            />
-
-        <TextView
-            android:id="@+id/lbl_durata_itinerario"
-            android:text="Durata"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout android:id="@+id/seekbar_placeholder"
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/lbl_campi_vuoti_itinerario" android:text="Riempire tutti i campi"
@@ -70,6 +22,29 @@
             android:id="@+id/editText_nome_itinerario"
             android:layout_width="match_parent"  android:layout_height="wrap_content"
             android:inputType="text"/>
+
+        <TextView
+            android:id="@+id/lbl_citta_itinerario"
+            android:text="Città"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/editText_citta_itinerario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/lbl_durata_itinerario"
+            android:text="Durata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout android:id="@+id/seekbar_placeholder"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/lbl_descrizione_itinerario" android:text="Descrizione"
@@ -95,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/tumblr_primary"
-        android:visibility="invisible"
+        android:visibility="gone"
         >
 
         <com.ogaclejapan.arclayout.ArcLayout
@@ -107,7 +82,7 @@
             app:arc_radius="@dimen/layout_radius_tumblr"
             >
 
-            <Button
+            <!--<Button
                 style="@style/Item.Tumblr"
                 android:id="@+id/btnCibo"
                 android:background="@drawable/tumblr_orange_oval"
@@ -132,8 +107,8 @@
                 style="@style/Item.Tumblr"
                 android:id="@+id/btnDivertimento"
                 android:background="@drawable/tumblr_grey_oval"
-                android:text="Divertimento"
-                />
+                android:text="Fun"
+                /> -->
 
         </com.ogaclejapan.arclayout.ArcLayout>
 
@@ -141,10 +116,24 @@
             android:id="@+id/center_item"
             style="@style/Item.Tumblr"
             android:layout_gravity="center"
-            android:background="@drawable/tumblr_red_oval"
-            android:text="Tag"
+            android:background="@drawable/center_tumblr_oval"
+            android:text="#"
             />
 
     </com.teamrouteme.routeme.widget.ClipRevealFrame>
+
+    <Button
+        android:id="@+id/open_tags"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/menu_tumblr_oval"
+        android:text="Tag"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        />
 
 </RelativeLayout>

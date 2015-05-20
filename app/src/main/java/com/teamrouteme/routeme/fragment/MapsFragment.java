@@ -131,6 +131,8 @@ public class MapsFragment extends Fragment implements
                 btnAnnulla.setVisibility(View.INVISIBLE);
                 etPlace.setText("");
                 canModificaCancellazione = true;
+                if(addedPlaces.size()>0)
+                    btnFatto.setVisibility(View.VISIBLE);
             }
         });
 
@@ -540,6 +542,7 @@ public class MapsFragment extends Fragment implements
                     closeKeyboard(getActivity(), etPlace.getWindowToken());
                     btnConferma.setVisibility(View.VISIBLE);
                     btnAnnulla.setVisibility(View.VISIBLE);
+                    btnFatto.setVisibility(View.INVISIBLE);
 
                 }
 
@@ -721,20 +724,16 @@ public class MapsFragment extends Fragment implements
 
             ParseCall parseCall =new ParseCall();
 
-            Log.e("", i.getStringExtra("nome_itinerario"));
             String citta = i.getStringExtra("citta_itinerario");
-
-
-            String tags=i.getStringExtra("tags_itinerario");
-
-
-            String nome=i.getStringExtra("nome_itinerario");
+            String nome = i.getStringExtra("nome_itinerario");
+            Log.e(TAG,"Nome itinerario: "+ nome);
+            String [] tags = i.getStringArrayExtra("tags_itinerario");
             String descrizione =i.getStringExtra("descrizione_itinerario");
-            int min=i.getIntExtra("range_min_itinerario",1);
-            int max=i.getIntExtra("range_man_itinerario", 1);
+            int min=i.getIntExtra("range_min_itinerario",-1);
+            int max=i.getIntExtra("range_max_itinerario", -1);
 
                                                             //daniele sostituisci il tuo array invece di quello statico
-            parseCall.saveDataToParse(citta,new String[]{"#prova1","#prova2"},nome,descrizione,min,max,itinerario);
+            parseCall.saveDataToParse(citta,tags,nome,descrizione,min,max,itinerario);
 
 
 

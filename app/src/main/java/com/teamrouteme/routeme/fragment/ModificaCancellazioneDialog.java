@@ -51,6 +51,11 @@ public class ModificaCancellazioneDialog extends DialogFragment {
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, alOperazioni);
 
+        TextView title = new TextView(getActivity());
+        title.setText(b.getString("nomeTappa"));
+
+        mylist.addHeaderView(title);
+
         mylist.setAdapter(adapter);
 
         mylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,22 +63,17 @@ public class ModificaCancellazioneDialog extends DialogFragment {
             public void onItemClick(AdapterView<?> adattatore, final View componente, int pos, long id) {
                 if (pos == 0) {
                     Intent i = new Intent();
-                    i.putExtra("markerPosition",markerPosition);
+                    i.putExtra("markerPosition", markerPosition);
                     getTargetFragment().onActivityResult(getTargetRequestCode(), getTargetRequestCode(), i);
                     getDialog().dismiss();
                 } else {
                     Intent i = new Intent();
-                    i.putExtra("markerPosition",markerPosition);
-                    getTargetFragment().onActivityResult(getTargetRequestCode()+1, getTargetRequestCode()+1, i);
+                    i.putExtra("markerPosition", markerPosition);
+                    getTargetFragment().onActivityResult(getTargetRequestCode() + 1, getTargetRequestCode() + 1, i);
                     getDialog().dismiss();
                 }
             }
         });
-
-        TextView title = new TextView(getActivity());
-        title.setText(b.getString("nomeTappa"));
-
-        mylist.addHeaderView(title);
 
         return view;
     }

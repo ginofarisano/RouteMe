@@ -34,12 +34,5 @@ dependencies {
     // Uncomment if using Facebook Login (optional Maven dependency)
     compile 'com.facebook.android:facebook-android-sdk:4.0.1'
     //end dependency for login with parse
-    compile files('/Users/ginofarisano/Desktop/RouteMeCode/mappa RouteMe/RouteMe/libs/Parse-1.9.1.jar')
-    compile files('/Users/ginofarisano/Desktop/RouteMeCode/mappa RouteMe/RouteMe/libs/ParseFacebookUtilsV4-1.9.1.jar')
-    compile files('/Users/ginofarisano/Desktop/mappa RouteMe/RouteMe/libs/Parse-1.9.1.jar')
-    compile files('/Users/ginofarisano/Desktop/mappa RouteMe/RouteMe/libs/ParseFacebookUtilsV4-1.9.1.jar')
-
-
-
-
+    compile 'com.ogaclejapan.arclayout:library:1.0.1@aar'
 }

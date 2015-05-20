@@ -1,10 +1,14 @@
 package com.teamrouteme.routeme.activity;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -33,7 +37,6 @@ public class HomeActivity extends MaterialNavigationDrawer {
     private Bitmap copertina;
     private View mDecorView;
 
-    //La borra
     @Override
     public void init(Bundle bundle) {
 
@@ -59,13 +62,13 @@ public class HomeActivity extends MaterialNavigationDrawer {
         this.addDivisor();
         this.addSection(newSection("Profilo", R.drawable.profilo, new ProfiloFragment()));
         this.addDivisor();
-        this.addSection(newSection("Logout",R.drawable.logout,new MaterialSectionListener() {
+        this.addSection(newSection("Logout", R.drawable.logout, new MaterialSectionListener() {
             @Override
             public void onClick(MaterialSection materialSection) {
 
                 ParseUser.logOut();
 
-                Intent intent = new Intent(HomeActivity.this,SplashActivity.class);
+                Intent intent = new Intent(HomeActivity.this, SplashActivity.class);
 
                 startActivity(intent);
 
@@ -75,6 +78,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
 
 
         enableToolbarElevation();
+
     }
 
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -86,4 +90,17 @@ public class HomeActivity extends MaterialNavigationDrawer {
                     | View.SYSTEM_UI_FLAG_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
+
+    //Controlla se c'è connessione ad Internet
+    public boolean isConnected(){
+        ConnectivityManager conMgr = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo i = conMgr.getActiveNetworkInfo();
+        if (i == null)
+            return false;
+        if (!i.isConnected())
+            return false;
+        if (!i.isAvailable())
+            return false;
+        return true;
+    }
 }

@@ -226,28 +226,23 @@ public class MapsFragment extends Fragment implements
     @Override
     public void onResume() {
         super.onResume();
-        setUpMapIfNeeded();
     }
 
     private void setUpMapOnItaly(){
+        if (mMap == null)
+            // Try to obtain the map from the SupportMapFragment.
+            mMap = ((SupportMapFragment) ((FragmentActivity)getActivity()).getSupportFragmentManager().findFragmentById(R.id.map))
+                    .getMap();
         if (mMap != null) {
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(ITALY, 5);
             mMap.animateCamera(cameraUpdate);
             setMapListener();
         }
-        else if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) ((FragmentActivity)getActivity()).getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null) {
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(ITALY, 5);
-                mMap.animateCamera(cameraUpdate);
-                setMapListener();
-            }
-        }
+        else
+            Log.e(TAG, "setUpMapOnItaly: mMAp is null");
     }
 
+    //Aggiunge alla mappa il listener che permette di effettuare un tap lungo sui marker
     private void setMapListener() {
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
 
@@ -258,7 +253,7 @@ public class MapsFragment extends Fragment implements
                         Marker marker = addedPlaces.get(i);
                         if (Math.abs(marker.getPosition().latitude - latLng.latitude) < 0.0009 && Math.abs(marker.getPosition().longitude - latLng.longitude) < 0.0009) {
                             showModificaCancellazioneDialog(i, itinerario.getTappa(i).getNome());
-                            //Toast.makeText(getActivity().getBaseContext(), "Trovato marker "+marker, Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "Trovato marker tappa "+itinerario.getTappa(i).getNome());
                             break;
                         }
                     }
@@ -266,125 +261,6 @@ public class MapsFragment extends Fragment implements
 
             }
         });
-    }
-
-    /**
-     * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
-     * installed) and the map has not already been instantiated.. This will ensure that we only ever
-     * call {@link #setUpMap()} once when {@link #mMap} is not null.
-     * <p/>
-     * If it isn't installed {@link SupportMapFragment} (and
-     * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
-     * install/update the Google Play services APK on their device.
-     * <p/>
-     * A user can return to this FragmentActivity after following the prompt and correctly
-     * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
-     * have been completely destroyed during this process (it is likely that it would only be
-     * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
-     * method in {@link #onResume()} to guarantee that it will be called.
-     */
-    private void setUpMapIfNeeded() {
-        // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) ((FragmentActivity)getActivity()).getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null) {
-                setUpMap();
-            }
-        }
-    }
-
-    private void setUpMapOnLastKnownLocation(boolean locationUpdatesRequested){
-        this.locationUpdatesRequested = locationUpdatesRequested;
-
-        // Getting Google Play availability status
-        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity().getBaseContext());
-
-        // Showing status
-        if(status!=ConnectionResult.SUCCESS){ // Google Play Services are not available
-
-            int requestCode = 10;
-            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, getActivity(), requestCode);
-            dialog.show();
-
-        }
-        else
-            setUpMapIfNeeded();
-    }
-    /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
-     * just add a marker near Africa.
-     * <p/>
-     * This should only be called once and when we are sure that {@link #mMap} is not null.
-     */
-    private void setUpMap() {
-
-        // Enabling MyLocation Layer of Google Map (the blu dot for the location of the smartphone)
-        mMap.setMyLocationEnabled(true);
-
-        // Getting Current Location and setting the location updates if requested
-        Location location = getLastKnownLocation();
-
-        if (location != null) {
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15);
-            mMap.animateCamera(cameraUpdate);
-        }
-        else {
-            Log.d(TAG, "Location is null");
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(ITALY, 5);
-            mMap.animateCamera(cameraUpdate);
-        }
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-
-        Log.d(TAG,"ONLOCATIONCHANGED");
-
-        location = getLastKnownLocation();
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15);
-        mMap.animateCamera(cameraUpdate);
-
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    }
-
-    private Location getLastKnownLocation() {
-        mLocationManager = (LocationManager)getActivity().getApplicationContext().getSystemService(getActivity().LOCATION_SERVICE);
-        List<String> providers = mLocationManager.getProviders(true);
-        Location bestLocation = null;
-        for (String provider : providers) {
-            Location l = mLocationManager.getLastKnownLocation(provider);
-            if (l == null) {
-                continue;
-            }
-            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
-                // Found best last known location: %s", l);
-                this.provider = provider;
-                bestLocation = l;
-            }
-        }
-
-        Log.d(TAG, "BEST PROVIDER "+provider);
-
-        if(locationUpdatesRequested && provider != null)
-            mLocationManager.requestLocationUpdates(provider,5000,0,this);
-        return bestLocation;
     }
 
     /** A method to download json data from url */
@@ -524,20 +400,6 @@ public class MapsFragment extends Fragment implements
                     // Locate the location
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(markerOptions.getPosition(), 15));
 
-                    //CODICE PER TRACCIARE IL PERCORSO SULLA MAPPA
-                    /*if (addedPlaces.size() >= 2) {
-                        LatLng origin = addedPlaces.get(addedPlaces.size() - 2).getPosition();
-                        LatLng dest = addedPlaces.get(addedPlaces.size() - 1).getPosition();
-
-                        // Getting URL to the Google Directions API
-                        String url = getDirectionsUrl(origin, dest);
-
-                        DownloadTaskDirections downloadTask = new DownloadTaskDirections();
-
-                        // Start downloading json data from Google Directions API
-                        downloadTask.execute(url);
-                    }*/
-
                     canModificaCancellazione = false;
                     closeKeyboard(getActivity(), etPlace.getWindowToken());
                     btnConferma.setVisibility(View.VISIBLE);
@@ -551,6 +413,7 @@ public class MapsFragment extends Fragment implements
 
     }
 
+    //Controlla se un marker è già presente nella posizione passata come parametro
     private boolean placeAlreadyPresent(LatLng position) {
         for(int i=0;i<addedPlaces.size();i++)
             if(addedPlaces.get(i).getPosition().equals(position))
@@ -558,150 +421,7 @@ public class MapsFragment extends Fragment implements
         return false;
     }
 
-    public static void closeKeyboard(Context c, IBinder windowToken) {
-        InputMethodManager mgr = (InputMethodManager) c.getSystemService(Context.INPUT_METHOD_SERVICE);
-        mgr.hideSoftInputFromWindow(windowToken, 0);
-    }
-
-    private String getDirectionsUrl(LatLng origin,LatLng dest){
-
-        // Origin of route
-        String str_origin = "origin="+origin.latitude+","+origin.longitude;
-
-        // Destination of route
-        String str_dest = "destination="+dest.latitude+","+dest.longitude;
-
-        // Sensor enabled
-        String sensor = "sensor=false";
-
-        // Travel mode type
-        String mode = "mode=walking";
-
-        // Building the parameters to the web service
-        String parameters = str_origin+"&"+str_dest+"&"+mode+"&"+sensor;
-
-        // Output format
-        String output = "json";
-
-        // Building the url to the web service
-        String url = "https://maps.googleapis.com/maps/api/directions/"+output+"?"+parameters;
-
-        return url;
-    }
-
-    private MarkerOptions createMarkerHmPlace(HashMap<String, String> hmPlace) {
-        MarkerOptions markerOptions = new MarkerOptions();
-
-        // Getting latitude of the place
-        double lat = Double.parseDouble(hmPlace.get("lat"));
-
-        // Getting longitude of the place
-        double lng = Double.parseDouble(hmPlace.get("lng"));
-
-        // Getting name
-        String name = hmPlace.get("formatted_address");
-
-        LatLng latLng = new LatLng(lat, lng);
-
-        // Setting the position for the marker
-        markerOptions.position(latLng);
-
-        // Setting the title for the marker
-        markerOptions.title(name);
-
-        return markerOptions;
-    }
-
-    /** A class to download data from Google Directions URL */
-    private class DownloadTaskDirections extends AsyncTask<String, Void, String>{
-
-        // Downloading data in non-ui thread
-        @Override
-        protected String doInBackground(String... url) {
-
-            // For storing data from web service
-            String data = "";
-
-            try{
-                // Fetching the data from web service
-                data = downloadUrl(url[0]);
-            }catch(Exception e){
-                Log.d("Background Task",e.toString());
-            }
-            return data;
-        }
-
-        // Executes in UI thread, after the execution of
-        // doInBackground()
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            ParserTaskDirections parserTask = new ParserTaskDirections();
-
-            // Invokes the thread for parsing the JSON data
-            parserTask.execute(result);
-        }
-    }
-
-    /** A class to parse the Google Directions in JSON format */
-    private class ParserTaskDirections extends AsyncTask<String, Integer, List<List<HashMap<String,String>>> >{
-
-        // Parsing the data in non-ui thread
-        @Override
-        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
-
-            JSONObject jObject;
-            List<List<HashMap<String, String>>> routes = null;
-
-            try{
-                jObject = new JSONObject(jsonData[0]);
-                DirectionsJSONParser parser = new DirectionsJSONParser();
-
-                // Starts parsing data
-                routes = parser.parse(jObject);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-            return routes;
-        }
-
-        // Executes in UI thread, after the parsing process
-        @Override
-        protected void onPostExecute(List<List<HashMap<String, String>>> result) {
-            ArrayList<LatLng> points = null;
-            PolylineOptions lineOptions = null;
-
-            // Traversing through all the routes
-            for(int i=0;i<result.size();i++){
-                points = new ArrayList<LatLng>();
-                lineOptions = new PolylineOptions();
-
-                // Fetching i-th route
-                List<HashMap<String, String>> path = result.get(i);
-
-                // Fetching all the points in i-th route
-                for(int j=0;j<path.size();j++){
-                    HashMap<String,String> point = path.get(j);
-
-                    double lat = Double.parseDouble(point.get("lat"));
-                    double lng = Double.parseDouble(point.get("lng"));
-                    LatLng position = new LatLng(lat, lng);
-
-                    points.add(position);
-                }
-
-                // Adding all the points in the route to LineOptions
-                lineOptions.addAll(points);
-                lineOptions.width(4);
-                lineOptions.color(Color.BLUE);
-            }
-
-            // Drawing polyline in the Google Map for the i-th route
-            mMap.addPolyline(lineOptions);
-        }
-    }
-
+    //Gestisce ciò che restituiscono i Dialog
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent i){
         if(resultCode==1) {
@@ -820,4 +540,263 @@ public class MapsFragment extends Fragment implements
         setUpMapOnItaly();
     }
 
+    public static void closeKeyboard(Context c, IBinder windowToken) {
+        InputMethodManager mgr = (InputMethodManager) c.getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(windowToken, 0);
+    }
+
+    private MarkerOptions createMarkerHmPlace(HashMap<String, String> hmPlace) {
+        MarkerOptions markerOptions = new MarkerOptions();
+
+        // Getting latitude of the place
+        double lat = Double.parseDouble(hmPlace.get("lat"));
+
+        // Getting longitude of the place
+        double lng = Double.parseDouble(hmPlace.get("lng"));
+
+        // Getting name
+        String name = hmPlace.get("formatted_address");
+
+        LatLng latLng = new LatLng(lat, lng);
+
+        // Setting the position for the marker
+        markerOptions.position(latLng);
+
+        // Setting the title for the marker
+        markerOptions.title(name);
+
+        return markerOptions;
+    }
+
+
+
+
+
+    // Metodo per posizionare la mappa sulla posizione attuale, se possibile, altrimenti la posiziona sull'Italia
+    private void setUpMapOnLastKnownLocation(boolean locationUpdatesRequested){
+        this.locationUpdatesRequested = locationUpdatesRequested;
+
+        // Getting Google Play availability status
+        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity().getBaseContext());
+
+        // Showing status
+        if(status!=ConnectionResult.SUCCESS){ // Google Play Services are not available
+
+            int requestCode = 10;
+            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, getActivity(), requestCode);
+            dialog.show();
+
+        }
+        else {
+            if (mMap == null)
+                // Try to obtain the map from the SupportMapFragment.
+                mMap = ((SupportMapFragment) ((FragmentActivity)getActivity()).getSupportFragmentManager().findFragmentById(R.id.map))
+                        .getMap();
+            if (mMap != null) {
+                // Enabling MyLocation Layer of Google Map (the blu dot for the location of the smartphone)
+                mMap.setMyLocationEnabled(true);
+
+                // Getting Current Location and setting the location updates if requested
+                Location location = getLastKnownLocation();
+
+                if (location != null) {
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15);
+                    mMap.animateCamera(cameraUpdate);
+                }
+                else {
+                    Log.d(TAG, "Last know location is null, map setted on Italy");
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(ITALY, 5);
+                    mMap.animateCamera(cameraUpdate);
+                }
+            }
+
+        }
+    }
+
+    //Metodo che recupera la posiziona attuale, se disponibile
+    private Location getLastKnownLocation() {
+        mLocationManager = (LocationManager)getActivity().getApplicationContext().getSystemService(getActivity().LOCATION_SERVICE);
+        List<String> providers = mLocationManager.getProviders(true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+            Location l = mLocationManager.getLastKnownLocation(provider);
+            if (l == null) {
+                continue;
+            }
+            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                // Found best last known location: %s", l);
+                this.provider = provider;
+                bestLocation = l;
+            }
+        }
+
+        Log.d(TAG, "BEST PROVIDER " + provider);
+
+        if(locationUpdatesRequested && provider != null)
+            mLocationManager.requestLocationUpdates(provider,5000,0,this);
+        return bestLocation;
+    }
+
+    // Callback chiamata ogni tot ms (5000 come impsotato nel metodo sopra), che serve per aggiornare la posizione attuale in automatico
+    @Override
+    public void onLocationChanged(Location location) {
+
+        Log.d(TAG, "OnLocationChanged called");
+
+        location = getLastKnownLocation();
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15);
+        mMap.animateCamera(cameraUpdate);
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+
+
+
+
+    //Metodo per tracciare il percorso sulla mappa da un punto A ad un punto B passati come parametro
+    private void drawFromAtoB(LatLng a, LatLng b){
+        if (addedPlaces.size() >= 2) {
+            LatLng origin = addedPlaces.get(addedPlaces.size() - 2).getPosition();
+            LatLng dest = addedPlaces.get(addedPlaces.size() - 1).getPosition();
+
+            // Getting URL to the Google Directions API
+            String url = getDirectionsUrl(origin, dest);
+
+            DownloadTaskDirections downloadTask = new DownloadTaskDirections();
+
+            // Start downloading json data from Google Directions API
+            downloadTask.execute(url);
+        }
+    }
+
+    //Date due posizioni come parametro, origin e dest, crea l'url per tracciare il percorso tra i 2, a piedi
+    private String getDirectionsUrl(LatLng origin,LatLng dest){
+
+        // Origin of route
+        String str_origin = "origin="+origin.latitude+","+origin.longitude;
+
+        // Destination of route
+        String str_dest = "destination="+dest.latitude+","+dest.longitude;
+
+        // Sensor enabled
+        String sensor = "sensor=false";
+
+        // Travel mode type
+        String mode = "mode=walking";
+
+        // Building the parameters to the web service
+        String parameters = str_origin+"&"+str_dest+"&"+mode+"&"+sensor;
+
+        // Output format
+        String output = "json";
+
+        // Building the url to the web service
+        String url = "https://maps.googleapis.com/maps/api/directions/"+output+"?"+parameters;
+
+        return url;
+    }
+
+    /** A class to download data from Google Directions URL */
+    private class DownloadTaskDirections extends AsyncTask<String, Void, String>{
+
+        // Downloading data in non-ui thread
+        @Override
+        protected String doInBackground(String... url) {
+
+            // For storing data from web service
+            String data = "";
+
+            try{
+                // Fetching the data from web service
+                data = downloadUrl(url[0]);
+            }catch(Exception e){
+                Log.d("Background Task",e.toString());
+            }
+            return data;
+        }
+
+        // Executes in UI thread, after the execution of
+        // doInBackground()
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            ParserTaskDirections parserTask = new ParserTaskDirections();
+
+            // Invokes the thread for parsing the JSON data
+            parserTask.execute(result);
+        }
+    }
+
+    /** A class to parse the Google Directions in JSON format */
+    private class ParserTaskDirections extends AsyncTask<String, Integer, List<List<HashMap<String,String>>> >{
+
+        // Parsing the data in non-ui thread
+        @Override
+        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
+
+            JSONObject jObject;
+            List<List<HashMap<String, String>>> routes = null;
+
+            try{
+                jObject = new JSONObject(jsonData[0]);
+                DirectionsJSONParser parser = new DirectionsJSONParser();
+
+                // Starts parsing data
+                routes = parser.parse(jObject);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            return routes;
+        }
+
+        // Executes in UI thread, after the parsing process
+        @Override
+        protected void onPostExecute(List<List<HashMap<String, String>>> result) {
+            ArrayList<LatLng> points = null;
+            PolylineOptions lineOptions = null;
+
+            // Traversing through all the routes
+            for(int i=0;i<result.size();i++){
+                points = new ArrayList<LatLng>();
+                lineOptions = new PolylineOptions();
+
+                // Fetching i-th route
+                List<HashMap<String, String>> path = result.get(i);
+
+                // Fetching all the points in i-th route
+                for(int j=0;j<path.size();j++){
+                    HashMap<String,String> point = path.get(j);
+
+                    double lat = Double.parseDouble(point.get("lat"));
+                    double lng = Double.parseDouble(point.get("lng"));
+                    LatLng position = new LatLng(lat, lng);
+
+                    points.add(position);
+                }
+
+                // Adding all the points in the route to LineOptions
+                lineOptions.addAll(points);
+                lineOptions.width(4);
+                lineOptions.color(Color.BLUE);
+            }
+
+            // Drawing polyline in the Google Map for the i-th route
+            mMap.addPolyline(lineOptions);
+        }
+    }
 }

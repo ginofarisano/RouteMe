@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layout_dialog_creazione_itinerario">
+    android:id="@+id/layout_dialog_creazione_itinerario"
+    android:background="#009688">
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
         android:orientation="vertical">

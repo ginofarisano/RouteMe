@@ -11,13 +11,17 @@ import com.teamrouteme.routeme.R;
  */
 public class ArcLayoutButton extends Button{
 
-    private final static int width = 90, height = 90, text_size = 15;
+    private int width, height, text_size = 12;
 
     public ArcLayoutButton(Context context) {
         super(context);
     }
 
     public void setButtonAttributes(String text, int color){
+        final float scale = getContext().getResources().getDisplayMetrics().density;
+        int pixels = (int) (70 * scale + 0.5f);
+        width = height = pixels;
+
         ArcLayout.LayoutParams params = new ArcLayout.LayoutParams(height, width);
         setLayoutParams(params);
         setTextSize(text_size);

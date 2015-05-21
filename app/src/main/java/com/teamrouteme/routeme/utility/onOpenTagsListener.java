@@ -25,12 +25,19 @@ public class onOpenTagsListener implements View.OnClickListener {
     private ClipRevealFrame menuLayout;
     private ArcLayout arcLayout;
     private Button centerItem;
+    private ArrayList<View> vList;
 
-    public onOpenTagsListener(View rootL, ClipRevealFrame menuL, ArcLayout arcL, Button centerI){
+    public onOpenTagsListener(View rootL, ClipRevealFrame menuL, ArcLayout arcL, Button centerI, ArrayList<View> vL){
         rootLayout = rootL;
         menuLayout = menuL;
         arcLayout = arcL;
         centerItem = centerI;
+        vList = vL;
+    }
+
+    public void disableView(){
+        for(int i=0;i< vList.size();i++)
+            vList.get(i).setEnabled(!vList.get(i).isEnabled());
     }
 
     @Override
@@ -49,8 +56,10 @@ public class onOpenTagsListener implements View.OnClickListener {
 
         if (v.isSelected()) {
             hideMenu(x, y, radiusFromFabToRoot, radiusOfFab);
+            disableView();
         } else {
             showMenu(x, y, radiusOfFab, radiusFromFabToRoot);
+            disableView();
         }
         v.setSelected(!v.isSelected());
     }

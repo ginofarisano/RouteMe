@@ -69,6 +69,16 @@ public class UploadItinerarioDialog extends DialogFragment{
         btn_confermaItinerario = (Button)view.findViewById(R.id.btn_conferma_itinerario);
 
 
+        // Setup the new range seek bar
+        rangeSeekBar = new RangeSeekBar<Integer>(getActivity());
+        // Set the range
+        rangeSeekBar.setRangeValues(0, 10);
+        rangeSeekBar.setSelectedMinValue(1);
+        rangeSeekBar.setSelectedMaxValue(10);
+
+        // Add to layout
+        seekbar_placeholder_layout.addView(rangeSeekBar);
+
         //I tag devono essere caricati dal database, questa riga è di esempio
         String [] tags = {"Musica", "Fun", "Sport", "Cultura", "Food"};
         ArrayList<Integer> colours = getTagsColours();
@@ -82,17 +92,13 @@ public class UploadItinerarioDialog extends DialogFragment{
         }
 
         //Setta il listener per il bottone di apertura dei tag
-        view.findViewById(R.id.open_tags).setOnClickListener(new onOpenTagsListener(rootLayout, menuLayout, arcLayout, centerItem));
-
-        // Setup the new range seek bar
-        rangeSeekBar = new RangeSeekBar<Integer>(getActivity());
-        // Set the range
-        rangeSeekBar.setRangeValues(0, 10);
-        rangeSeekBar.setSelectedMinValue(1);
-        rangeSeekBar.setSelectedMaxValue(10);
-
-        // Add to layout
-        seekbar_placeholder_layout.addView(rangeSeekBar);
+        ArrayList<View> vL = new ArrayList<View>();
+        vL.add(cittaItinerarioEditText);
+        vL.add(nomeItinerarioEditText);
+        vL.add(descrizioneItinerarioEditText);
+        vL.add(btn_confermaItinerario);
+        vL.add(rangeSeekBar);
+        view.findViewById(R.id.open_tags).setOnClickListener(new onOpenTagsListener(rootLayout, menuLayout, arcLayout, centerItem, vL));
 
         //Listener per il bottone di conferma
         btn_confermaItinerario.setOnClickListener(new View.OnClickListener() {

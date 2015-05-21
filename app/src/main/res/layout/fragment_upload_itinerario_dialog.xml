@@ -13,6 +13,7 @@
 
         <TextView
             android:id="@+id/lbl_campi_vuoti_itinerario" android:text="Riempire tutti i campi"
+            android:textColor="#FF0000"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:visibility="gone"/>
 

@@ -4,11 +4,13 @@
         <layer-list>
             <item>
                 <shape>
+                    <corners android:radius="5dip" />
                     <solid android:color="#80cbc4"/>
                 </shape>
             </item>
             <item>
                 <shape>
+                    <corners android:radius="5dip" />
                     <solid android:color="#80cbc4"/>
                 </shape>
             </item>
@@ -16,6 +18,7 @@
     </item>
     <item>
         <shape>
+            <corners android:radius="5dip" />
             <solid android:color="#009688"/>
         </shape>
     </item>

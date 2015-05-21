@@ -3,20 +3,19 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:actionBarStyle">@style/MyToolBar</item>
     </style>
 
     <style name="AppThemeV21" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="MyToolBar" parent="@style/Widget.AppCompat.ActionBar">
-        <item name="android:background">#F0F</item>
-    </style>
-
     <style name="MyButton">
         <item name="android:textColor">#FFF</item>
         <item name="android:focusable">true</item>
+    </style>
+
+    <style name="MySeekBar">
+        <item name="android:textColor">@color/testo</item>
     </style>
 
     <style name="MySectionTheme">
@@ -31,7 +30,6 @@
     <style name="MyNavigationDrawerTheme" parent="MaterialNavigationDrawerTheme" >
         <!-- Other customization -->
         <item name="android:textColor">#009688</item>
-        <item name="android:actionBarStyle">@style/MyToolBar</item>
         <item name="drawerColor">#fff</item>
         <item name="sectionStyle">@style/MySectionTheme</item>
         <item name="singleAccount">true</item>

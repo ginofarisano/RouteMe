@@ -16,8 +16,9 @@
 
     <EditText
         android:id="@+id/editText_nome_tappa"
-        android:layout_width="match_parent"  android:layout_height="wrap_content"
-        android:inputType="text"/>
+        android:layout_width="350dp"  android:layout_height="wrap_content"
+        android:inputType="text"
+        android:textColor="#009688"/>
 
     <TextView
         android:id="@+id/lbl_descrizione_tappa" android:text="Descrizione"
@@ -25,11 +26,13 @@
 
     <EditText
         android:id="@+id/editText_descrizione_tappa"
-        android:layout_width="match_parent"  android:layout_height="wrap_content"
-        android:inputType="text"/>
+        android:layout_width="350dp"  android:layout_height="wrap_content"
+        android:inputType="text"
+        android:textColor="#009688"/>
 
     <Button
-        style="?android:textAppearanceSmall"
+        style="@style/MyButton"
+        android:background="@drawable/selector_button"
         android:id="@+id/btn_conferma_tappa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

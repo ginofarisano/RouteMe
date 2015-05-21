@@ -83,7 +83,7 @@ public class RangeSeekBar<T extends Number> extends ImageView {
     /**
      * Default color of a {@link RangeSeekBar}, #FF33B5E5. This is also known as "Ice Cream Sandwich" blue.
      */
-    public static final int DEFAULT_COLOR = Color.argb(0xFF, 0x33, 0xB5, 0xE5);
+    public static final int DEFAULT_COLOR = Color.argb(000, 000, 000, 000);
     /**
      * An invalid pointer id.
      */
@@ -106,7 +106,7 @@ public class RangeSeekBar<T extends Number> extends ImageView {
     private int mDistanceToTop;
     private RectF mRect;
 
-    private static final int DEFAULT_TEXT_SIZE_IN_DP = 14;
+    private static final int DEFAULT_TEXT_SIZE_IN_DP = 16;
     private static final int DEFAULT_TEXT_DISTANCE_TO_BUTTON_IN_DP = 8;
     private static final int DEFAULT_TEXT_DISTANCE_TO_TOP_IN_DP = 8;
     private boolean mSingleThumb;
@@ -459,7 +459,7 @@ public class RangeSeekBar<T extends Number> extends ImageView {
 
         paint.setTextSize(mTextSize);
         paint.setStyle(Style.FILL);
-        paint.setColor(Color.GRAY);
+        paint.setColor(getResources().getColor(R.color.testo));
         paint.setAntiAlias(true);
 
         // draw min and max labels
@@ -479,9 +479,11 @@ public class RangeSeekBar<T extends Number> extends ImageView {
         boolean selectedValuesAreDefault = (getSelectedMinValue().equals(getAbsoluteMinValue()) &&
                 getSelectedMaxValue().equals(getAbsoluteMaxValue()));
 
-        int colorToUseForButtonsAndHighlightedLine = selectedValuesAreDefault ?
+
+        int colorToUseForButtonsAndHighlightedLine = getResources().getColor(R.color.testo);
+       /* int colorToUseForButtonsAndHighlightedLine = selectedValuesAreDefault ?
                 Color.GRAY :    // default values
-                DEFAULT_COLOR; //non default, filter is active
+                DEFAULT_COLOR; //non default, filter is active*/
 
         // draw seek bar active range line
         mRect.left = normalizedToScreen(normalizedMinValue);
@@ -503,7 +505,7 @@ public class RangeSeekBar<T extends Number> extends ImageView {
         // draw the text if sliders have moved from default edges
         if (!selectedValuesAreDefault) {
             paint.setTextSize(mTextSize);
-            paint.setColor(Color.WHITE);
+            paint.setColor(getResources().getColor(R.color.testo));
             // give text a bit more space here so it doesn't get cut off
             int offset = PixelUtil.dpToPx(getContext(), TEXT_LATERAL_PADDING_IN_DP);
 

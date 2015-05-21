@@ -1,4 +1,4 @@
-package com.teamrouteme.routeme.widget;
+package com.teamrouteme.routeme.utility;
 
 import android.content.Context;
 import android.graphics.Canvas;

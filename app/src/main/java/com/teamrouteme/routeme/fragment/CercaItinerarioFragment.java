@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ogaclejapan.arclayout.ArcLayout;
@@ -28,6 +29,7 @@ import com.teamrouteme.routeme.utility.ArcLayoutButton;
 import com.teamrouteme.routeme.utility.ClipRevealFrame;
 import com.teamrouteme.routeme.utility.onOpenTagsListener;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +74,8 @@ public class CercaItinerarioFragment extends Fragment {
         }
 
         //Setta il listener per il bottone di apertura dei tag
-        view.findViewById(R.id.open_tags).setOnClickListener(new onOpenTagsListener(rootLayout, menuLayout, arcLayout, centerItem));
+        ArrayList<View> vL = new ArrayList<View>();
+        view.findViewById(R.id.open_tags).setOnClickListener(new onOpenTagsListener(rootLayout, menuLayout, arcLayout, centerItem, vL));
 
         return view;
     }

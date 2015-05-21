@@ -2,21 +2,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#009688"
+    android:background="#e0f2f1"
     tools:context=".MainActivity" >
 
      <AutoCompleteTextView
          android:id="@+id/et_place"
          android:layout_width="fill_parent"
          android:layout_height="wrap_content"
+         android:textColorHint="#009688"
          android:hint="Inserisci Tappa"
+         android:textColor="#009688"
          android:inputType="text" />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
          xmlns:tools="http://schemas.android.com/tools"
          android:layout_width="match_parent"
          android:layout_height="match_parent"
-         android:background="#009688"
+         android:background="#e0f2f1"
          android:id="@+id/map"
          android:layout_below="@id/et_place"
          tools:context=".MapsActivity"

@@ -1,18 +1,23 @@
 package com.teamrouteme.routeme.activity;
 
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.internal.app.ToolbarActionBar;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.parse.ParseUser;
+import com.teamrouteme.routeme.BuildConfig;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.fragment.CercaItinerarioFragment;
 import com.teamrouteme.routeme.fragment.ItinerariScaricatiFragment;
@@ -81,7 +86,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
 
     }
 
-    public void onWindowFocusChanged(boolean hasFocus) {
+    /*public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
             mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -89,7 +94,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
                     | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        }
+        }*/
 
     //Controlla se c'è connessione ad Internet
     public boolean isConnected(){

@@ -4,7 +4,7 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#009688">
+    android:background="#e0f2f1">
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
         android:orientation="vertical"
@@ -125,17 +125,14 @@
         </LinearLayout>
 
         <Button
-            style="?android:textAppearanceSmall"
+            style="@style/MyButton"
+            android:background="@drawable/selector_button"
             android:id="@+id/btnICerca"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cerca"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal" />
-
-
-
-
     </LinearLayout>
 
 

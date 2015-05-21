@@ -446,7 +446,7 @@ public class MapsFragment extends Fragment implements
 
             String citta = i.getStringExtra("citta_itinerario");
             String nome = i.getStringExtra("nome_itinerario");
-            Log.e(TAG,"Nome itinerario: "+ nome);
+            Log.d(TAG,"Nome itinerario creato: "+ nome);
             String [] tags = i.getStringArrayExtra("tags_itinerario");
             String descrizione =i.getStringExtra("descrizione_itinerario");
             int min=i.getIntExtra("range_min_itinerario",-1);

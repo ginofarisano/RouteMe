@@ -58,6 +58,7 @@ public class UploadItinerarioDialog extends DialogFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_upload_itinerario_dialog, container);
+        Log.e("View",""+view);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         cittaItinerarioEditText = (EditText) view.findViewById(R.id.editText_citta_itinerario);

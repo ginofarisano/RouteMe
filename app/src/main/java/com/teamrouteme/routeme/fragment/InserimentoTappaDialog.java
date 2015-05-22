@@ -3,12 +3,14 @@ package com.teamrouteme.routeme.fragment;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,9 +36,9 @@ public class InserimentoTappaDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        super.onCreateView(inflater,container,savedInstanceState);
+        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_inserimento_tappa_dialog, container);
-
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Bundle b = getArguments();
         if(b != null) {
             isModifica = true;

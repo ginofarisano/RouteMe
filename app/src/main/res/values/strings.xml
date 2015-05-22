@@ -47,4 +47,15 @@
     <string name="demo_max_label">Max</string>
     <!-- end seekBar -->
 
+    <!--star listViewAnaimation -->
+
+    <string name="itemdeleted">Item deleted</string>
+    <string name="taptoundo">Tap to undo</string>
+    <string name="header">Header %d</string>
+    <string name="removed_positions">Removed positions: %s</string>
+    <string name="moved">\'%1$s\' moved to position %2$s</string>
+    <string name="row_number">This is row number %d</string>
+
+    <!--star listViewAnaimation -->
+
 </resources>

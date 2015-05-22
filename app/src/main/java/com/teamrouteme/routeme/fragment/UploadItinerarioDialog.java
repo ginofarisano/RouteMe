@@ -3,6 +3,7 @@ package com.teamrouteme.routeme.fragment;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,6 +59,7 @@ public class UploadItinerarioDialog extends DialogFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_upload_itinerario_dialog, container);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         cittaItinerarioEditText = (EditText) view.findViewById(R.id.editText_citta_itinerario);
         nomeItinerarioEditText = (EditText) view.findViewById(R.id.editText_nome_itinerario);
@@ -80,6 +83,7 @@ public class UploadItinerarioDialog extends DialogFragment{
         rangeSeekBar.setRangeValues(0, 10);
         rangeSeekBar.setSelectedMinValue(1);
         rangeSeekBar.setSelectedMaxValue(10);
+
 
         // Add to layout
         seekbar_placeholder_layout.addView(rangeSeekBar);

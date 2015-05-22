@@ -1,13 +1,31 @@
 package com.teamrouteme.routeme.bean;
 
 import com.google.android.gms.maps.model.Marker;
+import com.parse.ParseGeoPoint;
 
 /**
  * Created by massimo299 on 14/05/15.
  */
 public class Tappa {
     private String nome, descrizione;
+
     private Marker marker;
+
+    //da eliminare/aggiustare non riesco a creare un marker senza
+    //una mappa (itinerari caricati) quindi mi salvo momentaneamente le coordinate poi si vede
+
+    public ParseGeoPoint getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(ParseGeoPoint coordinate) {
+        this.coordinate = coordinate;
+    }
+
+    private ParseGeoPoint coordinate;
+
+    public Tappa (){
+    }
 
     public Tappa (String n, String d, Marker m){
         nome = n;

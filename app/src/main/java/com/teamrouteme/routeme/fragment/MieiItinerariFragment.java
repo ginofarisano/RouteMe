@@ -16,17 +16,22 @@
 package com.teamrouteme.routeme.fragment;
 
 
+
+
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.annotation.NonNull;
+import android.widget.ListView;
+
 
 import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
 import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
+import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.SimpleSwipeUndoAdapter;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.TimedUndoAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
@@ -37,9 +42,12 @@ import com.teamrouteme.routeme.adapter.CustomAdapterItinerariCreati;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.utility.ParseCall;
 
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+
 
 public class MieiItinerariFragment extends Fragment {
 
@@ -55,10 +63,7 @@ public class MieiItinerariFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_itinerari_caricati, container, false);
 
 
-        final DynamicListView listView = (DynamicListView) rootView.findViewById(R.id.dynamiclistview_listview);
-
-
-        listView.enableDragAndDrop();
+        final ListView listView = (ListView) rootView.findViewById(R.id.dynamiclistview);
 
         final List myList = new LinkedList();
 
@@ -105,25 +110,36 @@ public class MieiItinerariFragment extends Fragment {
 
                     final CustomAdapterItinerariCreati adapter = new CustomAdapterItinerariCreati(MieiItinerariFragment.this.getActivity(), R.layout.row_custom_itinerari_creati, myList);
 
-                    TimedUndoAdapter swipeUndoAdapter = new TimedUndoAdapter(adapter, MieiItinerariFragment.this.getActivity(),
+                    /*
+                    SimpleSwipeUndoAdapter swipeUndoAdapter = new SimpleSwipeUndoAdapter(adapter, MieiItinerariFragment.this.getActivity(),
                             new OnDismissCallback() {
                                 @Override
                                 public void onDismiss(@NonNull final ViewGroup listView, @NonNull final int[] reverseSortedPositions) {
                                     for (int position : reverseSortedPositions) {
-
                                         adapter.remove(position);
                                     }
                                 }
                             }
                     );
 
+
+                    swipeUndoAdapter.setAbsListView(listView);
+                    listView.setAdapter(adapter);
+                    listView.enableSimpleSwipeUndo();
+
+
                     AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(adapter);
                     animationAdapter.setAbsListView(listView);
                     listView.setAdapter(animationAdapter);
 
+
                     swipeUndoAdapter.setAbsListView(listView);
                     listView.setAdapter(swipeUndoAdapter);
                     listView.enableSimpleSwipeUndo();
+
+                    */
+
+                    listView.setAdapter(adapter);
 
 
                 } else {

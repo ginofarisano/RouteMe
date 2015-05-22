@@ -6,19 +6,24 @@
     android:id="@+id/layout_fragment_cerca_itinerario"
     android:background="#009688">
 
-    <com.teamrouteme.routeme.adapter.CustomAutoCompleteView
-        android:id="@+id/autoCompleteCities"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-    </com.teamrouteme.routeme.adapter.CustomAutoCompleteView>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Città:"
+            android:id="@+id/textViewCitta" />
 
-
+        <com.teamrouteme.routeme.adapter.CustomAutoCompleteView
+            android:id="@+id/autoCompleteCities"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        </com.teamrouteme.routeme.adapter.CustomAutoCompleteView>
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,25 +36,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Città:"
-            android:id="@+id/textViewCitta" />
 
 
 
-
-        <!--<Button
+        <Button
             style="?android:textAppearanceSmall"
-            android:id="@+id/btnCerca"
+            android:id="@+id/btn_cercaItinerario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cerca"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
             android:layout_alignBottom="@+id/open_tags"
-            android:layout_centerHorizontal="true" />-->
+            android:layout_centerHorizontal="true" />
 
 
     </LinearLayout>

@@ -6,58 +6,51 @@
     android:id="@+id/layout_fragment_cerca_itinerario"
     android:background="#009688">
 
+    <com.teamrouteme.routeme.adapter.CustomAutoCompleteView
+        android:id="@+id/autoCompleteCities"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    </com.teamrouteme.routeme.adapter.CustomAutoCompleteView>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Nome itinerario"
-            android:id="@+id/nomeItinerario" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/nomeItinerarioCerca"
-            android:layout_weight="0.36" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Descrizione:"
-            android:id="@+id/textViewDescrizione"
-            android:width="70dp"
-            android:layout_weight="0.36" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/descrizioneCerca"
-            android:layout_weight="0.36" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Durata:"
-            android:id="@+id/textViewDurata"
-            android:width="70dp"
-            android:layout_weight="0.36" />
+            android:id="@+id/textViewDurata" />
 
-        <Button
+        <LinearLayout android:id="@+id/seekbar_placeholder"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Città:"
+            android:id="@+id/textViewCitta" />
+
+
+
+
+        <!--<Button
             style="?android:textAppearanceSmall"
             android:id="@+id/btnCerca"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cerca"
             android:textStyle="bold"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_alignBottom="@+id/open_tags"
+            android:layout_centerHorizontal="true" />-->
+
 
     </LinearLayout>
 
@@ -103,5 +96,7 @@
         android:textColor="@color/white"
         android:textSize="24sp"
         />
+
+
 
 </RelativeLayout>

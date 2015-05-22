@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ogaclejapan.arclayout.ArcLayout;
+import com.parse.FindCallback;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.utility.ArcLayoutButton;
 import com.teamrouteme.routeme.utility.onOpenTagsListener;
@@ -25,6 +29,7 @@ import com.yahoo.mobile.client.android.util.RangeSeekBar;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by massimo299 on 14/05/15.
@@ -79,17 +84,48 @@ public class UploadItinerarioDialog extends DialogFragment{
         // Add to layout
         seekbar_placeholder_layout.addView(rangeSeekBar);
 
-        //I tag devono essere caricati dal database, questa riga è di esempio
-        String [] tags = {"Musica", "Fun", "Sport", "Cultura", "Food"};
-        ArrayList<Integer> colours = getTagsColours();
 
-        //Istanzia dinamicamente i bottoni per i tag e gli assegna il listener
-        for (int i = 0;i<tags.length; i++) {
-            ArcLayoutButton b = new ArcLayoutButton(getActivity().getApplicationContext());
-            b.setButtonAttributes(tags[i], colours.get(i % colours.size()));
-            b.setOnTouchListener(new tagButtonOnClick());
-            arcLayout.addView(b);
-        }
+        final ArrayList<Integer> colours = getTagsColours();
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("tags");
+
+
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, com.parse.ParseException e) {
+                if (e == null) {
+                    //ok
+
+                    ArrayList<String> tags = new ArrayList<String>();
+
+                    String tagName;
+
+                    for (ParseObject parseObjetc : list) {
+
+                        tagName = (String) parseObjetc.get("tagname");
+                        tags.add(tagName);
+
+                    }
+                    //Istanzia dinamicamente i bottoni per i tag e gli assegna il listener
+                    for (int i = 0; i < tags.size(); i++) {
+                        ArcLayoutButton b = new ArcLayoutButton(getActivity().getApplicationContext());
+                        b.setButtonAttributes(tags.get(i), colours.get(i % colours.size()));
+                        b.setOnTouchListener(new tagButtonOnClick());
+                        if (listTags.contains(b.getText()))
+                            b.setPressed(true);
+                        arcLayout.addView(b);
+                    }
+
+
+                } else {
+                    //error
+                    Log.d("Tags", "Error: " + e.getMessage());
+                }
+
+
+            }
+        });
+
 
         //Setta il listener per il bottone di apertura dei tag
         ArrayList<View> vL = new ArrayList<View>();

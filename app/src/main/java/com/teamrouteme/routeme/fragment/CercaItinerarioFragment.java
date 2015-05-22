@@ -8,6 +8,9 @@ import android.animation.ObjectAnimator;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -18,16 +21,27 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ogaclejapan.arclayout.ArcLayout;
+import com.parse.FindCallback;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.teamrouteme.routeme.adapter.CustomAutoCompleteView;
+import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.utility.AnimatorUtils;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.utility.ArcLayoutButton;
 import com.teamrouteme.routeme.utility.ClipRevealFrame;
+import com.teamrouteme.routeme.utility.ParseCall;
 import com.teamrouteme.routeme.utility.onOpenTagsListener;
+import com.yahoo.mobile.client.android.util.RangeSeekBar;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
@@ -40,7 +54,19 @@ public class CercaItinerarioFragment extends Fragment {
     private ClipRevealFrame menuLayout;
     private ArcLayout arcLayout;
     private Button centerItem;
-    private  ArrayList<String> listTags = new ArrayList<>();;
+    private  ArrayList<String> listTags = new ArrayList<>();
+
+    private RangeSeekBar<Integer> rangeSeekBar;
+    private LinearLayout seekbar_placeholder_layout;
+    private AutoCompleteTextView acmpCitta;
+
+    private CustomAutoCompleteView autoComplete;
+
+    private ArrayAdapter<String> autoCompleteAdapter;
+
+    private ParseCall parseCall;
+
+    private Button btn_confermaItinerario;
 
     public CercaItinerarioFragment() {
         // Required empty public constructor
@@ -57,25 +83,138 @@ public class CercaItinerarioFragment extends Fragment {
         arcLayout = (ArcLayout) view.findViewById(R.id.arc_layout);
         centerItem = (Button) view.findViewById(R.id.center_item);
 
+
+        seekbar_placeholder_layout = (LinearLayout) view.findViewById(R.id.seekbar_placeholder);
+
+        autoCompleteAdapter = new ArrayAdapter<String>(CercaItinerarioFragment.this.getActivity(), android.R.layout.simple_dropdown_item_1line);
+        autoCompleteAdapter.setNotifyOnChange(true); // This is so I don't have to manually sync whenever changed
+        autoComplete = (CustomAutoCompleteView)  view.findViewById(R.id.autoCompleteCities);
+        autoComplete.setHint("Country");
+        autoComplete.setThreshold(3);
+        autoComplete.setAdapter(autoCompleteAdapter);
+
+        final TextWatcher textChecker = new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+
+
+
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+
+
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("itinerario");
+
+                //query.include("citta",s.toString(),"i");
+
+                query.whereContains("citta", s.toString());
+
+                query.findInBackground(new FindCallback<ParseObject>() {
+
+                    @Override
+                    public void done(List<ParseObject> list, com.parse.ParseException e) {
+
+                        if (e == null) {
+
+                            autoCompleteAdapter.clear();
+
+                            for(ParseObject parseObject : list){
+
+                                Log.d("Città", (String)parseObject.get("citta"));
+
+                                autoCompleteAdapter.add((String)parseObject.getString("citta"));
+
+                            }
+
+                        } else {
+                            Log.d("Itinerari", "Error: " + e.getMessage());
+                        }
+                    }
+
+                });
+
+
+            }
+        };
+
+
+
+        autoComplete.addTextChangedListener(textChecker);
+
+
+        //btn_confermaItinerario = (Button)view.findViewById(R.id.btnCerca);
+
+
+        // Setup the new range seek bar
+        rangeSeekBar = new RangeSeekBar<Integer>(getActivity());
+        // Set the range
+        rangeSeekBar.setRangeValues(0, 10);
+        rangeSeekBar.setSelectedMinValue(1);
+        rangeSeekBar.setSelectedMaxValue(10);
+
+        // Add to layout
+        seekbar_placeholder_layout.addView(rangeSeekBar);
+
         Log.e("",""+listTags.size());
-
-        //I tag devono essere caricati dal database, questa riga è di esempio
-        String [] tags = {"Musica", "Fun", "Sport", "Cultura", "Food"};
-        ArrayList<Integer> colours = getTagsColours();
-
-        //Istanzia dinamicamente i bottoni per i tag e gli assegna il listener
-        for (int i = 0;i<tags.length; i++) {
-            ArcLayoutButton b = new ArcLayoutButton(getActivity().getApplicationContext());
-            b.setButtonAttributes(tags[i], colours.get(i % colours.size()));
-            b.setOnTouchListener(new tagButtonOnClick());
-            if(listTags.contains(b.getText()))
-                b.setPressed(true);
-            arcLayout.addView(b);
-        }
 
         //Setta il listener per il bottone di apertura dei tag
         ArrayList<View> vL = new ArrayList<View>();
         view.findViewById(R.id.open_tags).setOnClickListener(new onOpenTagsListener(rootLayout, menuLayout, arcLayout, centerItem, vL));
+
+
+
+        final ArrayList<Integer> colours = getTagsColours();
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("tags");
+
+
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, com.parse.ParseException e) {
+                if (e == null) {
+                    //ok
+
+                    ArrayList<String> tags = new ArrayList<String>();
+
+                    String tagName;
+
+                    for (ParseObject parseObjetc : list) {
+
+                        tagName = (String) parseObjetc.get("tagname");
+                        tags.add(tagName);
+
+                    }
+                    //Istanzia dinamicamente i bottoni per i tag e gli assegna il listener
+                    for (int i = 0; i < tags.size(); i++) {
+                        ArcLayoutButton b = new ArcLayoutButton(getActivity().getApplicationContext());
+                        b.setButtonAttributes(tags.get(i), colours.get(i % colours.size()));
+                        b.setOnTouchListener(new tagButtonOnClick());
+                        if (listTags.contains(b.getText()))
+                            b.setPressed(true);
+                        arcLayout.addView(b);
+                    }
+
+
+                } else {
+                    //error
+                    Log.d("Tags", "Error: " + e.getMessage());
+                }
+
+
+            }
+        });
+
+
+
+
+
+
+
+
 
         return view;
     }

@@ -66,7 +66,7 @@ public class CercaItinerarioFragment extends Fragment {
 
     private ParseCall parseCall;
 
-    private Button btn_confermaItinerario;
+    private Button btn_cercaItinerario;
 
     public CercaItinerarioFragment() {
         // Required empty public constructor
@@ -94,9 +94,8 @@ public class CercaItinerarioFragment extends Fragment {
         autoComplete.setAdapter(autoCompleteAdapter);
 
         final TextWatcher textChecker = new TextWatcher() {
+
             public void afterTextChanged(Editable s) {
-
-
 
             }
 
@@ -205,6 +204,11 @@ public class CercaItinerarioFragment extends Fragment {
 
             }
         });
+
+        btn_cercaItinerario = (Button) view.findViewById(R.id.btn_cercaItinerario);
+
+        //btn_cercaItinerario.setOnClickListener();
+
 
         return view;
     }

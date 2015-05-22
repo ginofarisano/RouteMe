@@ -49,6 +49,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
 
         currentUser = ParseUser.getCurrentUser();
 
+        this.changeToolbarColor(R.color.testo,R.color.sfondo);
         //Caricare immagini copertina e profilo se loggati con facebook
 
         profilo = BitmapFactory.decodeResource(getResources(), R.drawable.routemelogo);

@@ -1,28 +1,22 @@
 package com.teamrouteme.routeme.activity;
 
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.internal.app.ToolbarActionBar;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.parse.ParseUser;
-import com.teamrouteme.routeme.BuildConfig;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.fragment.CercaItinerarioFragment;
 import com.teamrouteme.routeme.fragment.ItinerariScaricatiFragment;
 import com.teamrouteme.routeme.fragment.ListaDesideriFragment;
-import com.teamrouteme.routeme.fragment.MapsFragment;
+import com.teamrouteme.routeme.fragment.CreaItinerarioFragment;
 import com.teamrouteme.routeme.fragment.MieiItinerariFragment;
 import com.teamrouteme.routeme.fragment.ProfiloFragment;
 
@@ -49,7 +43,6 @@ public class HomeActivity extends MaterialNavigationDrawer {
 
         currentUser = ParseUser.getCurrentUser();
 
-        this.changeToolbarColor(R.color.testo,R.color.sfondo);
         //Caricare immagini copertina e profilo se loggati con facebook
 
         profilo = BitmapFactory.decodeResource(getResources(), R.drawable.routemelogo);
@@ -60,7 +53,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         this.addSection(newSection("Cerca Itinerario", R.drawable.search, new CercaItinerarioFragment()));
-        this.addSection(newSection("Crea Itinerario", R.drawable.marker, new MapsFragment()));
+        this.addSection(newSection("Crea Itinerario", R.drawable.marker, new CreaItinerarioFragment()));
         this.addDivisor();
         this.addSection(newSection("Miei Itinerari", R.drawable.list, new MieiItinerariFragment()));
         this.addSection(newSection("Itinerari Scaricati", R.drawable.download_icon, new ItinerariScaricatiFragment()));

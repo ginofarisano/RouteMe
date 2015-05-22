@@ -1,30 +1,18 @@
 package com.teamrouteme.routeme.fragment;
 
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.InflateException;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -32,18 +20,14 @@ import com.ogaclejapan.arclayout.ArcLayout;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 import com.teamrouteme.routeme.adapter.CustomAutoCompleteView;
-import com.teamrouteme.routeme.bean.Itinerario;
-import com.teamrouteme.routeme.utility.AnimatorUtils;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.utility.ArcLayoutButton;
 import com.teamrouteme.routeme.utility.ClipRevealFrame;
 import com.teamrouteme.routeme.utility.ParseCall;
-import com.teamrouteme.routeme.utility.onOpenTagsListener;
+import com.teamrouteme.routeme.utility.MyOnOpenTagsListener;
 import com.yahoo.mobile.client.android.util.RangeSeekBar;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -156,11 +140,9 @@ public class CercaItinerarioFragment extends Fragment {
         // Add to layout
         seekbar_placeholder_layout.addView(rangeSeekBar);
 
-        Log.e("",""+listTags.size());
-
         //Setta il listener per il bottone di apertura dei tag
         ArrayList<View> vL = new ArrayList<View>();
-        view.findViewById(R.id.open_tags).setOnClickListener(new onOpenTagsListener(rootLayout, menuLayout, arcLayout, centerItem, vL));
+        view.findViewById(R.id.open_tags).setOnClickListener(new MyOnOpenTagsListener(rootLayout, menuLayout, arcLayout, centerItem, vL));
 
 
 

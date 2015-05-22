@@ -37,7 +37,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
@@ -60,7 +59,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class MapsFragment extends Fragment implements
+public class CreaItinerarioFragment extends Fragment implements
         LocationListener{
 
     private final String TAG = "MapsTestLog";
@@ -78,7 +77,7 @@ public class MapsFragment extends Fragment implements
     private Itinerario itinerario = new Itinerario();
     private boolean canModificaCancellazione = true;
 
-    public MapsFragment() {
+    public CreaItinerarioFragment() {
         // Required empty public constructor
     }
 
@@ -92,7 +91,7 @@ public class MapsFragment extends Fragment implements
                 parent.removeView(view);
         }
         try {
-            view = inflater.inflate(R.layout.fragment_maps, container, false);
+            view = inflater.inflate(R.layout.fragment_crea_itinerario, container, false);
         } catch (InflateException e) {
             /* map is already there, just return view as it is */
         }

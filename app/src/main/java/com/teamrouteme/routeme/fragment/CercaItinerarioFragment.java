@@ -105,13 +105,11 @@ public class CercaItinerarioFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
 
-
-
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("itinerario");
 
-                //query.include("citta",s.toString(),"i");
+                query.whereMatches("citta", "("+s.toString()+")", "i");
 
-                query.whereContains("citta", s.toString());
+                //query.whereContains("citta", s.toString());
 
                 query.findInBackground(new FindCallback<ParseObject>() {
 
@@ -207,14 +205,6 @@ public class CercaItinerarioFragment extends Fragment {
 
             }
         });
-
-
-
-
-
-
-
-
 
         return view;
     }

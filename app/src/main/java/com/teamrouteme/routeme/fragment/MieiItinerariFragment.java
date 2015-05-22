@@ -39,6 +39,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
+
 public class MieiItinerariFragment extends Fragment {
 
     private ListView listView;
@@ -115,17 +117,12 @@ public class MieiItinerariFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                // Create new fragment and transaction
+                // Create new fragment
                 Fragment anteprimaItinerarioFragment = new AnteprimaItinerarioFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack if needed
-                transaction.replace(R.layout.fragment_itinerari_caricati, anteprimaItinerarioFragment);
-                transaction.addToBackStack(null);
-
-                // Commit the transaction
-                transaction.commit();
+                // Set new fragment on screen
+                MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
+                home.setFragment(anteprimaItinerarioFragment, "Anteprima Itinerario");
             }
         });
 
@@ -134,4 +131,3 @@ public class MieiItinerariFragment extends Fragment {
 
     }
 }
-

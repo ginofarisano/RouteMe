@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -53,10 +54,12 @@ public class ModificaCancellazioneDialog extends DialogFragment {
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, alOperazioni);
 
-        TextView title = new TextView(getActivity());
+       // TextView title = new TextView(getActivity());
+        TextView title = (TextView)view.findViewById(R.id.title_cancellazione_modifica_tappa);
         title.setText(b.getString("nomeTappa"));
+        title.setVisibility(TextView.VISIBLE);
 
-        mylist.addHeaderView(title);
+        //mylist.addHeaderView(title);
 
         mylist.setAdapter(adapter);
 

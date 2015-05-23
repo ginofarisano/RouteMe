@@ -1,51 +1,40 @@
 package com.teamrouteme.routeme.fragment;
 
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.InflateException;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
 import com.ogaclejapan.arclayout.ArcLayout;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
+import com.teamrouteme.routeme.adapter.CustomAdapterListaItinerari;
 import com.teamrouteme.routeme.adapter.CustomAutoCompleteView;
-import com.teamrouteme.routeme.bean.Itinerario;
-import com.teamrouteme.routeme.utility.AnimatorUtils;
 import com.teamrouteme.routeme.R;
+import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.utility.ArcLayoutButton;
 import com.teamrouteme.routeme.utility.ClipRevealFrame;
 import com.teamrouteme.routeme.utility.ParseCall;
 import com.teamrouteme.routeme.utility.onOpenTagsListener;
 import com.yahoo.mobile.client.android.util.RangeSeekBar;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CercaItinerarioFragment extends Fragment {
@@ -60,13 +49,17 @@ public class CercaItinerarioFragment extends Fragment {
     private LinearLayout seekbar_placeholder_layout;
     private AutoCompleteTextView acmpCitta;
 
-    private CustomAutoCompleteView autoComplete;
+    private CustomAutoCompleteView autoCompleteCitta;
 
     private ArrayAdapter<String> autoCompleteAdapter;
 
     private ParseCall parseCall;
 
     private Button btn_cercaItinerario;
+
+    private ListView listviewRisultatiItinerari;
+
+    private List myList = new LinkedList();
 
     public CercaItinerarioFragment() {
         // Required empty public constructor
@@ -86,12 +79,14 @@ public class CercaItinerarioFragment extends Fragment {
 
         seekbar_placeholder_layout = (LinearLayout) view.findViewById(R.id.seekbar_placeholder);
 
+        listviewRisultatiItinerari = (ListView) view.findViewById(R.id.listviewRisultatiItinerari);
+
         autoCompleteAdapter = new ArrayAdapter<String>(CercaItinerarioFragment.this.getActivity(), android.R.layout.simple_dropdown_item_1line);
         autoCompleteAdapter.setNotifyOnChange(true); // This is so I don't have to manually sync whenever changed
-        autoComplete = (CustomAutoCompleteView)  view.findViewById(R.id.autoCompleteCities);
-        autoComplete.setHint("Country");
-        autoComplete.setThreshold(3);
-        autoComplete.setAdapter(autoCompleteAdapter);
+        autoCompleteCitta = (CustomAutoCompleteView)  view.findViewById(R.id.autoCompleteCities);
+        autoCompleteCitta.setHint("Country");
+        autoCompleteCitta.setThreshold(3);
+        autoCompleteCitta.setAdapter(autoCompleteAdapter);
 
         final TextWatcher textChecker = new TextWatcher() {
 
@@ -140,7 +135,7 @@ public class CercaItinerarioFragment extends Fragment {
 
 
 
-        autoComplete.addTextChangedListener(textChecker);
+        autoCompleteCitta.addTextChangedListener(textChecker);
 
 
         //btn_confermaItinerario = (Button)view.findViewById(R.id.btnCerca);
@@ -207,7 +202,75 @@ public class CercaItinerarioFragment extends Fragment {
 
         btn_cercaItinerario = (Button) view.findViewById(R.id.btn_cercaItinerario);
 
-        //btn_cercaItinerario.setOnClickListener();
+        btn_cercaItinerario.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+
+                String citta = autoCompleteCitta.getText().toString();
+                int durataMin = rangeSeekBar.getSelectedMinValue();
+                int durataMax = rangeSeekBar.getSelectedMaxValue();
+
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("itinerario");
+
+                if(citta.length()!=0)
+                    query.whereEqualTo("citta", citta);
+
+                query.whereLessThanOrEqualTo("durata_min", durataMin);
+                query.whereGreaterThanOrEqualTo("durata_max", durataMax);
+
+                if(listTags.size()!=0)
+                    query.whereContainedIn("tags", listTags);
+
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> list, com.parse.ParseException e) {
+                        if (e == null) {
+
+                            Itinerario itinerario;
+
+
+                            for (ParseObject parseObject : list) {
+
+                                itinerario = new Itinerario();
+                                itinerario.setNome((String) parseObject.get("nome"));
+                                //tags
+                                itinerario.setTags((ArrayList) parseObject.get("tags"));
+                                itinerario.setDescrizione((String) parseObject.get("descrizione"));
+                                itinerario.setCitta((String) parseObject.get("citta"));
+                                itinerario.setDurataMin((Integer) parseObject.get("durata_min"));
+                                itinerario.setDurataMin((Integer) parseObject.get("durata_max"));
+
+                                String tappa_objectId;
+
+                       /* for (ParseObject tappa_object : (ArrayList<ParseObject>) parseObject.get("tappe")) {
+                            tappa_objectId = (String) tappa_object.getObjectId();
+                            tappa = returnDataCreatesStagesToParse(tappa_objectId);
+                            tappe.add(tappa);
+                        }*/
+
+                                myList.add(itinerario);
+
+                            }
+
+                            CustomAdapterListaItinerari myAdapter = new CustomAdapterListaItinerari(CercaItinerarioFragment.this.getActivity(),R.layout.row_custom_itinerari,myList);
+
+                            listviewRisultatiItinerari.setAdapter(myAdapter);
+
+
+
+                        } else {
+                            //error
+                            Log.d("Tags", "Error: " + e.getMessage());
+                        }
+
+
+                    }
+                });
+
+
+            }
+        });
+
 
 
         return view;

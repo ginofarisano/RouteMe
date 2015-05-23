@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/llcerca"
         android:orientation="vertical">
 
         <TextView
@@ -79,6 +80,19 @@
             />
 
     </com.teamrouteme.routeme.utility.ClipRevealFrame>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/llcerca"
+        android:layout_above="@+id/open_tags">
+
+        <ListView
+            android:id="@+id/listviewRisultatiItinerari"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ScrollView>
 
     <Button
         android:id="@+id/open_tags"

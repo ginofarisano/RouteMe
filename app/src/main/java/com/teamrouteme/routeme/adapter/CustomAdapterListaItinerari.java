@@ -5,26 +5,23 @@ package com.teamrouteme.routeme.adapter;
  */
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-
-import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.undo.UndoAdapter;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.bean.Itinerario;
 
 import java.util.List;
 
-public class CustomAdapterItinerariCreati extends ArrayAdapter<Itinerario> implements UndoAdapter {
+public class CustomAdapterListaItinerari extends ArrayAdapter<Itinerario> {
 
     private final Context mContext;
     private List<Itinerario> itinerari;
 
-    public CustomAdapterItinerariCreati(Context context, int textViewResourceId,
+    public CustomAdapterListaItinerari(Context context, int textViewResourceId,
                                         List<Itinerario> objects) {
         super(context, textViewResourceId, objects);
         mContext = context;
@@ -105,23 +102,6 @@ public class CustomAdapterItinerariCreati extends ArrayAdapter<Itinerario> imple
     public void remove(int position) {
         itinerari.remove(position);
     }
-
-    @NonNull
-    @Override
-    public View getUndoView(final int position, final View convertView, @NonNull final ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
-            view = LayoutInflater.from(mContext).inflate(R.layout.undo_row, parent, false);
-        }
-        return view;
-    }
-
-    @NonNull
-    @Override
-    public View getUndoClickView(@NonNull final View view) {
-        return view.findViewById(R.id.undo_row_undobutton);
-    }
-
 
     private class ViewHolder {
         public TextView name;

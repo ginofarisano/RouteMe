@@ -40,7 +40,7 @@ import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.utility.ArcLayoutButton;
 import com.teamrouteme.routeme.utility.ClipRevealFrame;
 import com.teamrouteme.routeme.utility.ParseCall;
-import com.teamrouteme.routeme.utility.onOpenTagsListener;
+import com.teamrouteme.routeme.utility.MyOnOpenTagsListener;
 import com.yahoo.mobile.client.android.util.RangeSeekBar;
 
 import java.lang.reflect.Array;
@@ -156,11 +156,9 @@ public class CercaItinerarioFragment extends Fragment {
         // Add to layout
         seekbar_placeholder_layout.addView(rangeSeekBar);
 
-        Log.e("",""+listTags.size());
-
         //Setta il listener per il bottone di apertura dei tag
         ArrayList<View> vL = new ArrayList<View>();
-        view.findViewById(R.id.open_tags).setOnClickListener(new onOpenTagsListener(rootLayout, menuLayout, arcLayout, centerItem, vL));
+        view.findViewById(R.id.open_tags).setOnClickListener(new MyOnOpenTagsListener(rootLayout, menuLayout, arcLayout, centerItem, vL));
 
 
 

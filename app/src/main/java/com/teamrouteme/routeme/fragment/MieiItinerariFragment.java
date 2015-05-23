@@ -30,7 +30,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
-import com.teamrouteme.routeme.adapter.CustomAdapterItinerariCreati;
+import com.teamrouteme.routeme.adapter.CustomAdapterListaItinerari;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
 import com.teamrouteme.routeme.utility.ParseCall;
@@ -98,7 +98,7 @@ public class MieiItinerariFragment extends Fragment {
 
                     }
 
-                    CustomAdapterItinerariCreati adapter = new CustomAdapterItinerariCreati(MieiItinerariFragment.this.getActivity(), R.layout.row_custom_itinerari_creati, myList);
+                    CustomAdapterListaItinerari adapter = new CustomAdapterListaItinerari(MieiItinerariFragment.this.getActivity(), R.layout.row_custom_itinerari, myList);
 
                     listView.setAdapter(adapter);
 

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 
@@ -19,12 +20,12 @@ import com.teamrouteme.routeme.bean.Itinerario;
 
 import java.util.List;
 
-public class CustomAdapterItinerariCreati extends ArrayAdapter<Itinerario> implements UndoAdapter {
+public class CustomAdapterListaItinerari extends ArrayAdapter<Itinerario> implements UndoAdapter {
 
     private final Context mContext;
     private List<Itinerario> itinerari;
 
-    public CustomAdapterItinerariCreati(Context context, int textViewResourceId,
+    public CustomAdapterListaItinerari(Context context, int textViewResourceId,
                                         List<Itinerario> objects) {
         super(context, textViewResourceId, objects);
         mContext = context;
@@ -53,12 +54,14 @@ public class CustomAdapterItinerariCreati extends ArrayAdapter<Itinerario> imple
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(R.layout.row_custom_itinerari_creati, null);
+        convertView = inflater.inflate(R.layout.row_custom_itinerari, null);
         TextView nome = (TextView)convertView.findViewById(R.id.textViewName);
-        TextView descrizione = (TextView)convertView.findViewById(R.id.textViewDescrizione);
+        TextView citta = (TextView)convertView.findViewById(R.id.textViewCitta);
+        RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.ratingBar);
         Itinerario itinerario = getItem(position);
         nome.setText(itinerario.getNome());
-        descrizione.setText(itinerario.getTags()+" a "+itinerario.getCitta());
+        citta.setText(itinerario.getCitta());
+        ratingBar.setRating(2.5f);
         return convertView;
     }
 

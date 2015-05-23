@@ -17,7 +17,6 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
-import com.teamrouteme.routeme.adapter.CustomAdapterItinerariCreati;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
 

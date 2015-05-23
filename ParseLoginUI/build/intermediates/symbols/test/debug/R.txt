@@ -98,6 +98,7 @@ int drawable messenger_button_blue_bg_selector 0x7f02001e
 int drawable messenger_button_send_round_shadow 0x7f02001f
 int drawable messenger_button_white_bg_round 0x7f020020
 int drawable messenger_button_white_bg_selector 0x7f020021
+int drawable selector_button 0x7f020022
 int id app_logo 0x7f090019
 int id automatic 0x7f09000c
 int id bottom 0x7f090006

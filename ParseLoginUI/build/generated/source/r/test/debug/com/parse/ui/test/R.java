@@ -224,6 +224,7 @@ containing a value of this type.
         public static final int messenger_button_send_round_shadow=0x7f02001f;
         public static final int messenger_button_white_bg_round=0x7f020020;
         public static final int messenger_button_white_bg_selector=0x7f020021;
+        public static final int selector_button=0x7f020022;
     }
     public static final class id {
         public static final int app_logo=0x7f090019;

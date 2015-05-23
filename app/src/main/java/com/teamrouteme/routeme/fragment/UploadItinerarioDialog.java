@@ -3,7 +3,6 @@ package com.teamrouteme.routeme.fragment;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -25,7 +24,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.utility.ArcLayoutButton;
-import com.teamrouteme.routeme.utility.onOpenTagsListener;
+import com.teamrouteme.routeme.utility.MyOnOpenTagsListener;
 import com.teamrouteme.routeme.utility.ClipRevealFrame;
 import com.yahoo.mobile.client.android.util.RangeSeekBar;
 
@@ -59,6 +58,7 @@ public class UploadItinerarioDialog extends DialogFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_upload_itinerario_dialog, container);
+        Log.e("View",""+view);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         cittaItinerarioEditText = (EditText) view.findViewById(R.id.editText_citta_itinerario);
@@ -138,7 +138,7 @@ public class UploadItinerarioDialog extends DialogFragment{
         vL.add(descrizioneItinerarioEditText);
         vL.add(btn_confermaItinerario);
         vL.add(rangeSeekBar);
-        view.findViewById(R.id.open_tags).setOnClickListener(new onOpenTagsListener(rootLayout, menuLayout, arcLayout, centerItem, vL));
+        view.findViewById(R.id.open_tags).setOnClickListener(new MyOnOpenTagsListener(rootLayout, menuLayout, arcLayout, centerItem, vL));
 
         //Listener per il bottone di conferma
         btn_confermaItinerario.setOnClickListener(new View.OnClickListener() {

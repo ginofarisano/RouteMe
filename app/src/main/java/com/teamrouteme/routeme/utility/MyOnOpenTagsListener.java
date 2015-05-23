@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by massimo299 on 21/05/15.
  */
-public class onOpenTagsListener implements View.OnClickListener {
+public class MyOnOpenTagsListener implements View.OnClickListener {
 
     private View rootLayout;
     private ClipRevealFrame menuLayout;
@@ -27,7 +27,7 @@ public class onOpenTagsListener implements View.OnClickListener {
     private Button centerItem;
     private ArrayList<View> vList;
 
-    public onOpenTagsListener(View rootL, ClipRevealFrame menuL, ArcLayout arcL, Button centerI, ArrayList<View> vL){
+    public MyOnOpenTagsListener(View rootL, ClipRevealFrame menuL, ArcLayout arcL, Button centerI, ArrayList<View> vL){
         rootLayout = rootL;
         menuLayout = menuL;
         arcLayout = arcL;

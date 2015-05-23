@@ -16,7 +16,7 @@
 package com.teamrouteme.routeme.fragment;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseObject;
@@ -33,6 +32,7 @@ import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.adapter.CustomAdapterItinerariCreati;
 import com.teamrouteme.routeme.bean.Itinerario;
+import com.teamrouteme.routeme.bean.Tappa;
 import com.teamrouteme.routeme.utility.ParseCall;
 
 import java.util.ArrayList;
@@ -61,10 +61,6 @@ public class MieiItinerariFragment extends Fragment {
 
         myList = new LinkedList();
 
-        ParseCall parseCall = new ParseCall();
-
-        final ArrayList<Itinerario> itinerari = new ArrayList<Itinerario>();
-
         ParseQuery<ParseObject> query = ParseQuery.getQuery("itinerario");
 
         query.whereEqualTo("user", ParseUser.getCurrentUser());
@@ -88,21 +84,21 @@ public class MieiItinerariFragment extends Fragment {
                         itinerario.setDescrizione((String) parseObject.get("descrizione"));
                         itinerario.setCitta((String) parseObject.get("citta"));
                         itinerario.setDurataMin((Integer) parseObject.get("durata_min"));
-                        itinerario.setDurataMin((Integer) parseObject.get("durata_max"));
+                        itinerario.setDurataMax((Integer) parseObject.get("durata_max"));
+                        itinerario.setId(parseObject.getObjectId());
 
-                        String tappa_objectId;
+                        ArrayList<String> tappe_objectId = new ArrayList<String>();
 
-                       /* for (ParseObject tappa_object : (ArrayList<ParseObject>) parseObject.get("tappe")) {
-                            tappa_objectId = (String) tappa_object.getObjectId();
-                            tappa = returnDataCreatesStagesToParse(tappa_objectId);
-                            tappe.add(tappa);
-                        }*/
+                       for (ParseObject tappa_object : (ArrayList<ParseObject>) parseObject.get("tappe")) {
+                            tappe_objectId.add(tappa_object.getObjectId());
+                        }
+                        itinerario.setTappeId(tappe_objectId);
 
                         myList.add(itinerario);
 
                     }
 
-                    final CustomAdapterItinerariCreati adapter = new CustomAdapterItinerariCreati(MieiItinerariFragment.this.getActivity(), R.layout.row_custom_itinerari_creati, myList);
+                    CustomAdapterItinerariCreati adapter = new CustomAdapterItinerariCreati(MieiItinerariFragment.this.getActivity(), R.layout.row_custom_itinerari_creati, myList);
 
                     listView.setAdapter(adapter);
 
@@ -119,6 +115,10 @@ public class MieiItinerariFragment extends Fragment {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 // Create new fragment
                 Fragment anteprimaItinerarioFragment = new AnteprimaItinerarioFragment();
+
+                Bundle b = new Bundle();
+                b.putParcelable("itinerario",(Itinerario) myList.get(position));
+                anteprimaItinerarioFragment.setArguments(b);
 
                 // Set new fragment on screen
                 MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();

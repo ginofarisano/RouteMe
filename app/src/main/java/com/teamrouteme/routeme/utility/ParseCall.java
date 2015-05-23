@@ -2,7 +2,6 @@ package com.teamrouteme.routeme.utility;
 
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
@@ -50,7 +49,7 @@ public class ParseCall {
         ParseGeoPoint point;
         JSONArray jsonTappe = new JSONArray();
 
-        for(int i=0;i<itinerario.getSize();i++){
+        for(int i=0;i<itinerario.getTappeSize();i++){
 
             tappa = itinerario.getTappa(i);
 

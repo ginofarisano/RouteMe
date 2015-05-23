@@ -1,17 +1,32 @@
 package com.teamrouteme.routeme.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
  * Created by massimo299 on 14/05/15.
  */
-public class Itinerario {
+public class Itinerario implements Parcelable{
 
     private ArrayList<Tappa> tappe = new ArrayList<Tappa>();
 
-    private String nome;
+    private String nome, id, citta, descrizione;
 
     private ArrayList<String> tags;
+
+    private int durataMin, durataMax;
+
+    private ArrayList<String> tappeId = new ArrayList<String>();
+
+    public ArrayList<String> getTappeId() {
+        return tappeId;
+    }
+
+    public void setTappeId(ArrayList<String> tappeId) {
+        this.tappeId = tappeId;
+    }
 
     public String getDescrizione() {
         return descrizione;
@@ -20,10 +35,6 @@ public class Itinerario {
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
-
-    private String descrizione;
-
-    private int durataMin;
 
     public int getDurataMin() {
         return durataMin;
@@ -57,8 +68,6 @@ public class Itinerario {
         this.tappe = tappe;
     }
 
-    private int durataMax;
-
     public int getDurataMax() {
         return durataMax;
     }
@@ -75,8 +84,6 @@ public class Itinerario {
         this.citta = citta;
     }
 
-    private String citta;
-
     public void aggiungiTappa(Tappa t){
         tappe.add(t);
     }
@@ -89,7 +96,7 @@ public class Itinerario {
         tappe.remove(t);
     }
 
-    public int getSize(){
+    public int getTappeSize(){
         return tappe.size();
     }
 
@@ -99,5 +106,23 @@ public class Itinerario {
 
     public Tappa rimuoviTappaInPosizione(int position){
         return tappe.remove(position);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

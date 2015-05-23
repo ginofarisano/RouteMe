@@ -428,14 +428,14 @@ public class CreaItinerarioFragment extends Fragment implements
             String nomeTappa = i.getStringExtra("nome_tappa");
             Tappa t = new Tappa(i.getStringExtra("nome_tappa"), i.getStringExtra("descrizione_tappa"), addedPlaces.get(addedPlaces.size() - 1));
             itinerario.aggiungiTappa(t);
-            Log.d(TAG,"Itinerario contiene "+itinerario.getSize()+" tappe");
+            Log.d(TAG,"Itinerario contiene "+itinerario.getTappeSize()+" tappe");
             btnConferma.setVisibility(View.INVISIBLE);
             btnAnnulla.setVisibility(View.INVISIBLE);
             etPlace.setText("");
             canModificaCancellazione = true;
             Toast.makeText(getActivity().getBaseContext(), "Aggiunta tappa " + nomeTappa, Toast.LENGTH_SHORT).show();
 
-            if (itinerario.getSize() > 0)
+            if (itinerario.getTappeSize() > 0)
                 btnFatto.setVisibility(View.VISIBLE);
         }
         else if(resultCode==2){
@@ -487,7 +487,7 @@ public class CreaItinerarioFragment extends Fragment implements
             canModificaCancellazione = true;
             Toast.makeText(getActivity().getBaseContext(), "Modificata tappa " + nomeTappa, Toast.LENGTH_SHORT).show();
 
-            if (itinerario.getSize() > 0)
+            if (itinerario.getTappeSize() > 0)
                 btnFatto.setVisibility(View.VISIBLE);
         }
     }

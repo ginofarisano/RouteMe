@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layout_fragment_cerca_itinerario"
-    android:background="#009688">
+    android:id="@+id/layout_fragment_cerca_itinerario">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,64 +49,65 @@
             android:layout_centerHorizontal="true" />
 
 
-    </LinearLayout>
 
-    <com.teamrouteme.routeme.utility.ClipRevealFrame
-        android:id="@+id/menu_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/tumblr_primary"
-        android:visibility="gone"
-        >
 
-        <com.ogaclejapan.arclayout.ArcLayout
-            android:id="@+id/arc_layout"
+        <com.teamrouteme.routeme.utility.ClipRevealFrame
+            android:id="@+id/menu_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:arc_axisRadius="@dimen/layout_child_offset_tumblr"
-            app:arc_origin="center"
-            app:arc_radius="@dimen/layout_radius_tumblr"
+            android:background="@color/tumblr_primary"
+            android:visibility="gone"
             >
 
-        </com.ogaclejapan.arclayout.ArcLayout>
+            <com.ogaclejapan.arclayout.ArcLayout
+                android:id="@+id/arc_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:arc_axisRadius="@dimen/layout_child_offset_tumblr"
+                app:arc_origin="center"
+                app:arc_radius="@dimen/layout_radius_tumblr"
+                >
+
+            </com.ogaclejapan.arclayout.ArcLayout>
+
+            <Button
+                android:id="@+id/center_item"
+                style="@style/Item.Tumblr"
+                android:layout_gravity="center"
+                android:background="@drawable/center_tumblr_oval"
+                android:text="#"
+                />
+
+        </com.teamrouteme.routeme.utility.ClipRevealFrame>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView"
+            android:layout_below="@+id/llcerca"
+            android:layout_above="@+id/open_tags"
+            >
+
+            <ListView
+                android:id="@+id/listviewRisultatiItinerari"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </ScrollView>
 
         <Button
-            android:id="@+id/center_item"
-            style="@style/Item.Tumblr"
-            android:layout_gravity="center"
-            android:background="@drawable/center_tumblr_oval"
-            android:text="#"
+            android:id="@+id/open_tags"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="24dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/menu_tumblr_oval"
+            android:text="Tag"
+            android:textColor="@color/white"
+            android:textSize="24sp"
             />
 
-    </com.teamrouteme.routeme.utility.ClipRevealFrame>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView"
-        android:layout_below="@+id/llcerca"
-        android:layout_above="@+id/open_tags">
-
-        <ListView
-            android:id="@+id/listviewRisultatiItinerari"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </ScrollView>
-
-    <Button
-        android:id="@+id/open_tags"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="24dp"
-        android:layout_marginRight="24dp"
-        android:background="@drawable/menu_tumblr_oval"
-        android:text="Tag"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        />
-
-
+    </LinearLayout>
 
 </RelativeLayout>

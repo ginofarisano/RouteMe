@@ -230,7 +230,7 @@ public class CercaItinerarioFragment extends Fragment {
 
                 query = query.whereGreaterThanOrEqualTo("durata_min", durataMin);
                 query = query.whereLessThanOrEqualTo("durata_max", durataMax);
-                // query = query.whereContainedIn("tags", listTags);
+                query = query.whereContainedIn("tags", listTags);
 
                 query.findInBackground(new FindCallback<ParseObject>() {
                     @Override

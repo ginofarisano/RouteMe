@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:background="@color/sfondo"
     android:orientation="vertical">
 
     <TextView
@@ -18,6 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/com_parse_ui_xlarge_vertical_spacing"
         android:hint="@string/com_parse_ui_login_help_email_input_hint"
+        android:textColorHint="@color/testo"
+        android:textColor="@color/testo"
         android:inputType="textEmailAddress"></EditText>
 
     <Button
@@ -26,4 +29,4 @@
         android:layout_marginTop="@dimen/com_parse_ui_xlarge_vertical_spacing"
         android:text="@string/com_parse_ui_login_help_submit_button_label" />
 </LinearLayout>
-<!-- From: file:/Users/nicolopergola/Desktop/Universita/LaureaMagistrale/II_Anno/IUMMAD/RouteMe/ParseLoginUI/res/layout/com_parse_ui_parse_login_help_form.xml --><!-- From: file:/Users/nicolopergola/Desktop/Universita/LaureaMagistrale/II_Anno/IUMMAD/RouteMe/ParseLoginUI/build/intermediates/bundles/debug/res/layout/com_parse_ui_parse_login_help_form.xml -->
+<!-- From: file:/Users/ginofarisano/Desktop/RouteMe/RouteMe/ParseLoginUI/res/layout/com_parse_ui_parse_login_help_form.xml --><!-- From: file:/Users/ginofarisano/Desktop/RouteMe/RouteMe/ParseLoginUI/build/intermediates/bundles/debug/res/layout/com_parse_ui_parse_login_help_form.xml -->

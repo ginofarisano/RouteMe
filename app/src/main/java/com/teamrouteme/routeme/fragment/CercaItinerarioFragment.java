@@ -31,6 +31,7 @@ import com.teamrouteme.routeme.utility.ClipRevealFrame;
 import com.teamrouteme.routeme.utility.MyOnOpenTagsListener;
 import com.teamrouteme.routeme.utility.ParseCall;
 import com.yahoo.mobile.client.android.util.RangeSeekBar;
+import com.yahoo.mobile.client.android.util.RangeSeekBar.OnRangeSeekBarChangeListener;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -156,9 +157,11 @@ public class CercaItinerarioFragment extends Fragment {
         // Setup the new range seek bar
         rangeSeekBar = new RangeSeekBar<Integer>(getActivity());
         // Set the range
-        rangeSeekBar.setRangeValues(0, 10);
+
+        rangeSeekBar.setRangeValues(1, 10);
         rangeSeekBar.setSelectedMinValue(1);
         rangeSeekBar.setSelectedMaxValue(10);
+
 
         // Add to layout
         seekbar_placeholder_layout.addView(rangeSeekBar);

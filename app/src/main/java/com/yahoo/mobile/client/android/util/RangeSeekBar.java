@@ -278,9 +278,8 @@ public class RangeSeekBar<T extends Number> extends ImageView {
     /**
      * Registers given listener callback to notify about changed selected values.
      *
-     * @param listener The listener to notify about changed selected values.
      */
-    public void setOnRangeSeekBarChangeListener(OnRangeSeekBarChangeListener<T> listener) {
+    public void setOnRangeSeekBarChangeListener() {
         this.listener = listener;
     }
 
@@ -503,7 +502,7 @@ public class RangeSeekBar<T extends Number> extends ImageView {
                   selectedValuesAreDefault);
 
         // draw the text if sliders have moved from default edges
-        if (!selectedValuesAreDefault) {
+       // if (!selectedValuesAreDefault) {
             paint.setTextSize(mTextSize);
             paint.setColor(getResources().getColor(R.color.testo));
             // give text a bit more space here so it doesn't get cut off
@@ -520,7 +519,7 @@ public class RangeSeekBar<T extends Number> extends ImageView {
                                 mDistanceToTop + mTextSize,
                                 paint);
 
-            }
+            //}
 
             canvas.drawText(maxText,
                             normalizedToScreen(normalizedMaxValue) - maxTextWidth * 0.5f,
@@ -563,7 +562,7 @@ public class RangeSeekBar<T extends Number> extends ImageView {
     private void drawThumb(float screenCoord, boolean pressed, Canvas canvas, boolean areSelectedValuesDefault) {
         Bitmap buttonToDraw;
         if (areSelectedValuesDefault) {
-            buttonToDraw = thumbDisabledImage;
+            buttonToDraw = pressed ? thumbPressedImage : thumbImage;
         } else {
             buttonToDraw = pressed ? thumbPressedImage : thumbImage;
         }

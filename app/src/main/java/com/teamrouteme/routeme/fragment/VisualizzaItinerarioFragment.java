@@ -58,6 +58,7 @@ public class VisualizzaItinerarioFragment extends Fragment implements LocationLi
     private boolean locationUpdatesRequested;
     private Itinerario itinerario;
     private static View view;
+    private Button btnIndietro;
 
     public VisualizzaItinerarioFragment(){
         // Required empty public constructor
@@ -66,20 +67,24 @@ public class VisualizzaItinerarioFragment extends Fragment implements LocationLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Bundle bundle = getArguments();
+
         if (view != null) {
             ViewGroup parent = (ViewGroup) view.getParent();
             if (parent != null)
                 parent.removeView(view);
         }
         try {
-            view = inflater.inflate(R.layout.fragment_crea_itinerario, container, false);
+            view = inflater.inflate(R.layout.fragment_visualizza_itinerario, container, false);
         } catch (InflateException e) {
             /* map is already there, just return view as it is */
         }
 
-        setUpMapOnLastKnownLocation(true);
+        setUpMapOnLastKnownLocation(false);
 
-        Bundle bundle = getArguments();
+        mMap.clear();
+
         if(bundle != null) {
             itinerario = (Itinerario) bundle.get("itinerario");
             Log.d("","Nome itinerario ricevuto: "+ itinerario.getNome());
@@ -108,9 +113,23 @@ public class VisualizzaItinerarioFragment extends Fragment implements LocationLi
             drawFromAtoB(aLL, bLL);
         }
 
+        btnIndietro = (Button) view.findViewById(R.id.btn_indietro);
+        btnIndietro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment anteprimaItinerarioFragment = new AnteprimaItinerarioFragment();
+
+                Bundle b = new Bundle();
+                b.putParcelable("itinerario",itinerario);
+                anteprimaItinerarioFragment.setArguments(b);
+                // Set new fragment on screen
+                MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
+                home.setFragment(anteprimaItinerarioFragment, "Anteprima Itinerario");
+            }
+        });
+
         return view;
     }
-
 
 
 
@@ -134,7 +153,7 @@ public class VisualizzaItinerarioFragment extends Fragment implements LocationLi
         else {
             if (mMap == null)
                 // Try to obtain the map from the SupportMapFragment.
-                mMap = ((SupportMapFragment) ((FragmentActivity)getActivity()).getSupportFragmentManager().findFragmentById(R.id.map))
+                mMap = ((SupportMapFragment) ((FragmentActivity)getActivity()).getSupportFragmentManager().findFragmentById(R.id.map2))
                         .getMap();
             if (mMap != null) {
                 // Enabling MyLocation Layer of Google Map (the blu dot for the location of the smartphone)
@@ -148,7 +167,7 @@ public class VisualizzaItinerarioFragment extends Fragment implements LocationLi
                     mMap.animateCamera(cameraUpdate);
                 }
                 else {
-                    Log.d(TAG, "Last know location is null, map setted on Italy");
+                    Log.d(TAG, "Last known location is null, map setted on Italy");
                     CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(ITALY, 5);
                     mMap.animateCamera(cameraUpdate);
                 }
@@ -167,14 +186,15 @@ public class VisualizzaItinerarioFragment extends Fragment implements LocationLi
             if (l == null) {
                 continue;
             }
-            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+            // Aggiorna la bestLocation solo se la nuova è sia più accurata che più recente
+            if (bestLocation == null || (l.getAccuracy() < bestLocation.getAccuracy() && l.getTime() > bestLocation.getTime())) {
                 // Found best last known location: %s", l);
                 this.provider = provider;
                 bestLocation = l;
             }
         }
 
-        Log.d(TAG, "BEST PROVIDER " + provider);
+        Log.d(TAG, "Best location " + bestLocation);
 
         if(locationUpdatesRequested && provider != null)
             mLocationManager.requestLocationUpdates(provider,5000,0,this);
@@ -208,7 +228,6 @@ public class VisualizzaItinerarioFragment extends Fragment implements LocationLi
     public void onProviderDisabled(String provider) {
 
     }
-
 
 
 

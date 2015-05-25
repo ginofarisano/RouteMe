@@ -31,12 +31,13 @@ import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
  */
 public class AnteprimaItinerarioFragment extends Fragment{
 
-    private static View view;
+    private View view;
     private String nomeItinerario;
     private String valutazione;
     private String feedback;
     private Itinerario itinerario;
     private ArrayList<String> tappeId;
+    private Button btnIndietro;
 
     public AnteprimaItinerarioFragment(){
         // Required empty public constructor
@@ -44,7 +45,7 @@ public class AnteprimaItinerarioFragment extends Fragment{
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_anteprima_itinerario, container, false);
+        view = inflater.inflate(R.layout.fragment_anteprima_itinerario, container, false);
 
         /*recupero dei dati dal server
         fare richiesta al server e riempire le variabili nomeItinerario, valutazione, feedback
@@ -67,17 +68,17 @@ public class AnteprimaItinerarioFragment extends Fragment{
         }
 
         //settaggio delle variabili prese dal server
-        TextView nomeItinerarioEdit = (TextView) rootView.findViewById(R.id.nomeItinerario);
+        TextView nomeItinerarioEdit = (TextView) view.findViewById(R.id.nomeItinerario);
         nomeItinerarioEdit.setText(nomeItinerario);
 
-        RatingBar valutazioneBar = (RatingBar) rootView.findViewById(R.id.valutazione);
+        RatingBar valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
         valutazioneBar.setRating(Float.parseFloat("2.0"));
 
-        EditText feedbackEdit = (EditText) rootView.findViewById(R.id.feedback);
+        EditText feedbackEdit = (EditText) view.findViewById(R.id.feedback);
         feedbackEdit.setText(feedback);
 
 
-        Button btnFeedback= (Button) rootView.findViewById(R.id.btnInviaFeedback);
+        Button btnFeedback= (Button) view.findViewById(R.id.btnInviaFeedback);
 
         btnFeedback.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -86,7 +87,7 @@ public class AnteprimaItinerarioFragment extends Fragment{
         });
 
 
-        Button btnAvviaItinerario = (Button) rootView.findViewById(R.id.btnAvviaItinerario);
+        Button btnAvviaItinerario = (Button) view.findViewById(R.id.btnAvviaItinerario);
 
         btnAvviaItinerario.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
@@ -156,7 +157,17 @@ public class AnteprimaItinerarioFragment extends Fragment{
             }
         });
 
+        btnIndietro = (Button) view.findViewById(R.id.btn_indietro);
+        btnIndietro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment mieiItinerariFragment = new MieiItinerariFragment();
+                // Set new fragment on screen
+                MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
+                home.setFragment(mieiItinerariFragment, "Miei Itinerari");
+            }
+        });
 
-        return rootView;
+        return view;
     }
 }

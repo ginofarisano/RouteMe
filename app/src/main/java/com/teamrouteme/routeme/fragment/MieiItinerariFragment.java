@@ -25,6 +25,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.dexafree.materialList.cards.SmallImageCard;
+import com.dexafree.materialList.controller.RecyclerItemClickListener;
+import com.dexafree.materialList.model.CardItemView;
+import com.dexafree.materialList.view.MaterialListView;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -33,6 +37,8 @@ import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.adapter.CustomAdapterListaItinerari;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
+import com.teamrouteme.routeme.utility.CustomCard;
+import com.teamrouteme.routeme.utility.CustomCardItemView;
 import com.teamrouteme.routeme.utility.ParseCall;
 
 import java.util.ArrayList;
@@ -43,7 +49,7 @@ import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 
 public class MieiItinerariFragment extends Fragment {
 
-    private ListView listView;
+    private MaterialListView listView;
     private List myList;
 
     public MieiItinerariFragment() {
@@ -56,7 +62,7 @@ public class MieiItinerariFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_itinerari_caricati, container, false);
 
-        listView = (ListView) view.findViewById(R.id.dynamiclistview);
+        listView = (MaterialListView) view.findViewById(R.id.material_listview);
 
         myList = new LinkedList();
 
@@ -91,7 +97,7 @@ public class MieiItinerariFragment extends Fragment {
 
                         ArrayList<String> tappe_objectId = new ArrayList<String>();
 
-                       for (ParseObject tappa_object : (ArrayList<ParseObject>) parseObject.get("tappe")) {
+                        for (ParseObject tappa_object : (ArrayList<ParseObject>) parseObject.get("tappe")) {
                             tappe_objectId.add(tappa_object.getObjectId());
                         }
                         itinerario.setTappeId(tappe_objectId);
@@ -100,11 +106,21 @@ public class MieiItinerariFragment extends Fragment {
 
                     }
 
-                    CustomAdapterListaItinerari adapter = new CustomAdapterListaItinerari(MieiItinerariFragment.this.getActivity(), R.layout.row_custom_itinerari_creati, myList);
-
                     dialog.hide();
 
-                    listView.setAdapter(adapter);
+/*
+                    CustomAdapterListaItinerari adapter = new CustomAdapterListaItinerari(MieiItinerariFragment.this.getActivity(), R.layout.row_custom_itinerari_creati, myList);
+
+
+                    listView.setAdapter(adapter);*/
+                    for (int i = 0; i < myList.size(); i++) {
+                        Itinerario it = (Itinerario) myList.get(i);
+                        CustomCard card = new CustomCard(getActivity().getApplicationContext());
+                        card.setDescription(it.getDescrizione());
+                        card.setTitle(it.getNome());
+                        card.setRatingBar(2);
+                        listView.add(card);
+                    }
 
 
                 } else {
@@ -114,6 +130,28 @@ public class MieiItinerariFragment extends Fragment {
 
         });
 
+        listView.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener(){
+            @Override
+            public void onItemClick(CardItemView cardItemView, int i) {
+                // Create new fragment
+                Fragment anteprimaItinerarioFragment = new AnteprimaItinerarioFragment();
+
+                Bundle b = new Bundle();
+                b.putParcelable("itinerario", (Itinerario) myList.get(i));
+                anteprimaItinerarioFragment.setArguments(b);
+
+                // Set new fragment on screen
+                MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
+                home.setFragment(anteprimaItinerarioFragment, "Anteprima Itinerario");
+            }
+
+            @Override
+            public void onItemLongClick(CardItemView cardItemView, int i) {
+
+            }
+
+        });
+/*
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
@@ -121,7 +159,7 @@ public class MieiItinerariFragment extends Fragment {
                 Fragment anteprimaItinerarioFragment = new AnteprimaItinerarioFragment();
 
                 Bundle b = new Bundle();
-                b.putParcelable("itinerario",(Itinerario) myList.get(position));
+                b.putParcelable("itinerario", (Itinerario) myList.get(position));
                 anteprimaItinerarioFragment.setArguments(b);
 
                 // Set new fragment on screen
@@ -129,7 +167,7 @@ public class MieiItinerariFragment extends Fragment {
                 home.setFragment(anteprimaItinerarioFragment, "Anteprima Itinerario");
             }
         });
-
+*/
         return view;
 
 

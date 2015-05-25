@@ -54,9 +54,9 @@
 
             </LinearLayout>
 
-
             <Button
-                style="?android:textAppearanceSmall"
+                style="@style/MyButton"
+                android:background="@drawable/selector_button"
                 android:id="@+id/btnAvviaItinerario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,8 +75,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Feadback:"
-                    android:id="@+id/textViewFeadback"
+                    android:text="Feedback:"
+                    android:id="@+id/textViewFeedback"
                     android:width="70dp"
                     android:layout_weight="0.36" />
 
@@ -89,10 +89,9 @@
                     android:layout_weight="0.36" />
             </LinearLayout>
 
-
-
             <Button
-                style="?android:textAppearanceSmall"
+                style="@style/MyButton"
+                android:background="@drawable/selector_button"
                 android:id="@+id/btnInviaFeedback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,13 +99,13 @@
                 android:textStyle="bold"
                 android:layout_gravity="center_horizontal" />
 
-
             <Button
                 style="@style/MyButton"
                 android:background="@drawable/selector_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Indietro"
+                android:textStyle="bold"
                 android:id="@+id/btn_indietro"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"

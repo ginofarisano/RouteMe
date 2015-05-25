@@ -297,6 +297,9 @@ public class CercaItinerarioFragment extends Fragment {
                                 // Set new fragment on screen
                                 MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
                                 home.setFragment(risultatoRicercaFragment, "Risultato Ricerca");
+
+
+
 /*
                                 CustomAdapterListaItinerari myAdapter = new CustomAdapterListaItinerari(CercaItinerarioFragment.this.getActivity(),R.layout.row_custom_itinerari,myList);
                                 listviewRisultatiItinerari.setAdapter(myAdapter);

@@ -29,11 +29,6 @@
                     android:text="Nome itinerario"
                     android:id="@+id/nomeItinerario" />
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageButton" />
-
             </LinearLayout>
 
 
@@ -106,22 +101,21 @@
                 android:layout_gravity="center_horizontal" />
 
 
-
+            <Button
+                style="@style/MyButton"
+                android:background="@drawable/selector_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Indietro"
+                android:id="@+id/btn_indietro"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                 />
 
         </LinearLayout>
 
 
     </ScrollView>
 
-    <Button
-        style="@style/MyButton"
-        android:background="@drawable/selector_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Indietro"
-        android:id="@+id/btn_indietro"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

@@ -5,7 +5,7 @@
     android:background="#e0f2f1">
 
     <include
-        layout="@layout/com_teamrouteme_routeme_app_logo"
+        layout="@layout/com_teamrouteme_routeme_app_splash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         />

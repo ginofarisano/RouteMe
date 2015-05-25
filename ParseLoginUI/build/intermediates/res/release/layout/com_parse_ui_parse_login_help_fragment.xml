@@ -4,6 +4,7 @@
     android:paddingTop="@dimen/com_parse_ui_vertical_margin"
     android:paddingLeft="@dimen/com_parse_ui_horizontal_margin"
     android:paddingRight="@dimen/com_parse_ui_horizontal_margin"
+    android:background="@color/sfondo"
     android:paddingBottom="@dimen/com_parse_ui_vertical_margin"
     android:gravity="center"
     android:orientation="vertical">
@@ -20,4 +21,4 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.5" />
 </LinearLayout>
-<!-- From: file:/Users/ginofarisano/Desktop/casino/RouteMe/ParseLoginUI/res/layout/com_parse_ui_parse_login_help_fragment.xml -->
+<!-- From: file:/Users/nicolopergola/Desktop/Universita/LaureaMagistrale/II_Anno/IUMMAD/RouteMe/ParseLoginUI/res/layout/com_parse_ui_parse_login_help_fragment.xml -->

@@ -65,6 +65,18 @@
                 android:textStyle="bold"
                 android:layout_gravity="center_horizontal" />
 
+            <Button
+                style="@style/MyButton"
+                android:background="@drawable/selector_button"
+                android:id="@+id/btnAcquistaItinerario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Acquista"
+                android:textStyle="bold"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal" />
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -113,8 +125,6 @@
 
         </LinearLayout>
 
-
     </ScrollView>
-
 
 </RelativeLayout>

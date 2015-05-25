@@ -1,24 +1,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@drawable/selector_list"
+    >
 
     <TextView
         android:id="@+id/textViewName"
+        android:layout_marginLeft="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textSize="12pt"
+        android:textSize="10pt"
         android:text="" />
 
     <TextView
         android:id="@+id/textViewDescrizione"
         android:layout_width="wrap_content"
+        android:layout_marginLeft="8dp"
         android:layout_height="wrap_content"
         android:textStyle="italic"
         android:text=""
         android:textSize="8pt"
-        android:textColor="#00AA00"
+        android:textColor="@color/testo"
         />
 
 </LinearLayout>

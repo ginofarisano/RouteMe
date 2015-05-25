@@ -22,10 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
-import com.dexafree.materialList.cards.SmallImageCard;
 import com.dexafree.materialList.controller.RecyclerItemClickListener;
 import com.dexafree.materialList.model.CardItemView;
 import com.dexafree.materialList.view.MaterialListView;
@@ -34,12 +31,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
-import com.teamrouteme.routeme.adapter.CustomAdapterListaItinerari;
 import com.teamrouteme.routeme.bean.Itinerario;
-import com.teamrouteme.routeme.bean.Tappa;
 import com.teamrouteme.routeme.utility.CustomCard;
-import com.teamrouteme.routeme.utility.CustomCardItemView;
-import com.teamrouteme.routeme.utility.ParseCall;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -60,7 +53,7 @@ public class MieiItinerariFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-        View view = inflater.inflate(R.layout.fragment_itinerari_caricati, container, false);
+        View view = inflater.inflate(R.layout.fragment_miei_itinerari, container, false);
 
         listView = (MaterialListView) view.findViewById(R.id.material_listview);
 
@@ -151,23 +144,7 @@ public class MieiItinerariFragment extends Fragment {
             }
 
         });
-/*
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                // Create new fragment
-                Fragment anteprimaItinerarioFragment = new AnteprimaItinerarioFragment();
 
-                Bundle b = new Bundle();
-                b.putParcelable("itinerario", (Itinerario) myList.get(position));
-                anteprimaItinerarioFragment.setArguments(b);
-
-                // Set new fragment on screen
-                MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
-                home.setFragment(anteprimaItinerarioFragment, "Anteprima Itinerario");
-            }
-        });
-*/
         return view;
 
 

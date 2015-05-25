@@ -123,6 +123,17 @@
                 android:layout_alignParentRight="true"
                  />
 
+            <Button
+                style="@style/MyButton"
+                android:background="@drawable/selector_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cuoricino"
+                android:textStyle="bold"
+                android:id="@+id/btn_desidera"
+                android:visibility="gone"
+                />
+
         </LinearLayout>
 
     </ScrollView>

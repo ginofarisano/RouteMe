@@ -2,26 +2,28 @@ package com.teamrouteme.routeme.fragment;
 
 import android.os.Bundle;
 import android.app.Fragment;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
+import com.dexafree.materialList.controller.RecyclerItemClickListener;
+import com.dexafree.materialList.model.CardItemView;
 import com.dexafree.materialList.view.MaterialListView;
 import com.teamrouteme.routeme.R;
-import com.teamrouteme.routeme.adapter.CustomAdapterListaItinerari;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.utility.CustomCard;
-import com.teamrouteme.routeme.utility.CustomCardItemView;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 
 public class RisultatiRicercaFragment extends Fragment {
 
     private ArrayList<Itinerario> itinerari;
     private MaterialListView listviewRisultatiItinerari;
+    private List myList;
+
     public RisultatiRicercaFragment() {
         // Required empty public constructor
     }
@@ -31,7 +33,7 @@ public class RisultatiRicercaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_itinerari_caricati, container, false);
+        View view = inflater.inflate(R.layout.fragment_miei_itinerari, container, false);
 
         Bundle b = getArguments();
         if(b != null) {
@@ -40,7 +42,7 @@ public class RisultatiRicercaFragment extends Fragment {
 
         listviewRisultatiItinerari = (MaterialListView) view.findViewById(R.id.material_listview);
 
-        ArrayList<Itinerario> myList = new ArrayList<Itinerario>();
+        myList = new ArrayList<Itinerario>();
 
         for (int i=0;i<itinerari.size();i++)
             myList.add(i,(Itinerario)itinerari.get(i));
@@ -54,13 +56,32 @@ public class RisultatiRicercaFragment extends Fragment {
             listviewRisultatiItinerari.add(card);
         }
 
+        listviewRisultatiItinerari.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener(){
+            @Override
+            public void onItemClick(CardItemView cardItemView, int i) {
+                // Create new fragment
+                Fragment anteprimaItinerarioFragment = new AnteprimaItinerarioFragment();
 
-/*
-        CustomAdapterListaItinerari myAdapter = new CustomAdapterListaItinerari(RisultatiRicercaFragment.this.getActivity(),R.layout.row_custom_itinerari,myList);
-        listviewRisultatiItinerari.setAdapter(myAdapter);
-*/
+                Bundle b = new Bundle();
+                b.putParcelable("itinerario", (Itinerario) myList.get(i));
+                b.putBoolean("ifRicerca", true);
+                b.putParcelableArrayList("itinerari", itinerari);
+                anteprimaItinerarioFragment.setArguments(b);
+
+                // Set new fragment on screen
+                MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
+                home.setFragment(anteprimaItinerarioFragment, "Anteprima Itinerario");
+            }
+
+            @Override
+            public void onItemLongClick(CardItemView cardItemView, int i) {
+
+            }
+
+        });
+
+
         return view;
     }
 
-//prelevare il bundle e stampare la lista..... (copiare da anteprimaitinerariofragment)
 }

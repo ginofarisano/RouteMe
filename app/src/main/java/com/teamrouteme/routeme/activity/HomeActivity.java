@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -19,6 +20,21 @@ import com.teamrouteme.routeme.fragment.ListaDesideriFragment;
 import com.teamrouteme.routeme.fragment.CreaItinerarioFragment;
 import com.teamrouteme.routeme.fragment.MieiItinerariFragment;
 import com.teamrouteme.routeme.fragment.ProfiloFragment;
+import com.teamrouteme.routeme.utility.JsonReader;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.HashMap;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 import it.neokree.materialnavigationdrawer.elements.MaterialAccount;
@@ -45,11 +61,28 @@ public class HomeActivity extends MaterialNavigationDrawer {
 
         //Caricare immagini copertina e profilo se loggati con facebook
 
+        //is a facebook login
+        if(currentUser.get("authData")!=null){
+            HashMap<Object,Object> fb1= ( HashMap<Object,Object>)currentUser.get("authData");
+            HashMap<Object,Object> fb2= ( HashMap<Object,Object>)fb1.get("facebook");
+
+            String fbId= (String)fb2.get("id");
+            String access_token = (String) fb2.get("access_token");
+
+
+            getProfileImage(fbId,access_token);
+
+
+        }
+
+
         profilo = BitmapFactory.decodeResource(getResources(), R.drawable.com_parse_ui_app_logo);
         copertina = BitmapFactory.decodeResource(getResources(), R.drawable.copertina);
 
         account = new MaterialAccount(this.getResources(),ParseUser.getCurrentUser().getEmail(),currentUser.getString("name"),profilo,copertina);
         this.addAccount(account);
+
+
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         this.addSection(newSection("Cerca Itinerario", R.drawable.search, new CercaItinerarioFragment()));
@@ -102,4 +135,97 @@ public class HomeActivity extends MaterialNavigationDrawer {
             return false;
         return true;
     }
+
+    public void getProfileImage(final String userFacebookId, final String access_token){
+
+        new AsyncTask<Void, Void, Bitmap[]>()
+        {
+            @Override
+            protected Bitmap[] doInBackground(Void... params)
+            {
+
+                Bitmap [] bitmaps = new Bitmap[2];
+                // safety check
+                if (userFacebookId == null)
+                    return null;
+
+                String urlProfile = String.format(
+                        "https://graph.facebook.com/%s/picture?type=large",
+                        userFacebookId);
+
+
+                String urlCover = String.format(
+                        "https://graph.facebook.com/%s?fields=cover&access_token=%s",
+                        userFacebookId,access_token);
+
+
+                // you'll need to wrap the two method calls
+                // which follow in try-catch-finally blocks
+                // and remember to close your input stream
+
+                InputStream inputStream = null;
+                try {
+                    inputStream = new URL(urlProfile).openStream();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+                bitmaps[0] = BitmapFactory.decodeStream(inputStream);
+
+
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    String urlFinalCover =  (String) ((JSONObject)((JSONObject)JsonReader.readJsonFromUrl(urlCover)).get("cover")).get("source");
+
+                    try {
+                        inputStream = new URL(urlFinalCover).openStream();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    bitmaps[1] = BitmapFactory.decodeStream(inputStream);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+                return bitmaps;
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap[] bitmaps)
+            {
+                // safety check
+                if (bitmaps != null
+                        && !isChangingConfigurations()
+                        && !isFinishing()){
+
+                    account.setPhoto(bitmaps[0]);
+                    account.setBackground(bitmaps[1]);
+
+                }
+                // do what you need to do with the bitmap :)
+            }
+        }.execute();
+
+
+    }
+
 }
+

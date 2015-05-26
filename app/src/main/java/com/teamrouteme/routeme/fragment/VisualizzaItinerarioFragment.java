@@ -59,6 +59,7 @@ public class VisualizzaItinerarioFragment extends Fragment implements LocationLi
     private Itinerario itinerario;
     private static View view;
     private Button btnIndietro;
+    private boolean itinerariScaricati = false;
 
     public VisualizzaItinerarioFragment(){
         // Required empty public constructor
@@ -87,6 +88,7 @@ public class VisualizzaItinerarioFragment extends Fragment implements LocationLi
 
         if(bundle != null) {
             itinerario = (Itinerario) bundle.get("itinerario");
+            itinerariScaricati = bundle.getBoolean("itinerariScaricati");
             Log.d("","Nome itinerario ricevuto: "+ itinerario.getNome());
             Log.d("","Descrizione itinerario ricevuto: "+ itinerario.getDescrizione());
             Log.d("","Citta itinerario ricevuto: "+ itinerario.getCitta());
@@ -117,14 +119,25 @@ public class VisualizzaItinerarioFragment extends Fragment implements LocationLi
         btnIndietro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment anteprimaItinerarioFragment = new AnteprimaMieiItinerariFragment();
 
-                Bundle b = new Bundle();
-                b.putParcelable("itinerario",itinerario);
-                anteprimaItinerarioFragment.setArguments(b);
-                // Set new fragment on screen
-                MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
-                home.setFragment(anteprimaItinerarioFragment, "Anteprima Itinerario");
+                if(itinerariScaricati){
+                    Fragment anteprimaItinerariScaricatiFragment = new AnteprimaItinerariScaricatiFragment();
+                    Bundle b = new Bundle();
+                    b.putParcelable("itinerario", itinerario);
+                    anteprimaItinerariScaricatiFragment.setArguments(b);
+                    // Set new fragment on screen
+                    MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
+                    home.setFragment(anteprimaItinerariScaricatiFragment, "Anteprima Itinerario");
+                }
+                else {
+                    Fragment anteprimaMieiItinerariFragment = new AnteprimaMieiItinerariFragment();
+                    Bundle b = new Bundle();
+                    b.putParcelable("itinerario", itinerario);
+                    anteprimaMieiItinerariFragment.setArguments(b);
+                    // Set new fragment on screen
+                    MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
+                    home.setFragment(anteprimaMieiItinerariFragment, "Anteprima Itinerario");
+                }
             }
         });
 

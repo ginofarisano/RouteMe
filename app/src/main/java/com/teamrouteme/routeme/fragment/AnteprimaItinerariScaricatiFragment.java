@@ -141,6 +141,7 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
 
                                     Bundle b = new Bundle();
                                     b.putParcelable("itinerario", itinerario);
+                                    b.putBoolean("itinerariScaricati", true);
                                     visualizzaItinerarioFragment.setArguments(b);
 
                                     // Set new fragment on screen

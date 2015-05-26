@@ -117,7 +117,7 @@ public class VisualizzaItinerarioFragment extends Fragment implements LocationLi
         btnIndietro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment anteprimaItinerarioFragment = new AnteprimaItinerarioFragment();
+                Fragment anteprimaItinerarioFragment = new AnteprimaMieiItinerariFragment();
 
                 Bundle b = new Bundle();
                 b.putParcelable("itinerario",itinerario);

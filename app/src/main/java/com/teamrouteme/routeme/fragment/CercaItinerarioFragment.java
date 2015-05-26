@@ -276,7 +276,6 @@ public class CercaItinerarioFragment extends Fragment {
                                 closeKeyboard(getActivity(), autoCompleteCitta.getWindowToken());
 
                                 b.putParcelableArrayList("itinerari", (ArrayList<Itinerario>) mL);
-                                b.putBoolean("ifRicerca", true);
                                 risultatiRicercaFragment.setArguments(b);
                                 // Set new fragment on screen
                                 MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();

@@ -24,8 +24,6 @@ public class RisultatiRicercaFragment extends Fragment {
 
     private ArrayList<Itinerario> itinerari;
     private MaterialListView listviewRisultatiItinerari;
-    private List myList;
-    private boolean ifRicerca = false;
     private Button btnIndietro;
 
     public RisultatiRicercaFragment() {
@@ -41,11 +39,9 @@ public class RisultatiRicercaFragment extends Fragment {
 
         Bundle b = getArguments();
         if(b != null) {
-            itinerari = (ArrayList<Itinerario>) b.get("itinerari");
-            ifRicerca = b.getBoolean("ifRicerca");
+            itinerari = b.getParcelableArrayList("itinerari");
         }
 
-        if(ifRicerca){
             btnIndietro = (Button) view.findViewById(R.id.btn_indietro);
             btnIndietro.setVisibility(View.VISIBLE);
 
@@ -58,17 +54,12 @@ public class RisultatiRicercaFragment extends Fragment {
                     home.setFragment(cercaItinerarioFragment, "Cerca Itinerario");
                 }
             });
-        }
+
 
         listviewRisultatiItinerari = (MaterialListView) view.findViewById(R.id.material_listview);
 
-        myList = new ArrayList<Itinerario>();
-
-        for (int i=0;i<itinerari.size();i++)
-            myList.add(i,(Itinerario)itinerari.get(i));
-
-        for (int i = 0; i < myList.size(); i++) {
-            Itinerario it = (Itinerario) myList.get(i);
+        for (int i = 0; i < itinerari.size(); i++) {
+            Itinerario it = itinerari.get(i);
             CustomCard card = new CustomCard(getActivity().getApplicationContext());
             card.setDescription(it.getDescrizione());
             card.setTitle(it.getNome());
@@ -84,17 +75,16 @@ public class RisultatiRicercaFragment extends Fragment {
                 CardView c = (CardView) cardItemView.getChildAt(0);
                 c.setBackgroundColor(getResources().getColor(R.color.testo));
                 // Create new fragment
-                Fragment anteprimaItinerarioFragment = new AnteprimaItinerarioFragment();
+                Fragment anteprimaCercaItinerarioFragment = new AnteprimaCercaItinerarioFragment();
 
                 Bundle b = new Bundle();
-                b.putParcelable("itinerario", (Itinerario) myList.get(i));
-                b.putBoolean("ifRicerca", true);
+                b.putParcelable("itinerario", (Itinerario) itinerari.get(i));
                 b.putParcelableArrayList("itinerari", itinerari);
-                anteprimaItinerarioFragment.setArguments(b);
+                anteprimaCercaItinerarioFragment.setArguments(b);
 
                 // Set new fragment on screen
                 MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
-                home.setFragment(anteprimaItinerarioFragment, "Anteprima Itinerario");
+                home.setFragment(anteprimaCercaItinerarioFragment, "Anteprima Itinerario");
             }
 
             @Override

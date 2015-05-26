@@ -18,12 +18,18 @@ package com.teamrouteme.routeme.fragment;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
 
 import com.dexafree.materialList.controller.RecyclerItemClickListener;
+import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.model.CardItemView;
 import com.dexafree.materialList.view.MaterialListView;
 import com.parse.FindCallback;
@@ -53,7 +59,7 @@ public class MieiItinerariFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-        View view = inflater.inflate(R.layout.fragment_miei_itinerari, container, false);
+        final View view = inflater.inflate(R.layout.fragment_miei_itinerari, container, false);
 
         listView = (MaterialListView) view.findViewById(R.id.material_listview);
 
@@ -109,8 +115,9 @@ public class MieiItinerariFragment extends Fragment {
                     for (int i = 0; i < myList.size(); i++) {
                         Itinerario it = (Itinerario) myList.get(i);
                         CustomCard card = new CustomCard(getActivity().getApplicationContext());
-                        card.setDescription(it.getDescrizione());
                         card.setTitle(it.getNome());
+                        card.setDescription(it.getDescrizione());
+                        card.setListTags(it.getTags());
                         card.setRatingBar(2);
                         listView.add(card);
                     }
@@ -123,10 +130,13 @@ public class MieiItinerariFragment extends Fragment {
 
         });
 
-        listView.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener(){
+        listView.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(CardItemView cardItemView, int i) {
                 // Create new fragment
+
+                CardView c = (CardView)cardItemView.getChildAt(0);
+                c.setBackgroundColor(getResources().getColor(R.color.testo));
                 Fragment anteprimaItinerarioFragment = new AnteprimaItinerarioFragment();
 
                 Bundle b = new Bundle();
@@ -140,10 +150,10 @@ public class MieiItinerariFragment extends Fragment {
 
             @Override
             public void onItemLongClick(CardItemView cardItemView, int i) {
-
             }
 
         });
+
 
         return view;
 

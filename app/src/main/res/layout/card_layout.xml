@@ -13,6 +13,7 @@
 
         <!--YOUR UI ELEMENTS.-->
         <LinearLayout
+            android:id="@+id/cardLinear"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -22,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#000"
                 android:textSize="10pt"
-                android:id="@+id/titleTextView"/>
+                android:id="@+id/nomeItinerarioCard"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -31,7 +32,16 @@
                 android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"
                 android:textSize="8pt"
-                android:id="@+id/descriptionTextView"/>
+                android:id="@+id/descrizioneItinerarioCard"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="#000"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
+                android:textSize="8pt"
+                android:id="@+id/tagsListCard"/>
 
             <RatingBar
                 android:id="@+id/ratingBarMieiItinerariCustom"

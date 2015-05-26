@@ -27,7 +27,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Nome itinerario"
-                    android:id="@+id/nomeItinerario" />
+                    android:id="@+id/nomeItinerarioCard" />
 
             </LinearLayout>
 

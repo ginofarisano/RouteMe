@@ -153,12 +153,16 @@ public class HomeActivity extends MaterialNavigationDrawer {
                         "https://graph.facebook.com/%s/picture?type=large",
                         userFacebookId);
 
+                /*
+
+                decomment this code for view cover's image
 
                 String urlCover = String.format(
                         "https://graph.facebook.com/%s?fields=cover&access_token=%s",
                         userFacebookId,access_token);
 
 
+                 */
                 // you'll need to wrap the two method calls
                 // which follow in try-catch-finally blocks
                 // and remember to close your input stream
@@ -179,6 +183,10 @@ public class HomeActivity extends MaterialNavigationDrawer {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                /*
+
+                decomment this code for view cover's image
 
                 try {
                     String urlFinalCover =  (String) ((JSONObject)((JSONObject)JsonReader.readJsonFromUrl(urlCover)).get("cover")).get("source");
@@ -204,6 +212,8 @@ public class HomeActivity extends MaterialNavigationDrawer {
                     e.printStackTrace();
                 }
 
+                */
+
 
                 return bitmaps;
             }
@@ -212,7 +222,9 @@ public class HomeActivity extends MaterialNavigationDrawer {
             protected void onPostExecute(Bitmap[] bitmaps)
             {
                 // safety check
-                if (bitmaps != null
+                if (bitmaps[0] != null
+                        //decomment this code for view cover's image
+                        //&& bitmaps[1] != nul
                         && !isChangingConfigurations()
                         && !isFinishing()){
 

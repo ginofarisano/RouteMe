@@ -64,8 +64,6 @@ public class HomeActivity extends MaterialNavigationDrawer {
 
         currentUser = ParseUser.getCurrentUser();
 
-        //Caricare immagini copertina e profilo se loggati con facebook
-
         //is a facebook login
         if(currentUser.get("authData")!=null){
             HashMap<Object,Object> socialNetwork= ( HashMap<Object,Object>)currentUser.get("authData");
@@ -81,13 +79,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
                 getProfileImage(fbId,access_token);
             }
 
-
-
-
-
-
         }
-
 
         profilo = BitmapFactory.decodeResource(getResources(), R.drawable.com_parse_ui_app_logo);
         copertina = BitmapFactory.decodeResource(getResources(), R.drawable.copertina);
@@ -180,6 +172,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
                 // and remember to close your input stream
 
                 InputStream inputStream = null;
+
                 try {
                     inputStream = new URL(urlProfile).openStream();
                 } catch (IOException e) {

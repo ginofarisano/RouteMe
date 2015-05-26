@@ -1,7 +1,9 @@
 package com.teamrouteme.routeme.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.IBinder;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -44,7 +47,7 @@ public class CercaItinerarioFragment extends Fragment {
     private ClipRevealFrame menuLayout;
     private ArcLayout arcLayout;
     private Button centerItem;
-    private  ArrayList<String> listTags = new ArrayList<>();
+    private  ArrayList<String> listTags;
 
     private RangeSeekBar<Integer> rangeSeekBar;
     private LinearLayout seekbar_placeholder_layout;
@@ -68,6 +71,8 @@ public class CercaItinerarioFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_cerca_itinerario, container, false);
 
+        listTags = new ArrayList<>();
+
         rootLayout = view.findViewById(R.id.layout_fragment_cerca_itinerario);
         menuLayout = (ClipRevealFrame) view.findViewById(R.id.menu_layout);
         arcLayout = (ArcLayout) view.findViewById(R.id.arc_layout);
@@ -84,6 +89,7 @@ public class CercaItinerarioFragment extends Fragment {
         autoCompleteCitta.setHint("Inserisci città");
         autoCompleteCitta.setThreshold(3);
         autoCompleteCitta.setAdapter(autoCompleteAdapter);
+        autoCompleteCitta.setText("");
 
         final TextWatcher textChecker = new TextWatcher() {
 
@@ -120,7 +126,7 @@ public class CercaItinerarioFragment extends Fragment {
                             for(Map.Entry<String,ParseObject> entry : listToSet.entrySet()){
 
                                 //Log.d("Città", (String) parseObject.getValue().get("citta"));
-                                Log.e("Città", (String) entry.getValue().getString("citta"));
+                                Log.d("Città", (String) entry.getValue().getString("citta"));
                                 //autoCompleteAdapter.add((String) parseObject.getString("citta"));
                                 autoCompleteAdapter.add(entry.getValue().getString("citta"));
 
@@ -189,13 +195,9 @@ public class CercaItinerarioFragment extends Fragment {
                     }
                     //Istanzia dinamicamente i bottoni per i tag e gli assegna il listener
                     for (int i = 0; i < tags.size(); i++) {
-                        // Activity a = HomeActivity.this.getApplicationContext();
-                        // Log.e("", ""+a);
                         ArcLayoutButton b = new ArcLayoutButton(getActivity());
                         b.setButtonAttributes(tags.get(i), colours.get(i % colours.size()));
                         b.setOnTouchListener(new tagButtonOnClick());
-                        if (listTags.contains(b.getText()))
-                            b.setPressed(true);
                         arcLayout.addView(b);
                     }
 
@@ -271,7 +273,10 @@ public class CercaItinerarioFragment extends Fragment {
                                 for(int i=0;i<myList.size();i++)
                                     mL.add(i,(Itinerario)myList.get(i));
 
+                                closeKeyboard(getActivity(), autoCompleteCitta.getWindowToken());
+
                                 b.putParcelableArrayList("itinerari", (ArrayList<Itinerario>) mL);
+                                b.putBoolean("ifRicerca", true);
                                 risultatiRicercaFragment.setArguments(b);
                                 // Set new fragment on screen
                                 MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
@@ -333,6 +338,11 @@ public class CercaItinerarioFragment extends Fragment {
             }
             return  true;
         }
+    }
+
+    public static void closeKeyboard(Context c, IBinder windowToken) {
+        InputMethodManager mgr = (InputMethodManager) c.getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(windowToken, 0);
     }
 
 }

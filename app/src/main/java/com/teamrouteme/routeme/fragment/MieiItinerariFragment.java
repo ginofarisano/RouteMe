@@ -19,17 +19,12 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
 
 import com.dexafree.materialList.controller.RecyclerItemClickListener;
-import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.model.CardItemView;
 import com.dexafree.materialList.view.MaterialListView;
 import com.parse.FindCallback;
@@ -59,7 +54,7 @@ public class MieiItinerariFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-        final View view = inflater.inflate(R.layout.fragment_miei_itinerari, container, false);
+        final View view = inflater.inflate(R.layout.fragment_lista_itinerari, container, false);
 
         listView = (MaterialListView) view.findViewById(R.id.material_listview);
 

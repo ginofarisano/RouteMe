@@ -1,6 +1,7 @@
 package com.teamrouteme.routeme.activity;
 
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,6 +23,7 @@ import com.teamrouteme.routeme.fragment.ListaDesideriFragment;
 import com.teamrouteme.routeme.fragment.CreaItinerarioFragment;
 import com.teamrouteme.routeme.fragment.MieiItinerariFragment;
 import com.teamrouteme.routeme.fragment.ProfiloFragment;
+import com.teamrouteme.routeme.fragment.RisultatiRicercaFragment;
 import com.teamrouteme.routeme.utility.JsonReader;
 
 import org.apache.http.HttpResponse;
@@ -53,6 +55,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
     private Bitmap profilo;
     private Bitmap copertina;
     private View mDecorView;
+    private MaterialSection cercaItinerarioSection;
 
     @Override
     public void init(Bundle bundle) {
@@ -117,6 +120,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
                 HomeActivity.this.finish();
             }
         }));
+
 
     }
 

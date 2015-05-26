@@ -35,7 +35,7 @@ public class CustomCard extends SimpleCard {
 
     public void setListTags(ArrayList<String> ar) {
         this.mlistTagString = ar;
-        BusProvider.dataSetChanged();
+        //BusProvider.dataSetChanged();
     }
 
     public ArrayList<String> getListTags(){

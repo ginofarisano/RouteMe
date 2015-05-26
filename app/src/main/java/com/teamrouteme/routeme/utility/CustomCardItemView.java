@@ -52,9 +52,10 @@ public class CustomCardItemView extends CardItemView<CustomCard>{
 
     public void setListTags(ArrayList<String> listTags){
         mListTags = (TextView)findViewById(R.id.tagsListCard);
-        mListTags.append("Tags: ");
+        String tags = "Tags: ";
         for(String s : listTags)
-            mListTags.append(s + " ");
+            tags = tags+ " "+s;
+        mListTags.setText(tags);
     }
 
     public void setRatingBar(float valutazione){

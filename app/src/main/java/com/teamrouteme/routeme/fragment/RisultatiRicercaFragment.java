@@ -2,9 +2,11 @@ package com.teamrouteme.routeme.fragment;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.dexafree.materialList.controller.RecyclerItemClickListener;
 import com.dexafree.materialList.model.CardItemView;
@@ -23,6 +25,8 @@ public class RisultatiRicercaFragment extends Fragment {
     private ArrayList<Itinerario> itinerari;
     private MaterialListView listviewRisultatiItinerari;
     private List myList;
+    private boolean ifRicerca = false;
+    private Button btnIndietro;
 
     public RisultatiRicercaFragment() {
         // Required empty public constructor
@@ -33,12 +37,28 @@ public class RisultatiRicercaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_miei_itinerari, container, false);
+        View view = inflater.inflate(R.layout.fragment_lista_itinerari, container, false);
 
         Bundle b = getArguments();
         if(b != null) {
             itinerari = (ArrayList<Itinerario>) b.get("itinerari");
-            }
+            ifRicerca = b.getBoolean("ifRicerca");
+        }
+
+        if(ifRicerca){
+            btnIndietro = (Button) view.findViewById(R.id.btn_indietro);
+            btnIndietro.setVisibility(View.VISIBLE);
+
+            btnIndietro.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Fragment cercaItinerarioFragment = new CercaItinerarioFragment();
+                    // Set new fragment on screen
+                    MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
+                    home.setFragment(cercaItinerarioFragment, "Cerca Itinerario");
+                }
+            });
+        }
 
         listviewRisultatiItinerari = (MaterialListView) view.findViewById(R.id.material_listview);
 
@@ -60,6 +80,9 @@ public class RisultatiRicercaFragment extends Fragment {
         listviewRisultatiItinerari.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener(){
             @Override
             public void onItemClick(CardItemView cardItemView, int i) {
+
+                CardView c = (CardView) cardItemView.getChildAt(0);
+                c.setBackgroundColor(getResources().getColor(R.color.testo));
                 // Create new fragment
                 Fragment anteprimaItinerarioFragment = new AnteprimaItinerarioFragment();
 

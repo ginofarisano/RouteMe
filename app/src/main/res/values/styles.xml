@@ -39,6 +39,8 @@
         <item name="drawerColor">#fff</item>
         <item name="sectionStyle">@style/MySectionTheme</item>
         <item name="singleAccount">true</item>
+        <item name="learningPattern">false</item>
+        <item name="toolbarElevation">true</item>
     </style>
 
     <style name="Item" parent="">

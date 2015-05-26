@@ -1,8 +1,10 @@
 package com.teamrouteme.routeme.fragment;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -22,6 +24,7 @@ import com.ogaclejapan.arclayout.ArcLayout;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.teamrouteme.routeme.activity.HomeActivity;
 import com.teamrouteme.routeme.adapter.CustomAdapterListaItinerari;
 import com.teamrouteme.routeme.adapter.CustomAutoCompleteView;
 import com.teamrouteme.routeme.R;
@@ -85,7 +88,6 @@ public class CercaItinerarioFragment extends Fragment {
 
         seekbar_placeholder_layout = (LinearLayout) view.findViewById(R.id.seekbar_placeholder);
 
-        listviewRisultatiItinerari = (ListView) view.findViewById(R.id.listviewRisultatiItinerari);
 
         autoCompleteAdapter = new ArrayAdapter<String>(CercaItinerarioFragment.this.getActivity(), android.R.layout.simple_dropdown_item_1line);
         autoCompleteAdapter.setNotifyOnChange(true); // This is so I don't have to manually sync whenever changed
@@ -166,8 +168,6 @@ public class CercaItinerarioFragment extends Fragment {
         // Add to layout
         seekbar_placeholder_layout.addView(rangeSeekBar);
 
-        Log.e("",""+listTags.size());
-
         //Setta il listener per il bottone di apertura dei tag
         ArrayList<View> vL = new ArrayList<View>();
         view.findViewById(R.id.open_tags).setOnClickListener(new MyOnOpenTagsListener(rootLayout, menuLayout, arcLayout, centerItem, vL));
@@ -197,7 +197,9 @@ public class CercaItinerarioFragment extends Fragment {
                     }
                     //Istanzia dinamicamente i bottoni per i tag e gli assegna il listener
                     for (int i = 0; i < tags.size(); i++) {
-                        ArcLayoutButton b = new ArcLayoutButton(getActivity().getApplicationContext());
+                       // Activity a = HomeActivity.this.getApplicationContext();
+                       // Log.e("", ""+a);
+                        ArcLayoutButton b = new ArcLayoutButton(getActivity());
                         b.setButtonAttributes(tags.get(i), colours.get(i % colours.size()));
                         b.setOnTouchListener(new tagButtonOnClick());
                         if (listTags.contains(b.getText()))
@@ -217,6 +219,17 @@ public class CercaItinerarioFragment extends Fragment {
 
         btn_cercaItinerario = (Button) view.findViewById(R.id.btn_cercaItinerario);
 
+    /*    btn_cercaItinerario.setOnClickListener(new View.OnClickListener(){
+            Fragment RisultatiRicercaFragment = new RisultatiRicercaFragment();
+            Bundle b = new Bundle();
+
+            b.putParcelable("itinerario",(Itinerario) myList.get(position));
+            anteprimaItinerarioFragment.setArguments(b);
+
+
+        });
+*/
+
         btn_cercaItinerario.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
@@ -225,21 +238,26 @@ public class CercaItinerarioFragment extends Fragment {
                 int durataMin = rangeSeekBar.getSelectedMinValue();
                 int durataMax = rangeSeekBar.getSelectedMaxValue();
 
+                Log.d("Min", ""+durataMin);
+                Log.d("Max", ""+durataMax);
+
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("itinerario");
-                ParseQuery<ParseObject> listQuery = query;
+                //ParseQuery<ParseObject> listQuery = query;
 
                 if(citta.length()!=0)
                     query = query.whereEqualTo("citta", citta);
 
                 query = query.whereGreaterThanOrEqualTo("durata_min", durataMin);
                 query = query.whereLessThanOrEqualTo("durata_max", durataMax);
-                query = query.whereContainedIn("tags", listTags);
+
+                if(listTags.size()!=0)
+                    query = query.whereContainedIn("tags", listTags);
 
                 query.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> list, com.parse.ParseException e) {
                         if (e == null) {
-                            //Log.e("mylist", ""+myList.size());
+                            Log.d("NumRis", ""+list.size());
                             myList = new LinkedList();
                             Itinerario itinerario;
 
@@ -261,24 +279,31 @@ public class CercaItinerarioFragment extends Fragment {
                                 }
                                 itinerario.setTappeId(tappe_objectId);
 
-                                String tappa_objectId;
-
-                           /* for (ParseObject tappa_object : (ArrayList<ParseObject>) parseObject.get("tappe")) {
-                                tappa_objectId = (String) tappa_object.getObjectId();
-                                tappa = returnDataCreatesStagesToParse(tappa_objectId);
-                                tappe.add(tappa);
-                            }*/
-
                                 myList.add(itinerario);
 
                             }
                             if (myList.size()==0)
                                 Toast.makeText(getActivity().getBaseContext(), "Nessuna corrispondenza trovata", Toast.LENGTH_SHORT).show();
                             else{
+                                Fragment risultatoRicercaFragment = new RisultatiRicercaFragment();
+                                Bundle b = new Bundle();
+
+                                ArrayList<Itinerario> mL = new ArrayList<Itinerario>();
+                                for(int i=0;i<myList.size();i++)
+                                    mL.add(i,(Itinerario)myList.get(i));
+
+                                b.putParcelableArrayList("itinerari", (ArrayList<Itinerario>) mL);
+                                risultatoRicercaFragment.setArguments(b);
+                                // Set new fragment on screen
+                                MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
+                                home.setFragment(risultatoRicercaFragment, "Risultato Ricerca");
+
+
+
+/*
                                 CustomAdapterListaItinerari myAdapter = new CustomAdapterListaItinerari(CercaItinerarioFragment.this.getActivity(),R.layout.row_custom_itinerari,myList);
-                                //listviewRisultatiItinerari.setAdapter(null);
                                 listviewRisultatiItinerari.setAdapter(myAdapter);
-                            }
+*/                            }
 
                         } else {
                             //error
@@ -292,7 +317,7 @@ public class CercaItinerarioFragment extends Fragment {
 
             }
         });
-
+/*
         listviewRisultatiItinerari.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
@@ -309,7 +334,7 @@ public class CercaItinerarioFragment extends Fragment {
                 home.setFragment(anteprimaItinerarioFragment, "Anteprima Itinerario");
             }
         });
-
+*/
         return view;
     }
 

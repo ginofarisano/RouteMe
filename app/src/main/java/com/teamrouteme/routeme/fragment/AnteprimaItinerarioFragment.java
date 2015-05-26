@@ -3,6 +3,7 @@ package com.teamrouteme.routeme.fragment;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,9 @@ public class AnteprimaItinerarioFragment extends Fragment{
     private Itinerario itinerario;
     private ArrayList<String> tappeId;
     private Button btnIndietro;
+    private boolean ifRicerca;
+    private ArrayList<Itinerario> itinerari;
+    private Button btnAvviaItinerario, btnAcquistaItinerario, btnDesideraItinerario;
 
     public AnteprimaItinerarioFragment(){
         // Required empty public constructor
@@ -54,6 +58,9 @@ public class AnteprimaItinerarioFragment extends Fragment{
         Bundle b = getArguments();
         if(b != null) {
             itinerario = (Itinerario) b.get("itinerario");
+            ifRicerca = b.getBoolean("ifRicerca");
+            if(ifRicerca)
+                itinerari = b.getParcelableArrayList("itinerari");
             nomeItinerario = itinerario.getNome();
             tappeId = itinerario.getTappeId();
 
@@ -86,85 +93,122 @@ public class AnteprimaItinerarioFragment extends Fragment{
             }
         });
 
+        btnAvviaItinerario = (Button) view.findViewById(R.id.btnAvviaItinerario);
+        btnAcquistaItinerario = (Button) view.findViewById(R.id.btnAcquistaItinerario);
+        btnDesideraItinerario = (Button) view.findViewById(R.id.btn_desidera);
 
-        Button btnAvviaItinerario = (Button) view.findViewById(R.id.btnAvviaItinerario);
+        if(ifRicerca){
+            btnAvviaItinerario.setVisibility(View.GONE);
+            btnAcquistaItinerario.setVisibility(View.VISIBLE);
+            btnDesideraItinerario.setVisibility(View.VISIBLE);
 
-        btnAvviaItinerario.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-
-                final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
-                        "Caricamento in corso...", true);
-
-                final ArrayList<Tappa> alT = new ArrayList<Tappa>();
-
-                for(int i=0; i<tappeId.size(); i++) {
-
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery("tappa");
-
-                    query.whereEqualTo("objectId", tappeId.get(i));
-
-                    query.findInBackground(new FindCallback<ParseObject>() {
-
-                        @Override
-                        public void done(List<ParseObject> list, com.parse.ParseException e) {
-
-                            if (e == null) {
-
-                                Log.d("Tappa: ", "Retrieved " + list.size());
-
-                                Tappa t = new Tappa();
-
-                                for (ParseObject parseObject : list) {
-                                    t.setNome((String) parseObject.get("nome"));
-                                    t.setDescrizione((String) parseObject.get("descrizione"));
-                                    t.setCoordinate(parseObject.getParseGeoPoint("location"));
-
-                                    ArrayList<String> tappe_objectId = new ArrayList<String>();
-
-                                    Log.d("", "Nome tappa: " + t.getNome());
-                                    Log.d("", "Descrizione tappa: " + t.getDescrizione());
-                                    Log.d("", "Location tappa: " + t.getCoordinate());
-
-                                    alT.add(t);
-
-                                }
-
-                                if(alT.size()==tappeId.size()){
-
-                                    itinerario.setTappe(alT);
-
-                                    dialog.hide();
-
-                                    // Avvia la navigazione dell'itinerario
-                                    // Create new fragment
-                                    Fragment visualizzaItinerarioFragment = new VisualizzaItinerarioFragment();
-
-                                    Bundle b = new Bundle();
-                                    b.putParcelable("itinerario",itinerario);
-                                    visualizzaItinerarioFragment.setArguments(b);
-
-                                    // Set new fragment on screen
-                                    MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
-                                    home.setFragment(visualizzaItinerarioFragment, "Naviga Itinerario");
-                                }
-
-                            } else {
-                                Log.d("Itinerari", "Error: " + e.getMessage());
-                            }
-                        }
-                    });
+            btnAcquistaItinerario.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //GESTIRE BOTTONE PER EFFETTUARE L'ACQUISTO
                 }
-            }
-        });
+            });
+
+            btnDesideraItinerario.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String idItinerario = itinerario.getId();
+                    //RECUPERARE ID UTENTE ED AGGIUNGERE AL DB IN UNA TABELLA IDITINERARIO/IDUTENTE LA RELAZIONE
+                }
+            });
+        }
+        else {
+            btnAvviaItinerario.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
+                            "Caricamento in corso...", true);
+
+                    final ArrayList<Tappa> alT = new ArrayList<Tappa>();
+
+                    for (int i = 0; i < tappeId.size(); i++) {
+
+                        ParseQuery<ParseObject> query = ParseQuery.getQuery("tappa");
+
+                        query.whereEqualTo("objectId", tappeId.get(i));
+
+                        query.findInBackground(new FindCallback<ParseObject>() {
+
+                            @Override
+                            public void done(List<ParseObject> list, com.parse.ParseException e) {
+
+                                if (e == null) {
+
+                                    Log.d("Tappa: ", "Retrieved " + list.size());
+
+                                    Tappa t = new Tappa();
+
+                                    for (ParseObject parseObject : list) {
+                                        t.setNome((String) parseObject.get("nome"));
+                                        t.setDescrizione((String) parseObject.get("descrizione"));
+                                        t.setCoordinate(parseObject.getParseGeoPoint("location"));
+
+                                        ArrayList<String> tappe_objectId = new ArrayList<String>();
+
+                                        Log.d("", "Nome tappa: " + t.getNome());
+                                        Log.d("", "Descrizione tappa: " + t.getDescrizione());
+                                        Log.d("", "Location tappa: " + t.getCoordinate());
+
+                                        alT.add(t);
+
+                                    }
+
+                                    if (alT.size() == tappeId.size()) {
+
+                                        itinerario.setTappe(alT);
+
+                                        dialog.hide();
+
+                                        // Avvia la navigazione dell'itinerario
+                                        // Create new fragment
+                                        Fragment visualizzaItinerarioFragment = new VisualizzaItinerarioFragment();
+
+                                        Bundle b = new Bundle();
+                                        b.putParcelable("itinerario", itinerario);
+                                        visualizzaItinerarioFragment.setArguments(b);
+
+                                        // Set new fragment on screen
+                                        MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
+                                        home.setFragment(visualizzaItinerarioFragment, "Naviga Itinerario");
+                                    }
+
+                                } else {
+                                    Log.d("Itinerari", "Error: " + e.getMessage());
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
 
         btnIndietro = (Button) view.findViewById(R.id.btn_indietro);
         btnIndietro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment mieiItinerariFragment = new MieiItinerariFragment();
-                // Set new fragment on screen
-                MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
-                home.setFragment(mieiItinerariFragment, "Miei Itinerari");
+
+                if(ifRicerca){
+                    Fragment risultatiRicercaFragment = new RisultatiRicercaFragment();
+
+                    Bundle b = new Bundle();
+                    b.putParcelableArrayList("itinerari",itinerari);
+                    risultatiRicercaFragment.setArguments(b);
+
+                    // Set new fragment on screen
+                    MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
+                    home.setFragment(risultatiRicercaFragment, "Risultato Ricerca");
+                }
+                else {
+                    Fragment mieiItinerariFragment = new MieiItinerariFragment();
+                    // Set new fragment on screen
+                    MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
+                    home.setFragment(mieiItinerariFragment, "Miei Itinerari");
+                }
             }
         });
 

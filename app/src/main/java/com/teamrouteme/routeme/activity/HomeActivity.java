@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -108,9 +110,6 @@ public class HomeActivity extends MaterialNavigationDrawer {
             }
         }));
 
-
-        enableToolbarElevation();
-
     }
 
     /*public void onWindowFocusChanged(boolean hasFocus) {
@@ -135,6 +134,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
             return false;
         return true;
     }
+
 
     public void getProfileImage(final String userFacebookId, final String access_token){
 
@@ -228,4 +228,3 @@ public class HomeActivity extends MaterialNavigationDrawer {
     }
 
 }
-

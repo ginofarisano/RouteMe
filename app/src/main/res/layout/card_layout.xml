@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.teamrouteme.routeme.utility.CustomCardItemView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MainLayout">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardView"
+        style="@style/MainCardView"
+        card_view:cardCornerRadius="@dimen/card_corner_radius">
+
+        <!--YOUR UI ELEMENTS.-->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="10pt"
+                android:id="@+id/titleTextView"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="#000"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
+                android:textSize="8pt"
+                android:id="@+id/descriptionTextView"/>
+
+            <RatingBar
+                android:id="@+id/ratingBarMieiItinerariCustom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                style="?android:attr/ratingBarStyleSmall" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</com.teamrouteme.routeme.utility.CustomCardItemView>

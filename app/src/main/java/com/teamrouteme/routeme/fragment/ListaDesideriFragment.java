@@ -59,7 +59,7 @@ public class ListaDesideriFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-        final View view = inflater.inflate(R.layout.fragment_miei_itinerari, container, false);
+        final View view = inflater.inflate(R.layout.fragment_lista_itinerari, container, false);
 
         listView = (MaterialListView) view.findViewById(R.id.material_listview);
 
@@ -114,11 +114,6 @@ public class ListaDesideriFragment extends Fragment {
 
                     dialog.hide();
 
-/*
-                    CustomAdapterListaItinerari adapter = new CustomAdapterListaItinerari(MieiItinerariFragment.this.getActivity(), R.layout.row_custom_itinerari_creati, myList);
-
-
-                    listView.setAdapter(adapter);*/
                     for (int i = 0; i < myList.size(); i++) {
                         Itinerario it = (Itinerario) myList.get(i);
                         CustomCard card = new CustomCard(getActivity().getApplicationContext());
@@ -161,9 +156,7 @@ public class ListaDesideriFragment extends Fragment {
 
         });
 
-
         return view;
-
 
     }
 }

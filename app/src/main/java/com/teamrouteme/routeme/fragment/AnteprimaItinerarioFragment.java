@@ -203,6 +203,7 @@ public class AnteprimaItinerarioFragment extends Fragment{
 
                     Bundle b = new Bundle();
                     b.putParcelableArrayList("itinerari",itinerari);
+                    b.putBoolean("ifRicerca", true);
                     risultatiRicercaFragment.setArguments(b);
 
                     // Set new fragment on screen

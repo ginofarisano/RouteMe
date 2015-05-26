@@ -1,10 +1,7 @@
 package com.teamrouteme.routeme.fragment;
 
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -12,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -24,8 +20,6 @@ import com.ogaclejapan.arclayout.ArcLayout;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.teamrouteme.routeme.activity.HomeActivity;
-import com.teamrouteme.routeme.adapter.CustomAdapterListaItinerari;
 import com.teamrouteme.routeme.adapter.CustomAutoCompleteView;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.bean.Itinerario;
@@ -34,12 +28,10 @@ import com.teamrouteme.routeme.utility.ClipRevealFrame;
 import com.teamrouteme.routeme.utility.MyOnOpenTagsListener;
 import com.teamrouteme.routeme.utility.ParseCall;
 import com.yahoo.mobile.client.android.util.RangeSeekBar;
-import com.yahoo.mobile.client.android.util.RangeSeekBar.OnRangeSeekBarChangeListener;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -56,17 +48,13 @@ public class CercaItinerarioFragment extends Fragment {
 
     private RangeSeekBar<Integer> rangeSeekBar;
     private LinearLayout seekbar_placeholder_layout;
-    private AutoCompleteTextView acmpCitta;
 
     private CustomAutoCompleteView autoCompleteCitta;
 
     private ArrayAdapter<String> autoCompleteAdapter;
 
-    private ParseCall parseCall;
-
     private Button btn_cercaItinerario;
 
-    private ListView listviewRisultatiItinerari;
 
     private List myList;
 
@@ -85,6 +73,7 @@ public class CercaItinerarioFragment extends Fragment {
         arcLayout = (ArcLayout) view.findViewById(R.id.arc_layout);
         centerItem = (Button) view.findViewById(R.id.center_item);
 
+        btn_cercaItinerario = (Button) view.findViewById(R.id.btn_cercaItinerario);
 
         seekbar_placeholder_layout = (LinearLayout) view.findViewById(R.id.seekbar_placeholder);
 
@@ -170,6 +159,9 @@ public class CercaItinerarioFragment extends Fragment {
 
         //Setta il listener per il bottone di apertura dei tag
         ArrayList<View> vL = new ArrayList<View>();
+        vL.add(rangeSeekBar);
+        vL.add(autoCompleteCitta);
+        vL.add(btn_cercaItinerario);
         view.findViewById(R.id.open_tags).setOnClickListener(new MyOnOpenTagsListener(rootLayout, menuLayout, arcLayout, centerItem, vL));
 
 
@@ -197,8 +189,8 @@ public class CercaItinerarioFragment extends Fragment {
                     }
                     //Istanzia dinamicamente i bottoni per i tag e gli assegna il listener
                     for (int i = 0; i < tags.size(); i++) {
-                       // Activity a = HomeActivity.this.getApplicationContext();
-                       // Log.e("", ""+a);
+                        // Activity a = HomeActivity.this.getApplicationContext();
+                        // Log.e("", ""+a);
                         ArcLayoutButton b = new ArcLayoutButton(getActivity());
                         b.setButtonAttributes(tags.get(i), colours.get(i % colours.size()));
                         b.setOnTouchListener(new tagButtonOnClick());
@@ -216,19 +208,6 @@ public class CercaItinerarioFragment extends Fragment {
 
             }
         });
-
-        btn_cercaItinerario = (Button) view.findViewById(R.id.btn_cercaItinerario);
-
-    /*    btn_cercaItinerario.setOnClickListener(new View.OnClickListener(){
-            Fragment RisultatiRicercaFragment = new RisultatiRicercaFragment();
-            Bundle b = new Bundle();
-
-            b.putParcelable("itinerario",(Itinerario) myList.get(position));
-            anteprimaItinerarioFragment.setArguments(b);
-
-
-        });
-*/
 
         btn_cercaItinerario.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -285,7 +264,7 @@ public class CercaItinerarioFragment extends Fragment {
                             if (myList.size()==0)
                                 Toast.makeText(getActivity().getBaseContext(), "Nessuna corrispondenza trovata", Toast.LENGTH_SHORT).show();
                             else{
-                                Fragment risultatoRicercaFragment = new RisultatiRicercaFragment();
+                                Fragment risultatiRicercaFragment = new RisultatiRicercaFragment();
                                 Bundle b = new Bundle();
 
                                 ArrayList<Itinerario> mL = new ArrayList<Itinerario>();
@@ -293,17 +272,12 @@ public class CercaItinerarioFragment extends Fragment {
                                     mL.add(i,(Itinerario)myList.get(i));
 
                                 b.putParcelableArrayList("itinerari", (ArrayList<Itinerario>) mL);
-                                risultatoRicercaFragment.setArguments(b);
+                                risultatiRicercaFragment.setArguments(b);
                                 // Set new fragment on screen
                                 MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
-                                home.setFragment(risultatoRicercaFragment, "Risultato Ricerca");
+                                home.setFragment(risultatiRicercaFragment, "Risultato Ricerca");
 
-
-
-/*
-                                CustomAdapterListaItinerari myAdapter = new CustomAdapterListaItinerari(CercaItinerarioFragment.this.getActivity(),R.layout.row_custom_itinerari,myList);
-                                listviewRisultatiItinerari.setAdapter(myAdapter);
-*/                            }
+                            }
 
                         } else {
                             //error
@@ -317,24 +291,7 @@ public class CercaItinerarioFragment extends Fragment {
 
             }
         });
-/*
-        listviewRisultatiItinerari.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                // Create new fragment
-                Fragment anteprimaItinerarioFragment = new AnteprimaItinerarioFragment();
 
-                Bundle b = new Bundle();
-                Itinerario it =(Itinerario) myList.get(position);
-                b.putParcelable("itinerario", it);
-                anteprimaItinerarioFragment.setArguments(b);
-
-                // Set new fragment on screen
-                MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
-                home.setFragment(anteprimaItinerarioFragment, "Anteprima Itinerario");
-            }
-        });
-*/
         return view;
     }
 

@@ -80,7 +80,7 @@ public class UploadItinerarioDialog extends DialogFragment{
         // Setup the new range seek bar
         rangeSeekBar = new RangeSeekBar<Integer>(getActivity());
         // Set the range
-        rangeSeekBar.setRangeValues(0, 10);
+        rangeSeekBar.setRangeValues(1, 10);
         rangeSeekBar.setSelectedMinValue(1);
         rangeSeekBar.setSelectedMaxValue(10);
 

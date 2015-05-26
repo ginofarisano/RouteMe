@@ -53,6 +53,7 @@ public class RisultatiRicercaFragment extends Fragment {
             card.setDescription(it.getDescrizione());
             card.setTitle(it.getNome());
             card.setRatingBar(2);
+            card.setListTags(it.getTags());
             listviewRisultatiItinerari.add(card);
         }
 

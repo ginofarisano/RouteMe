@@ -151,7 +151,7 @@ public class MieiItinerariFragment extends Fragment {
             @Override
             public void onItemLongClick(CardItemView cardItemView, int i) {
             }
-            
+
         });
 
 

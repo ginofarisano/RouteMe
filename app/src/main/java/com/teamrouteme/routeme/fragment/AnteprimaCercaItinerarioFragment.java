@@ -43,6 +43,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
     private ArrayList<Itinerario> itinerari;
     private Button btnAvviaItinerario, btnAcquistaItinerario, btnDesideraItinerario;
     private int queryCount;
+    private ParseObject listaDesideriObject, listaAcquistatiObject;
 
     public AnteprimaCercaItinerarioFragment(){
         // Required empty public constructor
@@ -117,6 +118,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
 
                 if (e == null) {
                     if (list.size() != 0) {
+                        listaAcquistatiObject = list.get(0);
                         btnAcquistaItinerario.setEnabled(false);
                         btnAcquistaItinerario.setText("Già tuo");
                     }
@@ -141,7 +143,9 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
 
                 if (e == null) {
                     if (list.size() != 0) {
+                        listaDesideriObject = list.get(0);
                         btnDesideraItinerario.setEnabled(false);
+                        btnDesideraItinerario.setText("Già cuoricino");
                     }
 
                     queryCount++;
@@ -163,6 +167,16 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
 
                 parseCall.buyRoute(idItinerario);
 
+                //UNA VOLTA EFFETTUATA L'OPERAZIONE DI PAGAMENTO VENGONO DISATTIVATI I BOTTONI
+
+                if(listaDesideriObject != null)
+                    listaDesideriObject.deleteInBackground();
+
+                btnAcquistaItinerario.setEnabled(false);
+                btnAcquistaItinerario.setText("Già tuo");
+
+                btnDesideraItinerario.setEnabled(false);
+                btnDesideraItinerario.setText("Già cuoricino");
 
             }
         });
@@ -174,6 +188,9 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                 ParseCall parseCall = new ParseCall();
 
                 parseCall.addWishList(idItinerario);
+
+                btnDesideraItinerario.setEnabled(false);
+                btnDesideraItinerario.setText("Già cuoricino");
             }
         });
 

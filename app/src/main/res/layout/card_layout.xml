@@ -13,6 +13,7 @@
 
         <!--YOUR UI ELEMENTS.-->
         <LinearLayout
+            android:id="@+id/cardLinear"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

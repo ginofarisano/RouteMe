@@ -15,23 +15,19 @@ import android.widget.TextView;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
-import com.teamrouteme.routeme.utility.ParseCall;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 
 /**
- * Created by daniele on 12/05/15.
+ * Created by massimo299 on 26/05/15.
  */
-public class AnteprimaMieiItinerariFragment extends Fragment{
+public class AnteprimaItinerariScaricatiFragment extends  Fragment{
 
     private View view;
     private String nomeItinerario;
@@ -43,7 +39,7 @@ public class AnteprimaMieiItinerariFragment extends Fragment{
     private ArrayList<Itinerario> itinerari;
     private Button btnAvviaItinerario;
 
-    public AnteprimaMieiItinerariFragment(){
+    public AnteprimaItinerariScaricatiFragment(){
         // Required empty public constructor
     }
 
@@ -62,7 +58,7 @@ public class AnteprimaMieiItinerariFragment extends Fragment{
             nomeItinerario = itinerario.getNome();
             tappeId = itinerario.getTappeId();
 
-            Log.d("","Nome itinerario ricevuto: "+ itinerario.getNome());
+            Log.d("", "Nome itinerario ricevuto: " + itinerario.getNome());
             Log.d("","Descrizione itinerario ricevuto: "+ itinerario.getDescrizione());
             Log.d("","Citta itinerario ricevuto: "+ itinerario.getCitta());
             Log.d("","Id itinerario ricevuto: "+ itinerario.getId());
@@ -167,10 +163,10 @@ public class AnteprimaMieiItinerariFragment extends Fragment{
             @Override
             public void onClick(View v) {
 
-                Fragment mieiItinerariFragment = new MieiItinerariFragment();
+                Fragment itinerariScaricatiFragment = new ItinerariScaricatiFragment();
                 // Set new fragment on screen
                 MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
-                home.setFragment(mieiItinerariFragment, "Miei Itinerari");
+                home.setFragment(itinerariScaricatiFragment, "Itinerari Scaricati");
 
             }
         });

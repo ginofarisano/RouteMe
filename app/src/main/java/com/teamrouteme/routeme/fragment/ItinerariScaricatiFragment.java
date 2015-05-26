@@ -114,11 +114,6 @@ public class ItinerariScaricatiFragment extends Fragment {
 
                     dialog.hide();
 
-/*
-                    CustomAdapterListaItinerari adapter = new CustomAdapterListaItinerari(MieiItinerariFragment.this.getActivity(), R.layout.row_custom_itinerari_creati, myList);
-
-
-                    listView.setAdapter(adapter);*/
                     for (int i = 0; i < myList.size(); i++) {
                         Itinerario it = (Itinerario) myList.get(i);
                         CustomCard card = new CustomCard(getActivity().getApplicationContext());
@@ -144,15 +139,15 @@ public class ItinerariScaricatiFragment extends Fragment {
 
                 CardView c = (CardView)cardItemView.getChildAt(0);
                 c.setBackgroundColor(getResources().getColor(R.color.testo));
-                /*Fragment anteprimaItinerarioFragment = new AnteprimaItinerarioFragment();
+                Fragment anteprimaItinerariScaricatiFragment = new AnteprimaItinerariScaricatiFragment();
 
                 Bundle b = new Bundle();
                 b.putParcelable("itinerario", (Itinerario) myList.get(i));
-                anteprimaItinerarioFragment.setArguments(b);
+                anteprimaItinerariScaricatiFragment.setArguments(b);
 
                 // Set new fragment on screen
                 MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
-                home.setFragment(anteprimaItinerarioFragment, "Anteprima Itinerario");*/
+                home.setFragment(anteprimaItinerariScaricatiFragment, "Anteprima Itinerario");
             }
 
             @Override

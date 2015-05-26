@@ -217,7 +217,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
                         && !isFinishing()){
 
                     account.setPhoto(bitmaps[0]);
-                    account.setBackground(bitmaps[1]);
+                    //account.setBackground(bitmaps[1]);
 
                 }
                 // do what you need to do with the bitmap :)

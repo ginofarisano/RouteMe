@@ -109,8 +109,9 @@ public class MieiItinerariFragment extends Fragment {
                     for (int i = 0; i < myList.size(); i++) {
                         Itinerario it = (Itinerario) myList.get(i);
                         CustomCard card = new CustomCard(getActivity().getApplicationContext());
-                        card.setDescription(it.getDescrizione());
                         card.setTitle(it.getNome());
+                        card.setDescription(it.getDescrizione());
+                        card.setListTags(it.getTags());
                         card.setRatingBar(2);
                         listView.add(card);
                     }

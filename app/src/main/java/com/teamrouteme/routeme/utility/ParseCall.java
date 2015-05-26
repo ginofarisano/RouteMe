@@ -69,4 +69,29 @@ public class ParseCall {
     }
 
 
+    public void addWishList(String idItinerario) {
+
+        ParseObject toAddWishList = new ParseObject("lista_desideri");
+
+        toAddWishList.put("user", user);
+
+        toAddWishList.put("idItinerario", idItinerario);
+
+        toAddWishList.saveInBackground();
+
+
+
+    }
+
+    public void buyRoute(String idItinerario) {
+
+        ParseObject toAddWishList = new ParseObject("itinerari_acquistati");
+
+        toAddWishList.put("user", user);
+
+        toAddWishList.put("idItinerario", idItinerario);
+
+        toAddWishList.saveInBackground();
+
+    }
 }

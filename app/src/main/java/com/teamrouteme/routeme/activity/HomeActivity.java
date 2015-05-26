@@ -65,14 +65,22 @@ public class HomeActivity extends MaterialNavigationDrawer {
 
         //is a facebook login
         if(currentUser.get("authData")!=null){
-            HashMap<Object,Object> fb1= ( HashMap<Object,Object>)currentUser.get("authData");
-            HashMap<Object,Object> fb2= ( HashMap<Object,Object>)fb1.get("facebook");
+            HashMap<Object,Object> socialNetwork= ( HashMap<Object,Object>)currentUser.get("authData");
 
-            String fbId= (String)fb2.get("id");
-            String access_token = (String) fb2.get("access_token");
+            if(socialNetwork.containsKey("facebook")){
+
+                HashMap<Object,Object> fb= ( HashMap<Object,Object>)socialNetwork.get("facebook");
+
+                String fbId= (String)fb.get("id");
+                String access_token = (String) fb.get("access_token");
 
 
-            getProfileImage(fbId,access_token);
+                getProfileImage(fbId,access_token);
+            }
+
+
+
+
 
 
         }

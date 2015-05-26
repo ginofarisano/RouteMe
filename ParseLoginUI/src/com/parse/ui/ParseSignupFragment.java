@@ -40,6 +40,7 @@ import com.parse.SignUpCallback;
  * Fragment for the user signup screen.
  */
 public class ParseSignupFragment extends ParseLoginFragmentBase implements OnClickListener {
+
   public static final String USERNAME = "com.parse.ui.ParseSignupFragment.USERNAME";
   public static final String PASSWORD = "com.parse.ui.ParseSignupFragment.PASSWORD";
 
@@ -57,6 +58,9 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
   private static final String LOG_TAG = "ParseSignupFragment";
   private static final int DEFAULT_MIN_PASSWORD_LENGTH = 6;
   private static final String USER_OBJECT_NAME_FIELD = "name";
+
+  private static final String USER_OBJECT_CREDITS_FIELD = "crediti";
+  private static final int USER_OBJECT_CREDITS_VALUE = 100;
 
   public static ParseSignupFragment newInstance(Bundle configOptions, String username, String password) {
     ParseSignupFragment signupFragment = new ParseSignupFragment();
@@ -185,6 +189,8 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
       // Set additional custom fields only if the user filled it out
       if (name.length() != 0) {
         user.put(USER_OBJECT_NAME_FIELD, name);
+        user.put(USER_OBJECT_CREDITS_FIELD,USER_OBJECT_CREDITS_VALUE);
+
       }
 
       loadingStart();

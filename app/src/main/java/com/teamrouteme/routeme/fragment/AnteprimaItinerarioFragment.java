@@ -18,6 +18,7 @@ import com.parse.ParseQuery;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
+import com.teamrouteme.routeme.utility.ParseCall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +103,13 @@ public class AnteprimaItinerarioFragment extends Fragment{
             btnAcquistaItinerario.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //GESTIRE BOTTONE PER EFFETTUARE L'ACQUISTO
+
+                    String idItinerario = itinerario.getId();
+                    ParseCall parseCall = new ParseCall();
+
+                    parseCall.buyRoute(idItinerario);
+
+
                 }
             });
 
@@ -110,7 +117,9 @@ public class AnteprimaItinerarioFragment extends Fragment{
                 @Override
                 public void onClick(View v) {
                     String idItinerario = itinerario.getId();
-                    //RECUPERARE ID UTENTE ED AGGIUNGERE AL DB IN UNA TABELLA IDITINERARIO/IDUTENTE LA RELAZIONE
+                    ParseCall parseCall = new ParseCall();
+
+                    parseCall.addWishList(idItinerario);
                 }
             });
         }

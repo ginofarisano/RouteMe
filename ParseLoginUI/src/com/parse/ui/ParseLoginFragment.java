@@ -62,6 +62,8 @@ public class ParseLoginFragment extends ParseLoginFragmentBase {
 
   private static final String LOG_TAG = "ParseLoginFragment";
   private static final String USER_OBJECT_NAME_FIELD = "name";
+  private static final String USER_OBJECT_CREDITS_FIELD = "crediti";
+  private static final int USER_OBJECT_CREDITS_VALUE = 100;
 
   private View parseLogin;
   private EditText usernameField;
@@ -267,6 +269,7 @@ public class ParseLoginFragment extends ParseLoginFragmentBase {
                 if (fbUser != null && parseUser != null
                         && fbUser.optString("name").length() > 0) {
                   parseUser.put(USER_OBJECT_NAME_FIELD, fbUser.optString("name"));
+                  parseUser.put(USER_OBJECT_CREDITS_FIELD, USER_OBJECT_CREDITS_VALUE);
                   parseUser.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
@@ -347,6 +350,7 @@ public class ParseLoginFragment extends ParseLoginFragmentBase {
                   Twitter API to fetch it.
                 */
                 user.put(USER_OBJECT_NAME_FIELD, twitterUser.getScreenName());
+                user.put(USER_OBJECT_CREDITS_FIELD, USER_OBJECT_CREDITS_VALUE);
                 user.saveInBackground(new SaveCallback() {
                   @Override
                   public void done(ParseException e) {

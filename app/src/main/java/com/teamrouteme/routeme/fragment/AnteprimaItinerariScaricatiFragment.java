@@ -75,8 +75,8 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
         RatingBar valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
         valutazioneBar.setRating(Float.parseFloat("2.0"));
 
-        EditText feedbackEdit = (EditText) view.findViewById(R.id.feedback);
-        feedbackEdit.setText(feedback);
+        /*EditText feedbackEdit = (EditText) view.findViewById(R.id.feedback);
+        feedbackEdit.setText(feedback);*/
 
 
         Button btnFeedback= (Button) view.findViewById(R.id.btnInviaFeedback);

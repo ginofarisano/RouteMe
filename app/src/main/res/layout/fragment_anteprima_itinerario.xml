@@ -1,32 +1,33 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="10dp"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="#e0f2f1"
     tools:context=".HomeActivity$PlaceholderFragment">
 
     <!-- Login progress -->
-
-    <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="false">
-
-        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Nome itinerario"
+                    android:layout_gravity="center"
                     android:id="@+id/nomeItinerarioCard" />
 
             </LinearLayout>
@@ -36,34 +37,125 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:weightSum="1">
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Valutazione"
-                    android:id="@+id/textViewValutazione"
-                    android:width="70dp"
-                    android:layout_weight="0.36" />
+                    android:text="Valutazione: "
+                    android:textSize="8pt"
+                    android:id="@+id/textViewValutazione"/>
 
                 <RatingBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    style="?android:attr/ratingBarStyleSmall"
                     android:id="@+id/valutazione" />
 
             </LinearLayout>
 
-            <Button
-                style="@style/MyButton"
-                android:background="@drawable/selector_button"
-                android:id="@+id/btnAvviaItinerario"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Città: "
+                    android:textSize="8pt" />
+
+                <TextView
+                    android:id="@+id/citta_anteprima"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:text=""
+                    android:textSize="8pt" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tags: "
+                    android:textSize="8pt" />
+
+                <TextView
+                    android:id="@+id/tag_anteprima"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:text=""
+                    android:textSize="8pt" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+
+                <Button
+                    style="@style/MyButton"
+                    android:background="@drawable/selector_button"
+                    android:id="@+id/btnAvviaItinerario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Avvia"
+                    android:textStyle="bold"
+                    android:layout_gravity="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Avvia"
-                android:textStyle="bold"
-                android:layout_gravity="center_horizontal" />
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="8pt"
+                    android:text="Descrizione: "
+                    android:id="@+id/textViewDescrizioneAnteprima"/>
+
+                <com.ms.square.android.expandabletextview.ExpandableTextView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/expand_text_view"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    expandableTextView:maxCollapsedLines="4"
+                    expandableTextView:animDuration="200">
+                    <TextView
+                        android:id="@id/expandable_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="8pt"
+                        android:textColor="#000" />
+                    <ImageButton
+                        android:id="@id/expand_collapse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:layout_gravity="right|bottom"
+                        android:background="@color/transparent"/>
+                </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+
+            </LinearLayout>
 
             <Button
                 style="@style/MyButton"
@@ -77,30 +169,6 @@
                 android:visibility="gone"
                 android:layout_gravity="center_horizontal" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:weightSum="1" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Feedback:"
-                    android:id="@+id/textViewFeedback"
-                    android:width="70dp"
-                    android:layout_weight="0.36" />
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:ems="10"
-                    android:id="@+id/feedback"
-                    android:layout_weight="0.36" />
-            </LinearLayout>
-
             <Button
                 style="@style/MyButton"
                 android:background="@drawable/selector_button"
@@ -109,19 +177,8 @@
                 android:layout_height="wrap_content"
                 android:text="Invia feed"
                 android:textStyle="bold"
+                android:visibility="gone"
                 android:layout_gravity="center_horizontal" />
-
-            <Button
-                style="@style/MyButton"
-                android:background="@drawable/selector_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Indietro"
-                android:textStyle="bold"
-                android:id="@+id/btn_indietro"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                 />
 
             <Button
                 style="@style/MyButton"
@@ -133,9 +190,16 @@
                 android:id="@+id/btn_desidera"
                 android:visibility="gone"
                 />
-
+            <Button
+                style="@style/MyButton"
+                android:layout_width="50dp"
+                android:background="@drawable/arrow3"
+                android:layout_height="50dp"
+                android:id="@+id/btn_indietro"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
         </LinearLayout>
-
     </ScrollView>
 
-</RelativeLayout>
+</LinearLayout>

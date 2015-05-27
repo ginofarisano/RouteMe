@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -79,8 +80,22 @@ public class AnteprimaMieiItinerariFragment extends Fragment{
         RatingBar valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
         valutazioneBar.setRating(Float.parseFloat("2.0"));
 
-        EditText feedbackEdit = (EditText) view.findViewById(R.id.feedback);
-        feedbackEdit.setText(feedback);
+        ExpandableTextView descrizione = (ExpandableTextView)view.findViewById(R.id.expand_text_view);
+        descrizione.setText(itinerario.getDescrizione());
+
+        TextView citta = (TextView)view.findViewById(R.id.citta_anteprima);
+        citta.setText(itinerario.getCitta());
+
+        String s=itinerario.getTags().get(0);
+
+        for(int i=1; i<itinerario.getTags().size(); i++)
+            s+=", " + itinerario.getTags().get(i);
+
+        TextView tags = (TextView)view.findViewById(R.id.tag_anteprima);
+        tags.setText(s);
+
+        /*EditText feedbackEdit = (EditText) view.findViewById(R.id.feedback);
+        feedbackEdit.setText(feedback);*/
 
 
         Button btnFeedback= (Button) view.findViewById(R.id.btnInviaFeedback);

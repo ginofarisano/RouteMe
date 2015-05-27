@@ -136,6 +136,7 @@ public class HomeActivity extends ActionBarActivity
          * number.
          */
         public static PlaceholderFragment newInstance(int sectionNumber) {
+            //pergola
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);

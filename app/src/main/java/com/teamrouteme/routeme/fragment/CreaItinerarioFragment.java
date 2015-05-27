@@ -1,14 +1,9 @@
 package com.teamrouteme.routeme.fragment;
 
-import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -27,8 +22,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -36,11 +29,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
-import com.teamrouteme.routeme.utility.DirectionsJSONParser;
 import com.teamrouteme.routeme.utility.GeocodeJSONParser;
 import com.teamrouteme.routeme.utility.ParseCall;
 
@@ -449,7 +440,7 @@ public class CreaItinerarioFragment extends Fragment {
             int max=i.getIntExtra("range_max_itinerario", -1);
 
                                                             //daniele sostituisci il tuo array invece di quello statico
-            parseCall.saveDataToParse(citta,tags,nome,descrizione,min,max,itinerario);
+            parseCall.uploadRoute(citta, tags, nome, descrizione, min, max, itinerario);
 
 
 

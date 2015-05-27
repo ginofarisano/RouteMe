@@ -26,7 +26,7 @@ public class CustomCard extends SimpleCard {
     }
 
     public float getRating(){
-        return 2;
+        return mRatingBar;
     }
 
     public void setRatingBar(float ratingBar) {

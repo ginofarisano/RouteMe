@@ -42,18 +42,18 @@ public class RisultatiRicercaFragment extends Fragment {
             itinerari = b.getParcelableArrayList("itinerari");
         }
 
-            btnIndietro = (Button) view.findViewById(R.id.btn_indietro);
-            btnIndietro.setVisibility(View.VISIBLE);
+        btnIndietro = (Button) view.findViewById(R.id.btn_indietro);
+        btnIndietro.setVisibility(View.VISIBLE);
 
-            btnIndietro.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Fragment cercaItinerarioFragment = new CercaItinerarioFragment();
-                    // Set new fragment on screen
-                    MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
-                    home.setFragment(cercaItinerarioFragment, "Cerca Itinerario");
-                }
-            });
+        btnIndietro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment cercaItinerarioFragment = new CercaItinerarioFragment();
+                // Set new fragment on screen
+                MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
+                home.setFragment(cercaItinerarioFragment, "Cerca Itinerario");
+            }
+        });
 
 
         listviewRisultatiItinerari = (MaterialListView) view.findViewById(R.id.material_listview);
@@ -63,7 +63,10 @@ public class RisultatiRicercaFragment extends Fragment {
             CustomCard card = new CustomCard(getActivity().getApplicationContext());
             card.setDescription(it.getDescrizione());
             card.setTitle(it.getNome());
-            card.setRatingBar(2);
+            if(it.getNum_feedback()!=0)
+                card.setRatingBar(it.getRating()/it.getNum_feedback());
+            else
+                card.setRatingBar(0);
             card.setListTags(it.getTags());
             listviewRisultatiItinerari.add(card);
         }

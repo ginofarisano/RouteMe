@@ -8,7 +8,6 @@
     android:background="#e0f2f1"
     tools:context=".HomeActivity$PlaceholderFragment">
 
-    <!-- Login progress -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -176,9 +175,10 @@
                 android:id="@+id/btnInviaFeedback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Invia feed"
+                android:text="Invia feedback"
                 android:textStyle="bold"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"/>
 
             <Button
                 style="@style/MyButton"

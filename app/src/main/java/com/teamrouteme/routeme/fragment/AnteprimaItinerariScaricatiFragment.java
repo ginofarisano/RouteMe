@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseObject;
@@ -20,6 +22,7 @@ import com.parse.ParseQuery;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
+import com.teamrouteme.routeme.utility.ParseCall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +40,9 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
     private String feedback;
     private Itinerario itinerario;
     private ArrayList<String> tappeId;
-    private Button btnIndietro;
-    private ArrayList<Itinerario> itinerari;
-    private Button btnAvviaItinerario;
+    private Button btnIndietro, btnAvviaItinerario, btnFeedback;
+    private RatingBar valutazioneBar;
+    private TextView nomeItinerarioEdit;
 
     public AnteprimaItinerariScaricatiFragment(){
         // Required empty public constructor
@@ -71,25 +74,35 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
         }
 
         //settaggio delle variabili prese dal server
-        TextView nomeItinerarioEdit = (TextView) view.findViewById(R.id.nomeItinerarioCard);
+        nomeItinerarioEdit = (TextView) view.findViewById(R.id.nomeItinerarioCard);
         nomeItinerarioEdit.setText(nomeItinerario);
 
-        RatingBar valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
+        valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
         valutazioneBar.setRating(Float.parseFloat("2.0"));
+        if(itinerario.getNum_feedback()!=0)
+            valutazioneBar.setRating(itinerario.getRating()/itinerario.getNum_feedback());
+        else
+            valutazioneBar.setRating(0);
 
         /*EditText feedbackEdit = (EditText) view.findViewById(R.id.feedback);
         feedbackEdit.setText(feedback);*/
 
 
-        Button btnFeedback= (Button) view.findViewById(R.id.btnInviaFeedback);
+        btnFeedback= (Button) view.findViewById(R.id.btnInviaFeedback);
+        btnFeedback.setVisibility(View.VISIBLE);
 
+        // Lancia il dialog per inserire la recensione
         btnFeedback.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // invio a server del feedback rilasciato
-
                 FragmentManager fm = getFragmentManager();
                 final FeedbackDialog feedbackDialog = new FeedbackDialog();
+
+                Bundle b = new Bundle();
+                b.putString("idItinerario", itinerario.getId());
+                feedbackDialog.setArguments(b);
+
                 feedbackDialog.show(fm, "fragment_feedback_dialog");
+                feedbackDialog.setTargetFragment(AnteprimaItinerariScaricatiFragment.this, 1);
             }
         });
 
@@ -179,5 +192,15 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
         });
 
         return view;
+    }
+
+    //Gestisce ciò che restituisce il Dialog
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent i){
+        if(resultCode==1) {
+            Toast.makeText(getActivity().getBaseContext(), "Feedback rilasciato, grazie!", Toast.LENGTH_SHORT).show();
+            btnFeedback.setEnabled(false);
+            btnFeedback.setText("Feedback rilasciato");
+        }
     }
 }

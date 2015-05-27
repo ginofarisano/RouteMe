@@ -43,6 +43,8 @@ public class AnteprimaListaDesideriFragment extends Fragment{
     private Button btnAvviaItinerario, btnAcquistaItinerario, btnDesideraItinerario;
     private int queryCount;
     private ParseObject listaAcquistatiObject;
+    private TextView nomeItinerarioEdit;
+    private RatingBar valutazioneBar;
 
     public AnteprimaListaDesideriFragment(){
         // Required empty public constructor
@@ -76,11 +78,14 @@ public class AnteprimaListaDesideriFragment extends Fragment{
         }
 
         //settaggio delle variabili prese dal server
-        TextView nomeItinerarioEdit = (TextView) view.findViewById(R.id.nomeItinerarioCard);
+        nomeItinerarioEdit = (TextView) view.findViewById(R.id.nomeItinerarioCard);
         nomeItinerarioEdit.setText(nomeItinerario);
 
-        RatingBar valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
-        valutazioneBar.setRating(Float.parseFloat("2.0"));
+        valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
+        if(itinerario.getNum_feedback()!=0)
+            valutazioneBar.setRating(itinerario.getRating()/itinerario.getNum_feedback());
+        else
+            valutazioneBar.setRating(0);
 
 
 

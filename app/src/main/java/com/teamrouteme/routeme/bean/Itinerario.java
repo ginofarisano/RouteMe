@@ -16,7 +16,25 @@ public class Itinerario implements Parcelable{
 
     private ArrayList<String> tags;
 
-    private int durataMin, durataMax;
+    private int durataMin, durataMax, num_feedback;
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    private float rating;
+
+    public int getNum_feedback() {
+        return num_feedback;
+    }
+
+    public void setNum_feedback(int num_feedback) {
+        this.num_feedback = num_feedback;
+    }
 
     private ArrayList<String> tappeId = new ArrayList<String>();
 

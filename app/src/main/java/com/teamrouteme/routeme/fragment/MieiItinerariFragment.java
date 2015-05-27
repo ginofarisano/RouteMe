@@ -88,6 +88,8 @@ public class MieiItinerariFragment extends Fragment {
                         itinerario.setDurataMin((Integer) parseObject.get("durata_min"));
                         itinerario.setDurataMax((Integer) parseObject.get("durata_max"));
                         itinerario.setId(parseObject.getObjectId());
+                        itinerario.setNum_feedback(parseObject.getNumber("num_feedback").intValue());
+                        itinerario.setRating(parseObject.getNumber("rating").floatValue());
 
                         ArrayList<String> tappe_objectId = new ArrayList<String>();
 
@@ -113,7 +115,10 @@ public class MieiItinerariFragment extends Fragment {
                         card.setTitle(it.getNome());
                         card.setDescription(it.getDescrizione());
                         card.setListTags(it.getTags());
-                        card.setRatingBar(2);
+                        if(it.getNum_feedback()!=0)
+                            card.setRatingBar(it.getRating()/it.getNum_feedback());
+                        else
+                            card.setRatingBar(0);
                         listView.add(card);
                     }
 

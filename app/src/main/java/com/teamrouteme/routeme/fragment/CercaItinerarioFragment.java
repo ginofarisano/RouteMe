@@ -23,6 +23,7 @@ import com.ogaclejapan.arclayout.ArcLayout;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.teamrouteme.routeme.activity.HomeActivity;
 import com.teamrouteme.routeme.adapter.CustomAutoCompleteView;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.bean.Itinerario;
@@ -176,6 +177,7 @@ public class CercaItinerarioFragment extends Fragment {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("tags");
 
+        final HomeActivity home = (HomeActivity) getActivity();
 
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -195,7 +197,7 @@ public class CercaItinerarioFragment extends Fragment {
                     }
                     //Istanzia dinamicamente i bottoni per i tag e gli assegna il listener
                     for (int i = 0; i < tags.size(); i++) {
-                        ArcLayoutButton b = new ArcLayoutButton(getActivity());
+                        ArcLayoutButton b = new ArcLayoutButton(home);
                         b.setButtonAttributes(tags.get(i), colours.get(i % colours.size()));
                         b.setOnTouchListener(new tagButtonOnClick());
                         arcLayout.addView(b);
@@ -253,6 +255,8 @@ public class CercaItinerarioFragment extends Fragment {
                                 itinerario.setDurataMin((Integer) parseObject.get("durata_min"));
                                 itinerario.setDurataMax((Integer) parseObject.get("durata_max"));
                                 itinerario.setId(parseObject.getObjectId());
+                                itinerario.setNum_feedback(parseObject.getNumber("num_feedback").intValue());
+                                itinerario.setRating(parseObject.getNumber("rating").floatValue());
                                 ArrayList<String> tappe_objectId = new ArrayList<String>();
 
                                 for (ParseObject tappa_object : (ArrayList<ParseObject>) parseObject.get("tappe")) {

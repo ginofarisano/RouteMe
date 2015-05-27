@@ -43,6 +43,12 @@ public class AnteprimaMieiItinerariFragment extends Fragment{
     private Button btnIndietro;
     private ArrayList<Itinerario> itinerari;
     private Button btnAvviaItinerario;
+    private RatingBar valutazioneBar;
+    private TextView nomeItinerarioEdit;
+    private ExpandableTextView descrizione;
+    private TextView citta;
+    private TextView tags;
+    private Button btnFeedback;
 
     public AnteprimaMieiItinerariFragment(){
         // Required empty public constructor
@@ -74,16 +80,19 @@ public class AnteprimaMieiItinerariFragment extends Fragment{
         }
 
         //settaggio delle variabili prese dal server
-        TextView nomeItinerarioEdit = (TextView) view.findViewById(R.id.nomeItinerarioCard);
+        nomeItinerarioEdit = (TextView) view.findViewById(R.id.nomeItinerarioCard);
         nomeItinerarioEdit.setText(nomeItinerario);
 
-        RatingBar valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
-        valutazioneBar.setRating(Float.parseFloat("2.0"));
+        valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
+        if(itinerario.getNum_feedback()!=0)
+            valutazioneBar.setRating(itinerario.getRating()/itinerario.getNum_feedback());
+        else
+            valutazioneBar.setRating(0);
 
-        ExpandableTextView descrizione = (ExpandableTextView)view.findViewById(R.id.expand_text_view);
+        descrizione = (ExpandableTextView)view.findViewById(R.id.expand_text_view);
         descrizione.setText(itinerario.getDescrizione());
 
-        TextView citta = (TextView)view.findViewById(R.id.citta_anteprima);
+        citta = (TextView)view.findViewById(R.id.citta_anteprima);
         citta.setText(itinerario.getCitta());
 
         String s=itinerario.getTags().get(0);
@@ -91,14 +100,14 @@ public class AnteprimaMieiItinerariFragment extends Fragment{
         for(int i=1; i<itinerario.getTags().size(); i++)
             s+=", " + itinerario.getTags().get(i);
 
-        TextView tags = (TextView)view.findViewById(R.id.tag_anteprima);
+        tags = (TextView)view.findViewById(R.id.tag_anteprima);
         tags.setText(s);
 
         /*EditText feedbackEdit = (EditText) view.findViewById(R.id.feedback);
         feedbackEdit.setText(feedback);*/
 
 
-        Button btnFeedback= (Button) view.findViewById(R.id.btnInviaFeedback);
+        btnFeedback = (Button) view.findViewById(R.id.btnInviaFeedback);
 
         btnFeedback.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

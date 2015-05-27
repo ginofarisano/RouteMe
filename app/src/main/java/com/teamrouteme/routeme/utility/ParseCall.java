@@ -26,12 +26,10 @@ public class ParseCall {
     ParseUser user;
 
     public ParseCall(){
-
         user= ParseUser.getCurrentUser();
     }
 
-
-    public void saveDataToParse(String citta, String [] tags, String nome, String descrizione, int min, int max, Itinerario itinerario) {
+    public void uploadRoute(String citta, String[] tags, String nome, String descrizione, int min, int max, Itinerario itinerario) {
 
         ParseObject toUploadItinerario = new ParseObject("itinerario");
 
@@ -51,7 +49,8 @@ public class ParseCall {
         toUploadItinerario.put("descrizione",descrizione);
         toUploadItinerario.put("durata_min",min);
         toUploadItinerario.put("durata_max",max);
-
+        toUploadItinerario.put("rating", 0);
+        toUploadItinerario.put("num_feedback", 0);
 
 
         Tappa tappa;
@@ -77,7 +76,6 @@ public class ParseCall {
 
 
     }
-
 
     public void addWishList(String idItinerario) {
 
@@ -169,4 +167,5 @@ public class ParseCall {
             }
         });
     }
+
 }

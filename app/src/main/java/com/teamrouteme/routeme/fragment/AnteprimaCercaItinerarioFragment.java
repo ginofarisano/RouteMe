@@ -32,8 +32,6 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
 
     private View view;
     private String nomeItinerario;
-    private String valutazione;
-    private String feedback;
     private Itinerario itinerario;
     private ArrayList<String> tappeId;
     private Button btnIndietro;
@@ -41,6 +39,8 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
     private Button btnAvviaItinerario, btnAcquistaItinerario, btnDesideraItinerario;
     private int queryCount;
     private ParseObject listaDesideriObject, listaAcquistatiObject;
+    private TextView nomeItinerarioEdit;
+    private RatingBar valutazioneBar;
 
     public AnteprimaCercaItinerarioFragment(){
         // Required empty public constructor
@@ -49,10 +49,6 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_anteprima_itinerario, container, false);
-
-        /*recupero dei dati dal server
-        fare richiesta al server e riempire le variabili nomeItinerario, valutazione, feedback
-        */
 
         queryCount = 0;
 
@@ -74,11 +70,14 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
         }
 
         //settaggio delle variabili prese dal server
-        TextView nomeItinerarioEdit = (TextView) view.findViewById(R.id.nomeItinerarioCard);
+        nomeItinerarioEdit = (TextView) view.findViewById(R.id.nomeItinerarioCard);
         nomeItinerarioEdit.setText(nomeItinerario);
 
-        RatingBar valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
-        valutazioneBar.setRating(Float.parseFloat("2.0"));
+        valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
+        if(itinerario.getNum_feedback()!=0)
+            valutazioneBar.setRating(itinerario.getRating()/itinerario.getNum_feedback());
+        else
+            valutazioneBar.setRating(0);
 
        /* EditText feedbackEdit = (EditText) view.findViewById(R.id.feedback);
         feedbackEdit.setText(feedback);*/

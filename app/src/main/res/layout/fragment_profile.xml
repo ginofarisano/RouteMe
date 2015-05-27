@@ -50,23 +50,6 @@
             android:layout_alignLeft="@+id/textViewNameProf"
             android:layout_alignStart="@+id/textViewNameProf" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Rossi"
-            android:id="@+id/textViewSurnameProf"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="15dp"/>
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imageButtonModSurnameProf"
-            android:layout_centerVertical="true"
-            android:layout_alignLeft="@+id/textViewSurnameProf"
-            android:layout_alignStart="@+id/textViewSurnameProf" />
 
     </LinearLayout>
 
@@ -110,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Password"
+            android:text="Modifica Password"
             android:id="@+id/textViewPasswordModProf"
             android:layout_marginTop="15dp"
             android:layout_alignParentLeft="true"
@@ -163,62 +146,6 @@
             android:layout_marginTop="15dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="315dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="mario.rossi@gmail.com"
-            android:id="@+id/textViewEmailPayPalModProf"
-            android:layout_marginTop="15dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imageButtonModEmailPayPalProf"
-            android:layout_centerVertical="true"
-            android:layout_alignLeft="@+id/textViewEmailProf"
-            android:layout_alignStart="@+id/textViewEmailProf" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="350dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Password"
-            android:id="@+id/textViewPasswordPayPalModProf"
-            android:layout_marginTop="15dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imageButtonModPasswordPayPalProf"
-            android:layout_centerVertical="true"
-            android:layout_alignLeft="@+id/textViewEmailPayPalProf"
-            android:layout_alignStart="@+id/textViewEmailPayPalProf" />
 
     </LinearLayout>
 

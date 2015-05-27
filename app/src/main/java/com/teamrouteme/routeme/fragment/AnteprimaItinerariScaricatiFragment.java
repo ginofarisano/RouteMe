@@ -11,19 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
-import com.teamrouteme.routeme.utility.ParseCall;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
@@ -42,8 +38,6 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
     private Button btnIndietro;
     private ArrayList<Itinerario> itinerari;
     private Button btnAvviaItinerario;
-    private ParseUser currentUser;
-    private EditText feedbackEdit;
 
     public AnteprimaItinerariScaricatiFragment(){
         // Required empty public constructor
@@ -76,14 +70,13 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
 
         //settaggio delle variabili prese dal server
         TextView nomeItinerarioEdit = (TextView) view.findViewById(R.id.nomeItinerarioCard);
-
-        feedbackEdit = (EditText) view.findViewById(R.id.feedback);
-
         nomeItinerarioEdit.setText(nomeItinerario);
 
         RatingBar valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
         valutazioneBar.setRating(Float.parseFloat("2.0"));
 
+        /*EditText feedbackEdit = (EditText) view.findViewById(R.id.feedback);
+        feedbackEdit.setText(feedback);*/
 
 
         Button btnFeedback= (Button) view.findViewById(R.id.btnInviaFeedback);
@@ -91,35 +84,6 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
         btnFeedback.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // invio a server del feedback rilasciato
-                currentUser = ParseUser.getCurrentUser();
-                feedback = feedbackEdit.getText().toString();
-
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("itinerari_acquistati");
-
-                query = query.whereEqualTo("user", ParseUser.getCurrentUser());
-                query.whereEqualTo("idItinerario", itinerario.getId());
-
-                query.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> list, com.parse.ParseException e) {
-                        if (e == null) {
-                            ParseObject p = list.get(0);
-                            p.put("feedback", feedback);
-                            p.saveInBackground();
-                            }
-
-                        else {
-                            //error
-                            Log.d("Feedback", "Error: " + e.getMessage());
-                        }
-
-
-                    }
-                });
-
-
-
-
             }
         });
 

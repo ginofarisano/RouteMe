@@ -28,6 +28,7 @@
             android:textColor="#000"
             android:text=""
             android:textSize="8pt"
+
             />
         <RatingBar
             android:id="@+id/ratingBarMieiItinerari"

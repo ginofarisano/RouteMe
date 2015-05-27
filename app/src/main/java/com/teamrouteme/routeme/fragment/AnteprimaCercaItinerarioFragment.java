@@ -18,13 +18,10 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.bean.Itinerario;
-import com.teamrouteme.routeme.bean.Tappa;
 import com.teamrouteme.routeme.utility.ParseCall;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 
@@ -110,7 +107,8 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
         // CONTROLLA SE L'ITINERARIO RISULSTA CREATO DA L'UTENTE ATTUALE
         ParseQuery<ParseObject> query = ParseQuery.getQuery("itinerario");
 
-        query.whereEqualTo("user", ParseUser.getCurrentUser());
+        query = query.whereEqualTo("user", ParseUser.getCurrentUser());
+        query.whereEqualTo("objectId", itinerario.getId());
 
         query.findInBackground(new FindCallback<ParseObject>() {
 
@@ -200,15 +198,15 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
             @Override
             public void onClick(View v) {
 
+                final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
+                        "Caricamento in corso...", true);
+
                 String idItinerario = itinerario.getId();
                 ParseCall parseCall = new ParseCall();
 
-                parseCall.buyRoute(idItinerario);
+                parseCall.buyRoute(idItinerario, dialog, listaDesideriObject);
 
                 //UNA VOLTA EFFETTUATA L'OPERAZIONE DI PAGAMENTO VENGONO DISATTIVATI I BOTTONI
-
-                if(listaDesideriObject != null)
-                    listaDesideriObject.deleteInBackground();
 
                 btnAcquistaItinerario.setEnabled(false);
                 btnAcquistaItinerario.setText("Già tuo");

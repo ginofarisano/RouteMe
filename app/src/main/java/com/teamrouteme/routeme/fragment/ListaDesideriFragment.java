@@ -139,15 +139,15 @@ public class ListaDesideriFragment extends Fragment {
 
                 CardView c = (CardView)cardItemView.getChildAt(0);
                 c.setBackgroundColor(getResources().getColor(R.color.testo));
-                /*Fragment anteprimaItinerarioFragment = new AnteprimaItinerarioFragment();
+                Fragment anteprimaListaDesideriFragment = new AnteprimaListaDesideriFragment();
 
                 Bundle b = new Bundle();
                 b.putParcelable("itinerario", (Itinerario) myList.get(i));
-                anteprimaItinerarioFragment.setArguments(b);
+                anteprimaListaDesideriFragment.setArguments(b);
 
                 // Set new fragment on screen
                 MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
-                home.setFragment(anteprimaItinerarioFragment, "Anteprima Itinerario");*/
+                home.setFragment(anteprimaListaDesideriFragment, "Anteprima Itinerario");
             }
 
             @Override

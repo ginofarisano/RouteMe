@@ -58,4 +58,4 @@
         android:text="@string/com_parse_ui_create_account_button_label" />
 
 </LinearLayout>
-<!-- From: file:/home/daniele/Scrivania/RouteMe/ParseLoginUI/res/layout/com_parse_ui_parse_signup_form.xml --><!-- From: file:/home/daniele/Scrivania/RouteMe/ParseLoginUI/build/intermediates/bundles/debug/res/layout/com_parse_ui_parse_signup_form.xml -->
+<!-- From: file:/Users/ginofarisano/Desktop/RouteMe/RouteMe/ParseLoginUI/res/layout/com_parse_ui_parse_signup_form.xml --><!-- From: file:/Users/ginofarisano/Desktop/RouteMe/RouteMe/ParseLoginUI/build/intermediates/bundles/debug/res/layout/com_parse_ui_parse_signup_form.xml -->

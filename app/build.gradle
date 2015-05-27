@@ -41,4 +41,5 @@ dependencies {
     compile files('/Users/ginofarisano/Desktop/IUMUS/RouteMe/libs/listviewanimations_lib-manipulation_3.1.0.jar')
     compile files('/Users/ginofarisano/Desktop/IUMUS/RouteMe/libs/listviewanimations_lib-core-slh_3.1.0.jar')
     compile 'com.github.dexafree:materiallist:2.4.3'
+    compile files('/Users/ginofarisano/Desktop/RouteMe/RouteMe/libs/PayPalAndroidSDK-2.9.5.jar')
 }

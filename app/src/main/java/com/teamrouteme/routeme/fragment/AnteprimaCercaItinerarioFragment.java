@@ -106,8 +106,41 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
         final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
                 "Caricamento in corso...", true);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("itinerari_acquistati");
 
+        // CONTROLLA SE L'ITINERARIO RISULSTA CREATO DA L'UTENTE ATTUALE
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("itinerario");
+
+        query.whereEqualTo("user", ParseUser.getCurrentUser());
+
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+            @Override
+            public void done(List<ParseObject> list, com.parse.ParseException e) {
+
+                if (e == null) {
+                    if (list.size() != 0) {
+                        listaAcquistatiObject = list.get(0);
+                        btnAcquistaItinerario.setEnabled(false);
+                        btnAcquistaItinerario.setText("Già tuo");
+
+                        btnDesideraItinerario.setEnabled(false);
+                        btnDesideraItinerario.setText("Già cuoricino");
+                        dialog.hide();
+                    }
+
+                    queryCount++;
+                    if (queryCount == 3)
+                        dialog.hide();
+                } else {
+                    Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
+                }
+            }
+
+        });
+
+
+        // CONTROLLA SE L'ITINERARIO RISULSTA GIA' ACQUISTATO
+        query = ParseQuery.getQuery("itinerari_acquistati");
         query = query.whereEqualTo("idItinerario", itinerario.getId());
         query.whereEqualTo("user", ParseUser.getCurrentUser());
 
@@ -121,10 +154,14 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                         listaAcquistatiObject = list.get(0);
                         btnAcquistaItinerario.setEnabled(false);
                         btnAcquistaItinerario.setText("Già tuo");
+
+                        btnDesideraItinerario.setEnabled(false);
+                        btnDesideraItinerario.setText("Già cuoricino");
+                        dialog.hide();
                     }
 
                     queryCount++;
-                    if(queryCount==2)
+                    if(queryCount==3)
                         dialog.hide();
                 } else {
                     Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
@@ -133,6 +170,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
 
         });
 
+        // CONTROLLA SE L'ITINERARIO RISULSTA GIA' DESIDERATO
         query = ParseQuery.getQuery("lista_desideri");
 
         query = query.whereEqualTo("idItinerario", itinerario.getId());
@@ -149,7 +187,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                     }
 
                     queryCount++;
-                    if(queryCount==2)
+                    if(queryCount==3)
                         dialog.hide();
                 } else {
                     Log.d("AnteprimaItinerario", "Error: " + e.getMessage());

@@ -43,6 +43,7 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
     private ArrayList<Itinerario> itinerari;
     private Button btnAvviaItinerario;
     private ParseUser currentUser;
+    private EditText feedbackEdit;
 
     public AnteprimaItinerariScaricatiFragment(){
         // Required empty public constructor
@@ -75,13 +76,14 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
 
         //settaggio delle variabili prese dal server
         TextView nomeItinerarioEdit = (TextView) view.findViewById(R.id.nomeItinerarioCard);
+
+        feedbackEdit = (EditText) view.findViewById(R.id.feedback);
+
         nomeItinerarioEdit.setText(nomeItinerario);
 
         RatingBar valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
         valutazioneBar.setRating(Float.parseFloat("2.0"));
 
-        EditText feedbackEdit = (EditText) view.findViewById(R.id.feedback);
-        feedback = feedbackEdit.getText().toString();
 
 
         Button btnFeedback= (Button) view.findViewById(R.id.btnInviaFeedback);
@@ -90,6 +92,8 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
             public void onClick(View v) {
                 // invio a server del feedback rilasciato
                 currentUser = ParseUser.getCurrentUser();
+                feedback = feedbackEdit.getText().toString();
+
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("itinerari_acquistati");
 
                 query = query.whereEqualTo("user", ParseUser.getCurrentUser());

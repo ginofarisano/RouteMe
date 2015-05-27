@@ -154,10 +154,6 @@
                         android:background="@color/transparent"/>
                 </com.ms.square.android.expandabletextview.ExpandableTextView>
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/feedback" />
 
 
             </LinearLayout>
@@ -182,7 +178,6 @@
                 android:layout_height="wrap_content"
                 android:text="Invia feed"
                 android:textStyle="bold"
-                android:visibility="gone"
                 android:layout_gravity="center_horizontal" />
 
             <Button

@@ -1,6 +1,8 @@
 package com.teamrouteme.routeme.fragment;
 
+import android.app.Dialog;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -84,6 +86,10 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
         btnFeedback.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // invio a server del feedback rilasciato
+
+                FragmentManager fm = getFragmentManager();
+                final FeedbackDialog feedbackDialog = new FeedbackDialog();
+                feedbackDialog.show(fm, "fragment_feedback_dialog");
             }
         });
 

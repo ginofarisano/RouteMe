@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBarInvioFeedback"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Feedback"
+        android:id="@+id/textViewFeedback"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Inserisci qui il tuo feedback"
+        android:id="@+id/editTextInvioFeedback" />
+
+    <Button
+        style="@style/MyButton"
+        android:background="@drawable/selector_button"
+        android:id="@+id/btnInviaFeedbackDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Invia"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal" />
+
+
+</LinearLayout>

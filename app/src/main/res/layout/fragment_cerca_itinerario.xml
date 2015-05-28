@@ -1,8 +1,11 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/sfondo"
     android:id="@+id/layout_fragment_cerca_itinerario">
 
     <LinearLayout
@@ -15,17 +18,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Città:"
+            android:textSize="10pt"
             android:id="@+id/textViewCitta" />
 
         <com.teamrouteme.routeme.adapter.CustomAutoCompleteView
             android:id="@+id/autoCompleteCities"
             android:layout_width="fill_parent"
+            android:textColor="@color/testo"
+            android:textColorHint="@color/testo"
             android:layout_height="wrap_content">
         </com.teamrouteme.routeme.adapter.CustomAutoCompleteView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="10pt"
             android:text="Durata:"
             android:id="@+id/textViewDurata" />
 
@@ -34,11 +41,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-
-
-
         <Button
-            style="?android:textAppearanceSmall"
+            style="@style/MyButton"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/selector_button"
             android:id="@+id/btn_cercaItinerario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,11 +53,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_alignBottom="@+id/open_tags"
             android:layout_centerHorizontal="true" />
-
-
-
-
-
 
     </LinearLayout>
 

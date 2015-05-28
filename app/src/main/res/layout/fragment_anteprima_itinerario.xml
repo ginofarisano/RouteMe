@@ -225,8 +225,13 @@
                     android:layout_height="wrap_content"
                     android:textSize="8pt"
                     android:text="Recensioni"
-                    android:id="@+id/textViewFeedback"/>
+                    android:id="@+id/textViewRecensioni"/>
 
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/listViewRecensioni"
+                    android:layout_gravity="center_horizontal" />
 
             </LinearLayout>
 

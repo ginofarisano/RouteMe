@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -47,6 +49,8 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
     private TextView citta;
     private TextView durata;
     private TextView autoreItinerarioEdit;
+    private ArrayAdapter<String> adapter;
+    private ListView listViewRecensioni;
 
     public AnteprimaCercaItinerarioFragment(){
         // Required empty public constructor
@@ -56,6 +60,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
 
         view = inflater.inflate(R.layout.fragment_anteprima_itinerario, container, false);
 
+        listViewRecensioni = (ListView)view.findViewById(R.id.listViewRecensioni);
         queryCount = 0;
 
         Bundle b = getArguments();
@@ -238,6 +243,8 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                             if(feedback != null)
                                 alFeedback.add(feedback);
                         }
+                        adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, alFeedback);
+                        listViewRecensioni.setAdapter(adapter);
                     }
 
                     queryCount++;

@@ -277,8 +277,10 @@ public class CercaItinerarioFragment extends Fragment {
                                 myList.add(itinerario);
 
                             }
-                            if (myList.size()==0)
+                            if (myList.size()==0) {
+                                dialog.hide();
                                 Toast.makeText(getActivity().getBaseContext(), "Nessuna corrispondenza trovata", Toast.LENGTH_SHORT).show();
+                            }
                             else{
                                 dialog.hide();
 

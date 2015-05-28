@@ -67,6 +67,7 @@ public class RisultatiRicercaFragment extends Fragment {
                 card.setRatingBar(it.getRating()/it.getNum_feedback());
             else
                 card.setRatingBar(0);
+            card.setNumFeedback(it.getNum_feedback());
             card.setListTags(it.getTags());
             listviewRisultatiItinerari.add(card);
         }

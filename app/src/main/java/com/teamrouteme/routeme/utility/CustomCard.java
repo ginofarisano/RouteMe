@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class CustomCard extends SimpleCard {
 
     float mRatingBar;
+    String mNumFeedback;
     ArrayList<String> mlistTagString;
     public CustomCard(Context context) {
         super(context);
@@ -28,6 +29,10 @@ public class CustomCard extends SimpleCard {
     public float getRating(){
         return mRatingBar;
     }
+
+    public String getNumFeedback() {return mNumFeedback;}
+
+    public void setNumFeedback(int numFeedback){this.mNumFeedback = ""+numFeedback;}
 
     public void setRatingBar(float ratingBar) {
         this.mRatingBar = ratingBar;

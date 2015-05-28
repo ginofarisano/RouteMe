@@ -35,13 +35,9 @@ import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 public class AnteprimaMieiItinerariFragment extends Fragment{
 
     private View view;
-    private String nomeItinerario;
-    private String valutazione;
-    private String feedback;
     private Itinerario itinerario;
     private ArrayList<String> tappeId;
     private Button btnIndietro;
-    private ArrayList<Itinerario> itinerari;
     private Button btnAvviaItinerario;
     private RatingBar valutazioneBar;
     private TextView nomeItinerarioEdit;
@@ -49,6 +45,10 @@ public class AnteprimaMieiItinerariFragment extends Fragment{
     private TextView citta;
     private TextView tags;
     private Button btnFeedback;
+    private String nomeItinerario, tagsItinerario, cittaItinerario, descrizioneItinerario;
+    private int durataMinItinerario, durataMaxItinerario;
+    private View autoreTextView;
+    private TextView durata;
 
     public AnteprimaMieiItinerariFragment(){
         // Required empty public constructor
@@ -67,19 +67,26 @@ public class AnteprimaMieiItinerariFragment extends Fragment{
             itinerario = (Itinerario) b.get("itinerario");
 
             nomeItinerario = itinerario.getNome();
+            descrizioneItinerario = itinerario.getDescrizione();
+            cittaItinerario = itinerario.getCitta();
+            durataMinItinerario = itinerario.getDurataMin();
+            durataMaxItinerario = itinerario.getDurataMax();
             tappeId = itinerario.getTappeId();
 
-            Log.d("","Nome itinerario ricevuto: "+ itinerario.getNome());
-            Log.d("","Descrizione itinerario ricevuto: "+ itinerario.getDescrizione());
-            Log.d("","Citta itinerario ricevuto: "+ itinerario.getCitta());
+            Log.d("","Nome itinerario ricevuto: "+ nomeItinerario);
+            Log.d("","Descrizione itinerario ricevuto: "+ descrizioneItinerario);
+            Log.d("","Citta itinerario ricevuto: "+ cittaItinerario);
             Log.d("","Id itinerario ricevuto: "+ itinerario.getId());
-            Log.d("","Durata Min itinerario ricevuto: "+ itinerario.getDurataMin());
-            Log.d("","Durata Max itinerario ricevuto: "+ itinerario.getDurataMax());
+            Log.d("","Durata Min itinerario ricevuto: "+ durataMinItinerario);
+            Log.d("","Durata Max itinerario ricevuto: "+ durataMaxItinerario);
             Log.d("","Tags itinerario ricevuto: "+ itinerario.getTags());
-            Log.d("","Tappe ID itinerario ricevuto: "+ itinerario.getTappeId());
+            Log.d("","Tappe ID itinerario ricevuto: "+ tappeId);
         }
 
-        //settaggio delle variabili prese dal server
+        //Setting delle variabili ricevute dal server
+        autoreTextView = view.findViewById(R.id.autore);
+        autoreTextView.setVisibility(View.GONE);
+
         nomeItinerarioEdit = (TextView) view.findViewById(R.id.nomeItinerarioCard);
         nomeItinerarioEdit.setText(nomeItinerario);
 
@@ -90,22 +97,21 @@ public class AnteprimaMieiItinerariFragment extends Fragment{
             valutazioneBar.setRating(0);
 
         descrizione = (ExpandableTextView)view.findViewById(R.id.expand_text_view);
-        descrizione.setText(itinerario.getDescrizione());
+        descrizione.setText(descrizioneItinerario);
+
+        durata = (TextView) view.findViewById(R.id.durata_anteprima);
+        durata.setText(durataMinItinerario+"-"+durataMaxItinerario+" ore");
 
         citta = (TextView)view.findViewById(R.id.citta_anteprima);
-        citta.setText(itinerario.getCitta());
+        citta.setText(cittaItinerario);
 
-        String s=itinerario.getTags().get(0);
+        tagsItinerario = itinerario.getTags().get(0);
 
         for(int i=1; i<itinerario.getTags().size(); i++)
-            s+=", " + itinerario.getTags().get(i);
+            tagsItinerario+=", " + itinerario.getTags().get(i);
 
         tags = (TextView)view.findViewById(R.id.tag_anteprima);
-        tags.setText(s);
-
-        /*EditText feedbackEdit = (EditText) view.findViewById(R.id.feedback);
-        feedbackEdit.setText(feedback);*/
-
+        tags.setText(tagsItinerario);
 
         btnFeedback = (Button) view.findViewById(R.id.btnInviaFeedback);
 

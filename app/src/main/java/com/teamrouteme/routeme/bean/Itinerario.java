@@ -12,7 +12,20 @@ public class Itinerario implements Parcelable{
 
     private ArrayList<Tappa> tappe = new ArrayList<Tappa>();
 
-    private String nome, id, citta, descrizione;
+    private String nome;
+    private String id;
+    private String citta;
+    private String descrizione;
+
+    public String getAutore() {
+        return autore;
+    }
+
+    public void setAutore(String autore) {
+        this.autore = autore;
+    }
+
+    private String autore;
 
     private ArrayList<String> tags;
 

@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/layout_splash"
-    android:background="#e0f2f1">
+    android:background="@color/testo">
 
     <include
         layout="@layout/com_teamrouteme_routeme_app_splash"

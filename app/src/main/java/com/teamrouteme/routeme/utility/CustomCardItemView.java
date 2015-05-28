@@ -14,10 +14,11 @@ import java.util.ArrayList;
  * Created by nicolopergola on 25/05/15.
  */
 public class CustomCardItemView extends CardItemView<CustomCard>{
-    TextView mTitle;
-    TextView mDescription;
-    TextView mListTags;
-    RatingBar mRatingBar;
+    private TextView mTitle;
+    private TextView mDescription;
+    private TextView mListTags;
+    private RatingBar mRatingBar;
+    private TextView mNumFeedback;
 
     // Default constructors
     public CustomCardItemView(Context context) {
@@ -38,6 +39,7 @@ public class CustomCardItemView extends CardItemView<CustomCard>{
         setDescription(card.getDescription());
         setListTags(card.getListTags());
         setRatingBar(card.getRating());
+        setNumFeedback(card.getNumFeedback());
     }
 
     public void setTitle(String title){
@@ -61,5 +63,10 @@ public class CustomCardItemView extends CardItemView<CustomCard>{
     public void setRatingBar(float valutazione){
         mRatingBar = (RatingBar)findViewById(R.id.ratingBarMieiItinerariCustom);
         mRatingBar.setRating(valutazione);
+    }
+
+    public void setNumFeedback(String numFeedback){
+        mNumFeedback = (TextView)findViewById(R.id.num_feedback);
+        mNumFeedback.setText("("+numFeedback+")");
     }
 }

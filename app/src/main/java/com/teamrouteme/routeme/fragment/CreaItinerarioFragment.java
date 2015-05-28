@@ -29,6 +29,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
@@ -436,11 +437,11 @@ public class CreaItinerarioFragment extends Fragment {
             Log.d(TAG,"Nome itinerario creato: "+ nome);
             String [] tags = i.getStringArrayExtra("tags_itinerario");
             String descrizione =i.getStringExtra("descrizione_itinerario");
-            int min=i.getIntExtra("range_min_itinerario",-1);
+            int min=i.getIntExtra("range_min_itinerario", -1);
             int max=i.getIntExtra("range_max_itinerario", -1);
+            String autore = (String) ParseUser.getCurrentUser().get("name");
 
-                                                            //daniele sostituisci il tuo array invece di quello statico
-            parseCall.uploadRoute(citta, tags, nome, descrizione, min, max, itinerario);
+            parseCall.uploadRoute(citta, tags, nome, descrizione, min, max, itinerario, autore);
 
 
 

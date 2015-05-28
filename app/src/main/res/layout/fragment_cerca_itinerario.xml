@@ -41,6 +41,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:textSize="10pt"
+                android:paddingLeft="3dp"
+                android:text="Min"
+                android:id="@+id/min" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10pt"
+                android:layout_alignParentRight="true"
+                android:paddingRight="5dp"
+                android:text="Max"
+                android:id="@+id/max" />
+        </RelativeLayout>
+
         <Button
             style="@style/MyButton"
             android:layout_marginTop="20dp"

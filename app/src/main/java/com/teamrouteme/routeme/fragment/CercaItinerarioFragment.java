@@ -65,6 +65,7 @@ public class CercaItinerarioFragment extends Fragment {
 
 
     private List myList;
+    private ArrayList<ArcLayoutButton> alArcLayoutButtons;
 
     public CercaItinerarioFragment() {
         // Required empty public constructor
@@ -77,6 +78,7 @@ public class CercaItinerarioFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cerca_itinerario, container, false);
 
         listTags = new ArrayList<>();
+        alArcLayoutButtons = new ArrayList<>();
 
         rootLayout = view.findViewById(R.id.layout_fragment_cerca_itinerario);
         menuLayout = (ClipRevealFrame) view.findViewById(R.id.menu_layout);
@@ -205,6 +207,7 @@ public class CercaItinerarioFragment extends Fragment {
                         b.setButtonAttributes(tags.get(i), colours.get(i % colours.size()));
                         b.setOnTouchListener(new tagButtonOnClick());
                         arcLayout.addView(b);
+                        alArcLayoutButtons.add(b);
                     }
 
 
@@ -278,6 +281,11 @@ public class CercaItinerarioFragment extends Fragment {
 
                             }
                             if (myList.size()==0) {
+                                for(int i=0;i<listTags.size();i++){
+                                    for(int j=0;j<alArcLayoutButtons.size();j++)
+                                        if(alArcLayoutButtons.get(j).getText().equals(listTags.get(i)))
+                                            alArcLayoutButtons.get(j).setPressed(true);
+                                }
                                 dialog.hide();
                                 Toast.makeText(getActivity().getBaseContext(), "Nessuna corrispondenza trovata", Toast.LENGTH_SHORT).show();
                             }

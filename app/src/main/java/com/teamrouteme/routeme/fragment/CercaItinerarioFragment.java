@@ -87,7 +87,7 @@ public class CercaItinerarioFragment extends Fragment {
         autoCompleteAdapter = new ArrayAdapter<String>(CercaItinerarioFragment.this.getActivity(), android.R.layout.simple_dropdown_item_1line);
         autoCompleteAdapter.setNotifyOnChange(true); // This is so I don't have to manually sync whenever changed
         autoCompleteCitta = (CustomAutoCompleteView)  view.findViewById(R.id.autoCompleteCities);
-        autoCompleteCitta.setHint("Inserisci città");
+        autoCompleteCitta.setHint("Inserisci qui la città da ricercare");
         autoCompleteCitta.setThreshold(3);
         autoCompleteCitta.setAdapter(autoCompleteAdapter);
         autoCompleteCitta.setText("");

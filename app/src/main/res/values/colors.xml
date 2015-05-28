@@ -30,5 +30,6 @@
   <color name="sfondo">#e0f2f1</color>
   <color name="lista">#80cbc4</color>
   <color name="testo">#009688</color>
+  <color name="seekbar">#b2ebf2</color>
 
 </resources>

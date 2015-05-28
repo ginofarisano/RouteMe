@@ -32,7 +32,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"
                 android:textSize="8pt"
-                android:maxLines="3"
+                android:maxLines="2"
                 android:id="@+id/descrizioneItinerarioCard"/>
 
             <TextView
@@ -64,7 +64,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_height="wrap_content"
                     android:textSize="6pt"
-                    android:text="(10)"
+                    android:text=""
                     android:id="@+id/num_feedback"/>
             </LinearLayout>
 

@@ -122,6 +122,7 @@ public class ItinerariScaricatiFragment extends Fragment {
                             card.setRatingBar(it.getRating()/it.getNum_feedback());
                         else
                             card.setRatingBar(0);
+                        card.setNumFeedback(it.getNum_feedback());
                         listView.add(card);
                     }
 

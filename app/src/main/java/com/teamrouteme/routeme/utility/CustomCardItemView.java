@@ -39,6 +39,7 @@ public class CustomCardItemView extends CardItemView<CustomCard>{
         setDescription(card.getDescription());
         setListTags(card.getListTags());
         setRatingBar(card.getRating());
+        setNumFeedback(card.getNumFeedback());
     }
 
     public void setTitle(String title){
@@ -64,7 +65,7 @@ public class CustomCardItemView extends CardItemView<CustomCard>{
         mRatingBar.setRating(valutazione);
     }
 
-    public void setNumFeedback(int numFeedback){
+    public void setNumFeedback(String numFeedback){
         mNumFeedback = (TextView)findViewById(R.id.num_feedback);
         mNumFeedback.setText("("+numFeedback+")");
     }

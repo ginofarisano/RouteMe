@@ -150,12 +150,11 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                         btnAcquistaItinerario.setText("Già tuo");
 
                         btnDesideraItinerario.setEnabled(false);
-                        btnDesideraItinerario.setText("Già cuoricino");
-                        dialog.hide();
+                        btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.whisred));
                     }
 
                     queryCount++;
-                    if (queryCount == 3)
+                    if (queryCount == 4)
                         dialog.hide();
                 } else {
                     Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
@@ -182,12 +181,11 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                         btnAcquistaItinerario.setText("Già tuo");
 
                         btnDesideraItinerario.setEnabled(false);
-                        btnDesideraItinerario.setText("Già cuoricino");
-                        dialog.hide();
+                        btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.whisred));
                     }
 
                     queryCount++;
-                    if(queryCount==3)
+                    if(queryCount==4)
                         dialog.hide();
                 } else {
                     Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
@@ -209,11 +207,41 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                     if (list.size() != 0) {
                         listaDesideriObject = list.get(0);
                         btnDesideraItinerario.setEnabled(false);
-                        btnDesideraItinerario.setText("Già cuoricino");
+                        btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.whisred));
                     }
 
                     queryCount++;
-                    if(queryCount==3)
+                    if(queryCount==4)
+                        dialog.hide();
+                } else {
+                    Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
+                }
+            }
+
+        });
+
+        // Carica le recensioni dell'itinerario
+        query = ParseQuery.getQuery("itinerari_acquistati");
+        query.whereEqualTo("idItinerario", itinerario.getId());
+
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+            @Override
+            public void done(List<ParseObject> list, com.parse.ParseException e) {
+
+                if (e == null) {
+                    if (list.size() != 0) {
+                        ArrayList<String> alFeedback = new ArrayList<String>();
+                        for(int i=0; i<list.size(); i++){
+                            ParseObject parseObject = list.get(i);
+                            String feedback = parseObject.getString("feedback");
+                            if(feedback != null)
+                                alFeedback.add(feedback);
+                        }
+                    }
+
+                    queryCount++;
+                    if(queryCount==4)
                         dialog.hide();
                 } else {
                     Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
@@ -240,7 +268,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                 btnAcquistaItinerario.setText("Già tuo");
 
                 btnDesideraItinerario.setEnabled(false);
-                btnDesideraItinerario.setText("Già cuoricino");
+                btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.whisred));
 
             }
         });
@@ -254,7 +282,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                 parseCall.addWishList(idItinerario);
 
                 btnDesideraItinerario.setEnabled(false);
-                btnDesideraItinerario.setText("Già cuoricino");
+                btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.whisred));
             }
         });
 

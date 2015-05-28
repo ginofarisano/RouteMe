@@ -243,6 +243,7 @@ public class CercaItinerarioFragment extends Fragment {
                 final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
                         "Caricamento in corso...", true);
 
+                query.orderByDescending("num_feedback");
                 query.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> list, com.parse.ParseException e) {
@@ -361,4 +362,3 @@ public class CercaItinerarioFragment extends Fragment {
     }
 
 }
-

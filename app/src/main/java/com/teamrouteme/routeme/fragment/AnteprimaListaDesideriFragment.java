@@ -38,7 +38,7 @@ public class AnteprimaListaDesideriFragment extends Fragment{
     private ArrayList<String> tappeId;
     private Button btnIndietro;
     private ArrayList<Itinerario> itinerari;
-    private Button btnAvviaItinerario, btnAcquistaItinerario, btnDesideraItinerario;
+    private Button btnAvviaItinerario, btnAcquistaItinerario;
     private TextView nomeItinerarioEdit;
     private RatingBar valutazioneBar;
     private String nomeItinerario, tagsItinerario, cittaItinerario, descrizioneItinerario, autoreItinerario;
@@ -125,12 +125,9 @@ public class AnteprimaListaDesideriFragment extends Fragment{
 
         btnAvviaItinerario = (Button) view.findViewById(R.id.btnAvviaItinerario);
         btnAcquistaItinerario = (Button) view.findViewById(R.id.btnAcquistaItinerario);
-        btnDesideraItinerario = (Button) view.findViewById(R.id.btn_desidera);
 
         btnAvviaItinerario.setVisibility(View.GONE);
         btnAcquistaItinerario.setVisibility(View.VISIBLE);
-        btnDesideraItinerario.setVisibility(View.VISIBLE);
-        btnDesideraItinerario.setText("Già cuoricino");
 
 
         btnAcquistaItinerario.setOnClickListener(new View.OnClickListener() {
@@ -150,26 +147,8 @@ public class AnteprimaListaDesideriFragment extends Fragment{
                 btnAcquistaItinerario.setEnabled(false);
                 btnAcquistaItinerario.setText("Già tuo");
 
-                btnDesideraItinerario.setEnabled(false);
-                btnDesideraItinerario.setText("Già cuoricino");
-
             }
         });
-
-        btnDesideraItinerario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String idItinerario = itinerario.getId();
-                ParseCall parseCall = new ParseCall();
-
-                parseCall.addWishList(idItinerario);
-
-                btnDesideraItinerario.setEnabled(false);
-                btnDesideraItinerario.setText("Già cuoricino");
-            }
-        });
-
-
 
         btnIndietro = (Button) view.findViewById(R.id.btn_indietro);
         btnIndietro.setOnClickListener(new View.OnClickListener() {

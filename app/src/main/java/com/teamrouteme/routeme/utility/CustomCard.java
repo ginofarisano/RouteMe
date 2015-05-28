@@ -32,7 +32,7 @@ public class CustomCard extends SimpleCard {
 
     public String getNumFeedback() {return mNumFeedback;}
 
-    public void setNumFeedback(int numFeedback){this.mNumFeedback = "("+numFeedback+")";}
+    public void setNumFeedback(int numFeedback){this.mNumFeedback = ""+numFeedback;}
 
     public void setRatingBar(float ratingBar) {
         this.mRatingBar = ratingBar;

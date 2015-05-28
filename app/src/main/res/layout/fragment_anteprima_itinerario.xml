@@ -17,7 +17,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
@@ -25,9 +25,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold"
                     android:text="Nome itinerario"
                     android:layout_gravity="center"
                     android:id="@+id/nomeItinerarioCard" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/autore" />
 
             </LinearLayout>
 
@@ -89,6 +96,28 @@
 
                 <TextView
                     android:id="@+id/tag_anteprima"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:text=""
+                    android:textSize="8pt" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Durata: "
+                    android:textSize="8pt" />
+
+                <TextView
+                    android:id="@+id/durata_anteprima"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#000"

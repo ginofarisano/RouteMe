@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.google.android.gms:play-services:7.0.0'
     compile 'it.neokree:MaterialNavigationDrawer:1.3.3'
@@ -37,10 +37,8 @@ dependencies {
     //end dependency for login with parse
     compile 'com.ogaclejapan.arclayout:library:1.0.1@aar'
     compile 'com.android.support:appcompat-v7:21.0.+'
-    compile files('/Users/ginofarisano/Desktop/IUMUS/RouteMe/libs/listviewanimations_lib-core_3.1.0.jar')
-    compile files('/Users/ginofarisano/Desktop/IUMUS/RouteMe/libs/listviewanimations_lib-manipulation_3.1.0.jar')
-    compile files('/Users/ginofarisano/Desktop/IUMUS/RouteMe/libs/listviewanimations_lib-core-slh_3.1.0.jar')
     compile 'com.github.dexafree:materiallist:2.4.3'
     compile 'com.ms-square:expandableTextView:0.1.3'
-    compile files('/Users/ginofarisano/Desktop/RouteMe/RouteMe/libs/PayPalAndroidSDK-2.9.5.jar')
+    compile files('libs/PayPalAndroidSDK-2.9.5.jar')
+    compile files('/Users/massimo299/AndroidStudioProjects/RouteMe/libs/PayPalAndroidSDK-2.9.5.jar')
 }

@@ -1,5 +1,6 @@
 package com.teamrouteme.routeme.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -21,8 +22,11 @@ import android.widget.Toast;
 
 import com.ogaclejapan.arclayout.ArcLayout;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.teamrouteme.routeme.activity.HomeActivity;
 import com.teamrouteme.routeme.adapter.CustomAutoCompleteView;
 import com.teamrouteme.routeme.R;
@@ -236,6 +240,9 @@ public class CercaItinerarioFragment extends Fragment {
                 if(listTags.size()!=0)
                     query = query.whereContainedIn("tags", listTags);
 
+                final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
+                        "Caricamento in corso...", true);
+
                 query.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> list, com.parse.ParseException e) {
@@ -257,6 +264,8 @@ public class CercaItinerarioFragment extends Fragment {
                                 itinerario.setId(parseObject.getObjectId());
                                 itinerario.setNum_feedback(parseObject.getNumber("num_feedback").intValue());
                                 itinerario.setRating(parseObject.getNumber("rating").floatValue());
+                                itinerario.setAutore(parseObject.getString("autore"));
+
                                 ArrayList<String> tappe_objectId = new ArrayList<String>();
 
                                 for (ParseObject tappa_object : (ArrayList<ParseObject>) parseObject.get("tappe")) {
@@ -270,6 +279,8 @@ public class CercaItinerarioFragment extends Fragment {
                             if (myList.size()==0)
                                 Toast.makeText(getActivity().getBaseContext(), "Nessuna corrispondenza trovata", Toast.LENGTH_SHORT).show();
                             else{
+                                dialog.hide();
+
                                 Fragment risultatiRicercaFragment = new RisultatiRicercaFragment();
                                 Bundle b = new Bundle();
 
@@ -281,6 +292,7 @@ public class CercaItinerarioFragment extends Fragment {
 
                                 b.putParcelableArrayList("itinerari", (ArrayList<Itinerario>) mL);
                                 risultatiRicercaFragment.setArguments(b);
+
                                 // Set new fragment on screen
                                 MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
                                 home.setFragment(risultatiRicercaFragment, "Risultato Ricerca");

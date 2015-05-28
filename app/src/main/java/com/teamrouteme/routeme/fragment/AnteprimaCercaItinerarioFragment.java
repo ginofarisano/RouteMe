@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -31,7 +31,6 @@ import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 public class AnteprimaCercaItinerarioFragment extends Fragment{
 
     private View view;
-    private String nomeItinerario;
     private Itinerario itinerario;
     private ArrayList<String> tappeId;
     private Button btnIndietro;
@@ -41,6 +40,13 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
     private ParseObject listaDesideriObject, listaAcquistatiObject;
     private TextView nomeItinerarioEdit;
     private RatingBar valutazioneBar;
+    private String nomeItinerario, tagsItinerario, cittaItinerario, descrizioneItinerario, autoreItinerario;
+    private int durataMinItinerario, durataMaxItinerario;
+    private TextView tags;
+    private ExpandableTextView descrizione;
+    private TextView citta;
+    private TextView durata;
+    private TextView autoreItinerarioEdit;
 
     public AnteprimaCercaItinerarioFragment(){
         // Required empty public constructor
@@ -56,32 +62,55 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
         if(b != null) {
             itinerario = (Itinerario) b.get("itinerario");
             itinerari = b.getParcelableArrayList("itinerari");
-            nomeItinerario = itinerario.getNome();
-            tappeId = itinerario.getTappeId();
 
-            Log.d("","Nome itinerario ricevuto: "+ itinerario.getNome());
-            Log.d("","Descrizione itinerario ricevuto: "+ itinerario.getDescrizione());
-            Log.d("","Citta itinerario ricevuto: "+ itinerario.getCitta());
+            nomeItinerario = itinerario.getNome();
+            descrizioneItinerario = itinerario.getDescrizione();
+            cittaItinerario = itinerario.getCitta();
+            durataMinItinerario = itinerario.getDurataMin();
+            durataMaxItinerario = itinerario.getDurataMax();
+            tappeId = itinerario.getTappeId();
+            autoreItinerario = itinerario.getAutore();
+
+            Log.d("","Nome itinerario ricevuto: "+ nomeItinerario);
+            Log.d("","Autore itinerario ricevuto: "+ autoreItinerario);
+            Log.d("","Descrizione itinerario ricevuto: "+ descrizioneItinerario);
+            Log.d("","Citta itinerario ricevuto: "+ cittaItinerario);
             Log.d("","Id itinerario ricevuto: "+ itinerario.getId());
-            Log.d("","Durata Min itinerario ricevuto: "+ itinerario.getDurataMin());
-            Log.d("","Durata Max itinerario ricevuto: "+ itinerario.getDurataMax());
+            Log.d("","Durata Min itinerario ricevuto: "+ durataMinItinerario);
+            Log.d("","Durata Max itinerario ricevuto: "+ durataMaxItinerario);
             Log.d("","Tags itinerario ricevuto: "+ itinerario.getTags());
-            Log.d("","Tappe ID itinerario ricevuto: "+ itinerario.getTappeId());
+            Log.d("","Tappe ID itinerario ricevuto: "+ tappeId);
         }
 
         //settaggio delle variabili prese dal server
         nomeItinerarioEdit = (TextView) view.findViewById(R.id.nomeItinerarioCard);
         nomeItinerarioEdit.setText(nomeItinerario);
 
+        autoreItinerarioEdit = (TextView) view.findViewById(R.id.autore);
+        autoreItinerarioEdit.setText(autoreItinerario);
+
         valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
         if(itinerario.getNum_feedback()!=0)
             valutazioneBar.setRating(itinerario.getRating()/itinerario.getNum_feedback());
         else
             valutazioneBar.setRating(0);
+        
+        descrizione = (ExpandableTextView)view.findViewById(R.id.expand_text_view);
+        descrizione.setText(descrizioneItinerario);
+        
+        durata = (TextView) view.findViewById(R.id.durata_anteprima);
+        durata.setText(durataMinItinerario+"-"+durataMaxItinerario+" ore");
 
-       /* EditText feedbackEdit = (EditText) view.findViewById(R.id.feedback);
-        feedbackEdit.setText(feedback);*/
+        citta = (TextView)view.findViewById(R.id.citta_anteprima);
+        citta.setText(cittaItinerario);
+        
+        tagsItinerario = itinerario.getTags().get(0);
 
+        for(int i=1; i<itinerario.getTags().size(); i++)
+            tagsItinerario+=", " + itinerario.getTags().get(i);
+
+        tags = (TextView)view.findViewById(R.id.tag_anteprima);
+        tags.setText(tagsItinerario);
 
         Button btnFeedback= (Button) view.findViewById(R.id.btnInviaFeedback);
 

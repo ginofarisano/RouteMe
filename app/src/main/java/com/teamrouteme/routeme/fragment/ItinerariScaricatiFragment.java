@@ -97,6 +97,7 @@ public class ItinerariScaricatiFragment extends Fragment {
                         itinerario.setId(parseObject.getObjectId());
                         itinerario.setNum_feedback(parseObject.getNumber("num_feedback").intValue());
                         itinerario.setRating(parseObject.getNumber("rating").floatValue());
+                        itinerario.setAutore(parseObject.getString("autore"));
 
                         ArrayList<String> tappe_objectId = new ArrayList<String>();
 

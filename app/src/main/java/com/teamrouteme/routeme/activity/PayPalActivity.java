@@ -1,0 +1,139 @@
+package com.teamrouteme.routeme.activity;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import com.parse.ParseUser;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
+import com.teamrouteme.routeme.R;
+
+import org.json.JSONException;
+
+import java.math.BigDecimal;
+
+/**
+ * Chiamare questa classse con startActivity e un Bundle.
+ * Nel bundle inviare un oggetto intero con chiave KEY_BUNBLE e come valore un
+ * intero indicante il numero di crediti necessari per acquistare l'itinerario
+ *
+ */
+public class PayPalActivity extends Activity {
+
+
+    private static final String KEY_BUNDLE = "KEY_BUNBLE";
+
+    private static final String To_BUY = "Acquisto di %s crediti da %s (%s)";
+
+    private static final String CLIENT_ID_PAYPALL = "AUs9mMZKDuWPwR4bqpQPiW91ybKKubyuk_YMVpmH8K6YvK_2qn0H7oDu8csEHXFkd_gaBeb-lTydtMtJ";
+
+    private static PayPalConfiguration config = new PayPalConfiguration()
+
+            // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
+            // or live (ENVIRONMENT_PRODUCTION)
+            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+
+            .clientId(CLIENT_ID_PAYPALL);
+
+    private int creditToBuy;
+
+
+    private TextView tvCreditToBuy;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_pay_pall);
+
+        //numero di crediti da acquistare
+        creditToBuy=getIntent().getExtras().getInt(KEY_BUNDLE);
+
+        tvCreditToBuy = (TextView)findViewById(R.id.tv_credit_to_buy);
+
+        tvCreditToBuy.setText(String.valueOf(creditToBuy));
+
+        Intent intent = new Intent(this, PayPalService.class);
+
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+
+        startService(intent);
+
+    }
+
+    @Override
+    public void onDestroy() {
+        stopService(new Intent(this, PayPalService.class));
+        super.onDestroy();
+    }
+
+    /**
+     *  invio pagamento per l'acquisto dei crediti
+     * @param pressed
+     */
+    public void onBuyPressed(View pressed) {
+
+        // PAYMENT_INTENT_SALE will cause the payment to complete immediately.
+        // Change PAYMENT_INTENT_SALE to
+        //   - PAYMENT_INTENT_AUTHORIZE to only authorize payment and capture funds later.
+        //   - PAYMENT_INTENT_ORDER to create a payment for authorization and capture
+        //     later via calls from your server.
+
+        BigDecimal bdCreditToBuy = new BigDecimal(creditToBuy);
+
+        PayPalPayment payment = new PayPalPayment(bdCreditToBuy, "EUR", String.format(To_BUY,creditToBuy, ParseUser.getCurrentUser().get("name"),ParseUser.getCurrentUser().get("username")),
+                PayPalPayment.PAYMENT_INTENT_SALE);
+
+        Intent intent = new Intent(this, PaymentActivity.class);
+
+        // send the same configuration for restart resiliency
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+
+        startActivityForResult(intent, 0);
+    }
+
+    /*
+     * Enable retrieval of shipping addresses from buyer's PayPal account
+     */
+    private void enableShippingAddressRetrieval(PayPalPayment paypalPayment, boolean enable) {
+        paypalPayment.enablePayPalShippingAddressesRetrieval(enable);
+    }
+
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+            if (confirm != null) {
+                try {
+                    Log.i("paymentExample", confirm.toJSONObject().toString(4));
+
+                    // TODO: send 'confirm' to your server for verification. (TODO: inviare 'conferma' sul server per la verifica.)
+                    // see https://developer.paypal.com/webapps/developer/docs/integration/mobile/verify-mobile-payment/ (Vedi https://developer.paypal.com/webapps/developer/docs/integration/mobile/verify-mobile-payment/)
+                    // for more details. (per maggiori dettagli.)
+
+                } catch (JSONException e) {
+                    Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
+                }
+            }
+        }
+        else if (resultCode == Activity.RESULT_CANCELED) {
+            Log.i("paymentExample", "The user canceled.");
+        }
+        else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
+            Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
+        }
+    }
+
+
+}

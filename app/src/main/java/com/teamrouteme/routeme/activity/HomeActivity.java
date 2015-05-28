@@ -113,6 +113,23 @@ public class HomeActivity extends MaterialNavigationDrawer {
             }
         }));
 
+        this.addSection(newSection("Prova pagamento", R.drawable.logout, new MaterialSectionListener() {
+            @Override
+            public void onClick(MaterialSection materialSection) {
+
+
+
+                Intent intent = new Intent(HomeActivity.this, PayPalActivity.class);
+
+                //esempio pagamento un euro
+                intent.putExtra("KEY_BUNBLE",1);
+
+                startActivity(intent);
+
+
+            }
+        }));
+
 
     }
 

@@ -26,9 +26,13 @@ import android.app.Application;
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseTwitterUtils;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.teamrouteme.routeme.R;
 
 public class RouteMeApplication extends Application {
+
+
+
   @Override
   public void onCreate() {
     super.onCreate();
@@ -43,5 +47,8 @@ public class RouteMeApplication extends Application {
     // remove this line (and other related ParseTwitterUtils calls)
     ParseTwitterUtils.initialize(getString(R.string.twitter_consumer_key),
         getString(R.string.twitter_consumer_secret));
+
+
+
   }
 }

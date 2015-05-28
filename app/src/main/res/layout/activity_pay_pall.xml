@@ -14,7 +14,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Acquista"
+        android:text="Vai"
         android:onClick="onBuyPressed"
         android:id="@+id/button"
         android:layout_below="@+id/tv_credit_to_buy"

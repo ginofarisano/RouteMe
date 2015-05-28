@@ -2,11 +2,8 @@ package com.teamrouteme.routeme.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -31,9 +28,18 @@ import java.math.BigDecimal;
 public class PayPalActivity extends Activity {
 
 
-    private static final String KEY_BUNDLE = "KEY_BUNBLE";
+    public static final String SELLER = "routeme@gmail.com";
 
-    private static final String To_BUY = "Acquisto di %s crediti da %s (%s)";
+    public static final String KEY_BUNDLE = "KEY_BUNBLE";
+
+    public static final String KEY_DONATE = "KEY_DONATE";
+
+    private static final String TO_BUY = "Per Acquisto di %s crediti da %s (%s) per %s";
+
+    private static final String DONATE = "Offerta di %s euro da %s (%s) per %s euro :-)";
+
+    private static final String MESSAGE_PAYPAL = "Per %s.\n Pagamento di %s euro da %s (%s)";
+
 
     private static final String CLIENT_ID_PAYPALL = "AUs9mMZKDuWPwR4bqpQPiW91ybKKubyuk_YMVpmH8K6YvK_2qn0H7oDu8csEHXFkd_gaBeb-lTydtMtJ";
 
@@ -48,6 +54,8 @@ public class PayPalActivity extends Activity {
     private int creditToBuy;
 
 
+
+
     private TextView tvCreditToBuy;
 
     @Override
@@ -55,12 +63,20 @@ public class PayPalActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay_pall);
 
+        Bundle b = getIntent().getExtras();
+
         //numero di crediti da acquistare
-        creditToBuy=getIntent().getExtras().getInt(KEY_BUNDLE);
+        creditToBuy=b.getInt(KEY_BUNDLE);
+
 
         tvCreditToBuy = (TextView)findViewById(R.id.tv_credit_to_buy);
 
-        tvCreditToBuy.setText(String.valueOf(creditToBuy));
+        //sto comprando crediti
+        if(b.getString(KEY_DONATE,"").length()==0)
+            tvCreditToBuy.setText(String.format(TO_BUY, creditToBuy, ParseUser.getCurrentUser().get("name"), ParseUser.getCurrentUser().get("username"),creditToBuy));
+        else
+            //mi stai offrendo una birra
+            tvCreditToBuy.setText( String.format(DONATE, creditToBuy, ParseUser.getCurrentUser().get("name"), ParseUser.getCurrentUser().get("username"),creditToBuy));
 
         Intent intent = new Intent(this, PayPalService.class);
 
@@ -90,7 +106,8 @@ public class PayPalActivity extends Activity {
 
         BigDecimal bdCreditToBuy = new BigDecimal(creditToBuy);
 
-        PayPalPayment payment = new PayPalPayment(bdCreditToBuy, "EUR", String.format(To_BUY,creditToBuy, ParseUser.getCurrentUser().get("name"),ParseUser.getCurrentUser().get("username")),
+
+        PayPalPayment payment = new PayPalPayment(bdCreditToBuy, "EUR", String.format(MESSAGE_PAYPAL,SELLER,creditToBuy, ParseUser.getCurrentUser().get("name"),ParseUser.getCurrentUser().get("username")),
                 PayPalPayment.PAYMENT_INTENT_SALE);
 
         Intent intent = new Intent(this, PaymentActivity.class);
@@ -133,7 +150,12 @@ public class PayPalActivity extends Activity {
         else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
             Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
         }
+
+        finish();
+
     }
+
+
 
 
 }

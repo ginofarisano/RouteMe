@@ -113,18 +113,31 @@ public class HomeActivity extends MaterialNavigationDrawer {
             }
         }));
 
-        this.addSection(newSection("Prova pagamento", R.drawable.logout, new MaterialSectionListener() {
+        this.addSection(newSection("Pagami una birra!", R.drawable.beer, new MaterialSectionListener() {
             @Override
             public void onClick(MaterialSection materialSection) {
 
-
+                /**
+                 *  X L'ACQUISTO DI CREDITI AGGIUNGERE QUESTO CODICE SENZA intent.putExtra(PayPalActivity.KEY_DONATE,"BEEEER"); CAMBIANDO 1 CON
+                 *  IL NUMERO DI CREDITI DA ACQUISTARE
+                 */
 
                 Intent intent = new Intent(HomeActivity.this, PayPalActivity.class);
 
+
+
                 //esempio pagamento un euro
-                intent.putExtra("KEY_BUNBLE",1);
+                intent.putExtra(PayPalActivity.KEY_BUNDLE,1);
+
+                intent.putExtra(PayPalActivity.KEY_DONATE,"BEEEER");
 
                 startActivity(intent);
+
+
+                /**
+                 *  X L'ACQUISTO DI CREDITI AGGIUNGERE QUESTO CODICE SENZA intent.putExtra(PayPalActivity.KEY_DONATE,"BEEEER"); CAMBIANDO 1 CON
+                 *  IL NUMERO DI CREDITI DA ACQUISTARE
+                 */
 
 
             }

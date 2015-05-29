@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.dexafree.materialList.controller.RecyclerItemClickListener;
 import com.dexafree.materialList.model.CardItemView;
@@ -45,6 +46,7 @@ public class ItinerariAcquistatiFragment extends Fragment {
 
     private MaterialListView listView;
     private List myList;
+    private TextView nessunItineario;
 
     public ItinerariAcquistatiFragment() {
         // Required empty public constructor
@@ -54,8 +56,10 @@ public class ItinerariAcquistatiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-        final View view = inflater.inflate(R.layout.fragment_itinerari_scaricati, container, false);
+        final View view = inflater.inflate(R.layout.fragment_lista_itinerari, container, false);
 
+        nessunItineario = (TextView) view.findViewById(R.id.nessunItinerario);
+        
         listView = (MaterialListView) view.findViewById(R.id.material_listview);
 
         myList = new LinkedList();
@@ -112,6 +116,9 @@ public class ItinerariAcquistatiFragment extends Fragment {
 
                     dialog.hide();
 
+                    if(myList.size()==0)
+                        nessunItineario.setVisibility(View.VISIBLE);
+
                     for (int i = 0; i < myList.size(); i++) {
                         Itinerario it = (Itinerario) myList.get(i);
                         CustomCard card = new CustomCard(getActivity().getApplicationContext());
@@ -141,7 +148,7 @@ public class ItinerariAcquistatiFragment extends Fragment {
 
                 CardView c = (CardView)cardItemView.getChildAt(0);
                 c.setBackgroundColor(getResources().getColor(R.color.testo));
-                Fragment anteprimaItinerariScaricatiFragment = new AnteprimaItinerariScaricatiFragment();
+                Fragment anteprimaItinerariScaricatiFragment = new AnteprimaItinerariAcquistatiFragment();
 
                 Bundle b = new Bundle();
                 b.putParcelable("itinerario", (Itinerario) myList.get(i));

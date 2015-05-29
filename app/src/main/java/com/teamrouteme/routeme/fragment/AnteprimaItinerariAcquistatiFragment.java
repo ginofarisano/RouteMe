@@ -21,6 +21,7 @@ import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
@@ -33,7 +34,7 @@ import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 /**
  * Created by massimo299 on 26/05/15.
  */
-public class AnteprimaItinerariScaricatiFragment extends  Fragment{
+public class AnteprimaItinerariAcquistatiFragment extends  Fragment{
 
     private View view;
     private Itinerario itinerario;
@@ -52,7 +53,7 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
     private ArrayAdapter<String> adapter;
     private LinearLayout listViewRecensioni;
 
-    public AnteprimaItinerariScaricatiFragment(){
+    public AnteprimaItinerariAcquistatiFragment(){
         // Required empty public constructor
     }
 
@@ -140,10 +141,14 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
                         for (int i = 0; i < list.size(); i++) {
                             ParseObject parseObject = list.get(i);
                             String feedback = parseObject.getString("feedback");
+                            if(feedback!=null && ((ParseUser)parseObject.get("user")).getObjectId().equals(ParseUser.getCurrentUser().getObjectId())){
+                                btnFeedback.setEnabled(false);
+                                btnFeedback.setBackground(getResources().getDrawable(R.drawable.selector_disabled));
+                            }
                             if(feedback != null && feedback.length() > 0) {
                                 alFeedback.add(feedbackCount + ". " + feedback);
-                                feedbackCount++;
                                 Log.d("Recensione " + feedbackCount, feedback);
+                                feedbackCount++;
                             }
 
                         }
@@ -175,7 +180,7 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
                 feedbackDialog.setArguments(b);
 
                 feedbackDialog.show(fm, "fragment_feedback_dialog");
-                feedbackDialog.setTargetFragment(AnteprimaItinerariScaricatiFragment.this, 1);
+                feedbackDialog.setTargetFragment(AnteprimaItinerariAcquistatiFragment.this, 1);
             }
         });
 
@@ -273,7 +278,7 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
         if(resultCode==1) {
             Toast.makeText(getActivity().getBaseContext(), "Feedback rilasciato, grazie!", Toast.LENGTH_SHORT).show();
             btnFeedback.setEnabled(false);
-            btnFeedback.setText("Feedback rilasciato");
+            btnFeedback.setBackground(getResources().getDrawable(R.drawable.selector_disabled));
         }
     }
 }

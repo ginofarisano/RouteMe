@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.dexafree.materialList.controller.RecyclerItemClickListener;
 import com.dexafree.materialList.model.CardItemView;
@@ -45,6 +46,7 @@ public class MieiItinerariFragment extends Fragment {
 
     private MaterialListView listView;
     private List myList;
+    private TextView nessunItineario;
 
     public MieiItinerariFragment() {
         // Required empty public constructor
@@ -55,6 +57,8 @@ public class MieiItinerariFragment extends Fragment {
 
 
         final View view = inflater.inflate(R.layout.fragment_lista_itinerari, container, false);
+
+        nessunItineario = (TextView) view.findViewById(R.id.nessunItinerario);
 
         listView = (MaterialListView) view.findViewById(R.id.material_listview);
 
@@ -104,11 +108,9 @@ public class MieiItinerariFragment extends Fragment {
 
                     dialog.hide();
 
-/*
-                    CustomAdapterListaItinerari adapter = new CustomAdapterListaItinerari(MieiItinerariFragment.this.getActivity(), R.layout.row_custom_itinerari_creati, myList);
+                    if(myList.size()==0)
+                        nessunItineario.setVisibility(View.VISIBLE);
 
-
-                    listView.setAdapter(adapter);*/
                     for (int i = 0; i < myList.size(); i++) {
                         Itinerario it = (Itinerario) myList.get(i);
                         CustomCard card = new CustomCard(getActivity().getApplicationContext());

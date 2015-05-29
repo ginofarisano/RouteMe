@@ -144,8 +144,8 @@ public class AnteprimaListaDesideriFragment extends Fragment{
                             String feedback = parseObject.getString("feedback");
                             if(feedback != null && feedback.length() > 0) {
                                 alFeedback.add(feedbackCount + ". " + feedback);
-                                feedbackCount++;
                                 Log.d("Recensione " + feedbackCount, feedback);
+                                feedbackCount++;
                             }
 
                         }
@@ -188,6 +188,7 @@ public class AnteprimaListaDesideriFragment extends Fragment{
                 //UNA VOLTA EFFETTUATA L'OPERAZIONE DI PAGAMENTO VENGONO DISATTIVATI I BOTTONI
 
                 btnAcquistaItinerario.setEnabled(false);
+                btnAcquistaItinerario.setBackground(getResources().getDrawable(R.drawable.selector_disabled));
                 btnAcquistaItinerario.setText("Già tuo");
 
             }

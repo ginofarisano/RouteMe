@@ -121,7 +121,7 @@ public class VisualizzaItinerarioFragment extends Fragment implements LocationLi
             public void onClick(View v) {
 
                 if(itinerariScaricati){
-                    Fragment anteprimaItinerariScaricatiFragment = new AnteprimaItinerariScaricatiFragment();
+                    Fragment anteprimaItinerariScaricatiFragment = new AnteprimaItinerariAcquistatiFragment();
                     Bundle b = new Bundle();
                     b.putParcelable("itinerario", itinerario);
                     anteprimaItinerariScaricatiFragment.setArguments(b);

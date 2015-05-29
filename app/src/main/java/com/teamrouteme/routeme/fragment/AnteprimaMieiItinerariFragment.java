@@ -141,8 +141,8 @@ public class AnteprimaMieiItinerariFragment extends Fragment{
                             String feedback = parseObject.getString("feedback");
                             if(feedback != null && feedback.length() > 0) {
                                 alFeedback.add(feedbackCount + ". " + feedback);
-                                feedbackCount++;
                                 Log.d("Recensione " + feedbackCount, feedback);
+                                feedbackCount++;
                             }
 
                         }

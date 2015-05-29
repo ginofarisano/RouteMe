@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.parse.FindCallback;
@@ -251,8 +252,8 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                             String feedback = parseObject.getString("feedback");
                             if(feedback != null && feedback.length() > 0) {
                                 alFeedback.add(feedbackCount+". "+feedback);
-                                feedbackCount++;
                                 Log.d("Recensione "+feedbackCount, feedback);
+                                feedbackCount++;
                             }
 
                         }
@@ -307,6 +308,8 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                 ParseCall parseCall = new ParseCall();
 
                 parseCall.addWishList(idItinerario);
+
+                Toast.makeText(getActivity().getBaseContext(), "Aggiunto alla lista dei desideri", Toast.LENGTH_SHORT).show();
 
                 btnDesideraItinerario.setEnabled(false);
                 btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.wishred));

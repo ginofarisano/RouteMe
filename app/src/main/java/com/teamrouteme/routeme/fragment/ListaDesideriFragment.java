@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.dexafree.materialList.controller.RecyclerItemClickListener;
 import com.dexafree.materialList.model.Card;
@@ -50,6 +51,7 @@ public class ListaDesideriFragment extends Fragment {
 
     private MaterialListView listView;
     private List myList;
+    private TextView nessunItineario;
 
     public ListaDesideriFragment() {
         // Required empty public constructor
@@ -60,6 +62,8 @@ public class ListaDesideriFragment extends Fragment {
 
 
         final View view = inflater.inflate(R.layout.fragment_lista_itinerari, container, false);
+
+        nessunItineario = (TextView) view.findViewById(R.id.nessunItinerario);
 
         listView = (MaterialListView) view.findViewById(R.id.material_listview);
 
@@ -116,6 +120,9 @@ public class ListaDesideriFragment extends Fragment {
                     }
 
                     dialog.hide();
+
+                    if(myList.size()==0)
+                        nessunItineario.setVisibility(View.VISIBLE);
 
                     for (int i = 0; i < myList.size(); i++) {
                         Itinerario it = (Itinerario) myList.get(i);

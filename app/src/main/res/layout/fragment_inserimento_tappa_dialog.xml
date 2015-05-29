@@ -25,6 +25,7 @@
         android:id="@+id/lbl_descrizione_tappa"
         android:text="Descrizione"
         android:layout_width="wrap_content"
+        android:maxLength="50"
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"

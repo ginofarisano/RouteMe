@@ -32,7 +32,7 @@ import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 /**
  * Created by daniele on 12/05/15.
  */
-public class AnteprimaCercaItinerarioFragment extends Fragment{
+public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
 
 
     public static final int PRICEROUTE = 10;
@@ -312,7 +312,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
 
                 } else {
 
-                    buyCredit(delta, idItinerario, dialog,btnAcquistaItinerario);
+                    buyCredit(delta, idItinerario, dialog, btnAcquistaItinerario);
 
 
                 }

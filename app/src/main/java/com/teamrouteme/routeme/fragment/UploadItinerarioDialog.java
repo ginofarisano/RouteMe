@@ -38,7 +38,6 @@ import java.util.List;
 public class UploadItinerarioDialog extends DialogFragment{
 
     private EditText nomeItinerarioEditText, descrizioneItinerarioEditText, cittaItinerarioEditText;
-    private TextView campiVuotiTextView;
     private Button btn_confermaItinerario;
 
     private RangeSeekBar<Integer> rangeSeekBar;
@@ -64,7 +63,6 @@ public class UploadItinerarioDialog extends DialogFragment{
         cittaItinerarioEditText = (EditText) view.findViewById(R.id.editText_citta_itinerario);
         nomeItinerarioEditText = (EditText) view.findViewById(R.id.editText_nome_itinerario);
         descrizioneItinerarioEditText = (EditText) view.findViewById(R.id.editText_descrizione_itinerario);
-        campiVuotiTextView = (TextView) view.findViewById(R.id.lbl_campi_vuoti_itinerario);
 
         rootLayout = view.findViewById(R.id.layout_dialog_creazione_itinerario);
         menuLayout = (ClipRevealFrame) view.findViewById(R.id.menu_layout);
@@ -144,7 +142,8 @@ public class UploadItinerarioDialog extends DialogFragment{
         btn_confermaItinerario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isEmpty()) {
+                String result = checkFields();
+                if (result == null) {
                     Intent i = new Intent();
                     i.putExtra("citta_itinerario", cittaItinerarioEditText.getText().toString());;
                     i.putExtra("tags_itinerario", listTags.toArray(new String [listTags.size()]));
@@ -159,7 +158,7 @@ public class UploadItinerarioDialog extends DialogFragment{
                     closeKeyboard(getActivity(), descrizioneItinerarioEditText.getWindowToken());
                     getDialog().dismiss();
                 } else
-                    campiVuotiTextView.setVisibility(View.VISIBLE);
+                    Toast.makeText(getActivity().getBaseContext(), result, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -171,13 +170,16 @@ public class UploadItinerarioDialog extends DialogFragment{
         mgr.hideSoftInputFromWindow(windowToken, 0);
     }
 
-    private boolean isEmpty(){
-        if(cittaItinerarioEditText.getText().toString().equals("") || nomeItinerarioEditText.getText().toString().equals("") || descrizioneItinerarioEditText.getText().toString().equals("")){
-            return true;
-        }
-        if(listTags.size()==0)
-            return true;
-        return false;
+    private String checkFields(){
+        if(nomeItinerarioEditText.getText().toString().equals(""))
+            return "Inserisci un nome per l'itinerario";
+        else if(cittaItinerarioEditText.getText().toString().equals(""))
+            return "Inserisci una città per l'itinerario";
+        else if(descrizioneItinerarioEditText.getText().toString().equals(""))
+            return "Inserisci una descrizione per l'itinerario";
+        else if(listTags.size()==0)
+            return "Inserisci dei tag per l'itinerario";
+        return null;
     }
 
     //Metodo che recupera tutti i drawable per i bottoni con i tag

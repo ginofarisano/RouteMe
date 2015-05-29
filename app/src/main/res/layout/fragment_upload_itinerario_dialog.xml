@@ -15,12 +15,6 @@
         android:id="@+id/linear_upload_itinerario">
 
         <TextView
-            android:id="@+id/lbl_campi_vuoti_itinerario" android:text="Riempire tutti i campi"
-            android:textColor="#FF0000"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:visibility="gone"/>
-
-        <TextView
             android:id="@+id/lbl_nome_itinerario" android:text="Nome"
             android:layout_width="wrap_content" android:layout_height="wrap_content" />
 

@@ -36,7 +36,7 @@ public class PayPalActivity extends Activity {
 
     private static final String TO_BUY = "Per Acquisto di %s crediti da %s (%s) per %s";
 
-    private static final String DONATE = "Offerta di %s euro da %s (%s) per %s euro :-)";
+    private static final String DONATE = "Offerta di %s euro da %s (%s) per %s :-)";
 
     private static final String MESSAGE_PAYPAL = "Per %s.\n Pagamento di %s euro da %s (%s)";
 

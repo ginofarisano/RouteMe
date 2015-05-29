@@ -1,152 +1,140 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent"
+    android:paddingLeft="15dp"
+    android:paddingTop="15dp"
     android:background="#e0f2f1"
     tools:context=".HomeActivity$PlaceholderFragment">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/testo"
+            android:textSize="12pt"
             android:text="Riepilogo Profilo"
+            android:textStyle="bold"
             android:id="@+id/textViewProfilo"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Mario"
-            android:id="@+id/textViewNameProf"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="15dp"/>
+            android:text="Registrato con social network"
+            android:textColor="@color/black"
+            android:textSize="10pt"
+            android:id="@+id/textViewFacebook"
+            android:layout_marginTop="25dp"
+            android:visibility="gone"/>
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imageButtonModNameProf"
-            android:layout_centerVertical="true"
-            android:layout_alignLeft="@+id/textViewNameProf"
-            android:layout_alignStart="@+id/textViewNameProf" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="110dp">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="mario.rossi@gmail.com"
-            android:id="@+id/textViewEmailModProf"
-            android:layout_marginTop="15dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            >
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imageButtonModEmailProf"
-            android:layout_centerVertical="true"
-            android:layout_alignLeft="@+id/textViewEmailProf"
-            android:layout_alignStart="@+id/textViewEmailProf" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Mario"
+                android:textColor="@color/black"
+                android:textSize="10pt"
+                android:id="@+id/textViewNameProf"
+                android:layout_marginTop="25dp"/>
 
+            <ImageButton
+                android:background="@drawable/mod"
+                android:layout_marginTop="28dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/imageButtonModNameProf"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mario.rossi@gmail.com"
+                android:id="@+id/textViewEmailModProf"
+                android:layout_marginTop="25dp"
+                android:textColor="@color/black"
+                android:textSize="10pt" />
+
+            <ImageButton
+                android:background="@drawable/mod"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="28dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/imageButtonModEmailProf" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_height="wrap_content"
+                android:text="Modifica Password"
+                android:id="@+id/textViewPasswordModProf"
+                android:textColor="@color/black"
+                android:textSize="10pt"
+                />
+
+            <ImageButton
+                android:background="@drawable/mod"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="28dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/imageButtonModPasswordProf"
+                android:layout_alignLeft="@+id/textViewEmailProf"
+                android:layout_alignStart="@+id/textViewEmailProf" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="10pt"
+                android:text="Credito: "
+                android:layout_marginTop="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="10pt"
+                android:text=""
+                android:id="@+id/textViewCreditoModProf"
+                android:layout_marginTop="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="155dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Modifica Password"
-            android:id="@+id/textViewPasswordModProf"
-            android:layout_marginTop="15dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imageButtonModPasswordProf"
-            android:layout_centerVertical="true"
-            android:layout_alignLeft="@+id/textViewEmailProf"
-            android:layout_alignStart="@+id/textViewEmailProf" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="220dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Credito:250"
-            android:id="@+id/textViewCreditoModProf"
-            android:layout_marginTop="15dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="260dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Account PayPal"
-            android:id="@+id/textViewPayPalModProf"
-            android:layout_marginTop="15dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

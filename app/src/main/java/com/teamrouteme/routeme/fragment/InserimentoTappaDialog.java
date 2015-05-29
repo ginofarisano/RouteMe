@@ -12,7 +12,7 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.teamrouteme.routeme.R;
 
@@ -22,7 +22,6 @@ import com.teamrouteme.routeme.R;
 public class InserimentoTappaDialog extends DialogFragment {
 
     private EditText nomeTappaEditText, descrizioneTappaEditText;
-    private TextView campiVuotiTextView;
     private String nomeTappa, descrizioneTappa;
     private int markerPosition;
     private boolean isModifica = false;
@@ -47,7 +46,6 @@ public class InserimentoTappaDialog extends DialogFragment {
 
         nomeTappaEditText = (EditText) view.findViewById(R.id.editText_nome_tappa);
         descrizioneTappaEditText = (EditText) view.findViewById(R.id.editText_descrizione_tappa);
-        campiVuotiTextView = (TextView) view.findViewById(R.id.lbl_campi_vuoti_tappa);
 
         if(nomeTappa != null){
             nomeTappaEditText.setText(nomeTappa);
@@ -58,7 +56,8 @@ public class InserimentoTappaDialog extends DialogFragment {
         btn_confermaTappa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isEmpty()) {
+                String result = checkFields();
+                if (result == null) {
                     Intent i = new Intent();
                     i.putExtra("nome_tappa", nomeTappaEditText.getText().toString());
                     i.putExtra("descrizione_tappa", descrizioneTappaEditText.getText().toString());
@@ -74,7 +73,7 @@ public class InserimentoTappaDialog extends DialogFragment {
                     getDialog().dismiss();
                 }
                 else
-                    campiVuotiTextView.setVisibility(View.VISIBLE);
+                    Toast.makeText(getActivity().getBaseContext(), result, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -86,10 +85,13 @@ public class InserimentoTappaDialog extends DialogFragment {
         mgr.hideSoftInputFromWindow(windowToken, 0);
     }
 
-    private boolean isEmpty(){
-        if(nomeTappaEditText.getText().toString().equals("") || descrizioneTappaEditText.getText().toString().equals("")){
-            return true;
+    private String checkFields(){
+        if(nomeTappaEditText.getText().toString().equals("")){
+            return "Inserisci un nome per la tappa";
         }
-        return false;
+        else if(descrizioneTappaEditText.getText().toString().equals(""))
+            return "Inserisci una descrizione per la tappa";
+
+        return null;
     }
 }

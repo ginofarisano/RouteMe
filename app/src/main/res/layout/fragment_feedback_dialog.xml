@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/sfondo">
 
 
     <RatingBar
+        style="@style/MyRatingBarBig"
+        android:color="@color/tumblr_blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ratingBarInvioFeedback"
         android:layout_gravity="center_horizontal" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:textColor="@color/testo"
+        android:textColorHint="@color/testo"
+        android:inputType="textCapSentences"
         android:hint="Scrivi la tua recensione (opzionale)"
         android:id="@+id/editTextInvioFeedback" />
 
@@ -24,7 +31,6 @@
         android:layout_height="wrap_content"
         android:text="Invia"
         android:textStyle="bold"
+        android:layout_marginBottom="5dp"
         android:layout_gravity="center_horizontal" />
-
-
 </LinearLayout>

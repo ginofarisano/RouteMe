@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/testo"
-            android:textSize="14pt"
+            android:textSize="12pt"
             android:text="Riepilogo Profilo"
             android:textStyle="bold"
             android:id="@+id/textViewProfilo"
@@ -35,13 +35,13 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Mario"
                 android:textColor="@color/black"
-                android:textSize="12pt"
+                android:textSize="10pt"
                 android:id="@+id/textViewNameProf"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="25dp"/>
 
             <ImageButton
                 android:background="@drawable/mod"
-                android:layout_marginTop="23dp"
+                android:layout_marginTop="28dp"
                 android:layout_marginLeft="20dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -58,14 +58,14 @@
                 android:layout_height="wrap_content"
                 android:text="mario.rossi@gmail.com"
                 android:id="@+id/textViewEmailModProf"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:textColor="@color/black"
-                android:textSize="12pt" />
+                android:textSize="10pt" />
 
             <ImageButton
                 android:background="@drawable/mod"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="23dp"
+                android:layout_marginTop="28dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:id="@+id/imageButtonModEmailProf" />
@@ -79,18 +79,18 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:layout_height="wrap_content"
                 android:text="Modifica Password"
                 android:id="@+id/textViewPasswordModProf"
                 android:textColor="@color/black"
-                android:textSize="12pt"
+                android:textSize="10pt"
                 />
 
             <ImageButton
                 android:background="@drawable/mod"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="23dp"
+                android:layout_marginTop="28dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:id="@+id/imageButtonModPasswordProf"
@@ -107,9 +107,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textSize="12pt"
+                android:textSize="10pt"
                 android:text="Credito: "
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
@@ -117,10 +117,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textSize="12pt"
+                android:textSize="10pt"
                 android:text=""
                 android:id="@+id/textViewCreditoModProf"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 

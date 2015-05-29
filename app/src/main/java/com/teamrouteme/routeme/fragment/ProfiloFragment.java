@@ -7,6 +7,7 @@ import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.parse.ParseUser;
@@ -20,7 +21,8 @@ public class ProfiloFragment extends Fragment {
     private ParseUser currentUser;
     private TextView  textViewName;
     private TextView textViewEmail;
-    private TextView textViewCredito;
+    private TextView textViewCredito, textViewPassword, textViewFacebook;
+    private ImageButton modNome, modEmail, modPassword;
 
 
     public ProfiloFragment() {
@@ -38,11 +40,23 @@ public class ProfiloFragment extends Fragment {
         textViewName = (TextView) view.findViewById(R.id.textViewNameProf);
         textViewEmail = (TextView) view.findViewById(R.id.textViewEmailModProf);
         textViewCredito = (TextView) view.findViewById(R.id.textViewCreditoModProf);
+        textViewPassword = (TextView) view.findViewById(R.id.textViewPasswordModProf);
+        textViewFacebook = (TextView) view.findViewById(R.id.textViewFacebook);
+        modNome = (ImageButton) view.findViewById(R.id.imageButtonModNameProf);
+        modEmail = (ImageButton) view.findViewById(R.id.imageButtonModEmailProf);
+        modPassword = (ImageButton) view.findViewById(R.id.imageButtonModPasswordProf);
 
-        textViewName.setText(currentUser.getEmail());
-        textViewEmail.setText(currentUser.getString("name"));
+        textViewName.setText(currentUser.getString("name"));
+        if(currentUser.getEmail()!=null)
+            textViewEmail.setText(currentUser.getEmail());
+        else{
+            textViewEmail.setVisibility(View.GONE);
+            modEmail.setVisibility(View.GONE);
+            textViewPassword.setVisibility(View.GONE);
+            modPassword.setVisibility(View.GONE);
+            textViewFacebook.setVisibility(View.VISIBLE);
+        }
 
-        //non recupera il campo credito
         textViewCredito.setText(""+currentUser.getInt("crediti"));
 
 

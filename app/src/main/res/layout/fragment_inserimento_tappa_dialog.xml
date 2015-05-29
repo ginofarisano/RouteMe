@@ -6,12 +6,6 @@
     android:background="#e0f2f1">
 
     <TextView
-        android:id="@+id/lbl_campi_vuoti_tappa" android:text="Riempire tutti i campi"
-        android:textColor="#FF0000"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:visibility="gone"/>
-
-    <TextView
         android:id="@+id/lbl_nome_tappa" android:text="Nome"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:layout_marginLeft="2dp"

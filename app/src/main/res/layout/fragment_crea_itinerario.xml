@@ -12,7 +12,7 @@
          android:textColorHint="#009688"
          android:hint="Inserisci Tappa"
          android:textColor="#009688"
-         android:inputType="text"
+         android:inputType="textCapSentences"
          android:popupBackground="#e0f2f1"
          />
 

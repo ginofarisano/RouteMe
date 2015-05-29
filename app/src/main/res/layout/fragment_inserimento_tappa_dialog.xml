@@ -20,25 +20,29 @@
 
     <EditText
         android:id="@+id/editText_nome_tappa"
-        android:layout_width="300dp"  android:layout_height="wrap_content"
-        android:inputType="text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="textCapSentences"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:textColor="#009688"/>
 
     <TextView
-        android:id="@+id/lbl_descrizione_tappa" android:text="Descrizione"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:id="@+id/lbl_descrizione_tappa"
+        android:text="Descrizione"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         />
 
     <EditText
         android:id="@+id/editText_descrizione_tappa"
-        android:layout_width="300dp"  android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:inputType="textCapSentences"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
-        android:inputType="text"
         android:textColor="#009688"/>
 
     <Button

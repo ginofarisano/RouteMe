@@ -27,8 +27,9 @@
         <EditText
             android:id="@+id/editText_nome_itinerario"
             android:textColor="#009688"
-            android:layout_width="match_parent"  android:layout_height="wrap_content"
-            android:inputType="text"/>
+            android:layout_width="match_parent"
+            android:inputType="textCapSentences"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/lbl_citta_itinerario"
@@ -41,7 +42,7 @@
             android:layout_width="match_parent"
             android:textColor="#009688"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="textCapSentences"/>
 
         <TextView
             android:id="@+id/lbl_durata_itinerario"
@@ -63,8 +64,9 @@
         <EditText
             android:id="@+id/editText_descrizione_itinerario"
             android:textColor="#009688"
-            android:layout_width="match_parent"  android:layout_height="wrap_content"
-            android:inputType="text"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences"/>
 
         <Button
             style="@style/MyButton"

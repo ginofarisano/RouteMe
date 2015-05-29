@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/testo"
         android:textColorHint="@color/testo"
+        android:inputType="textCapSentences"
         android:hint="Scrivi la tua recensione (opzionale)"
         android:id="@+id/editTextInvioFeedback" />
 

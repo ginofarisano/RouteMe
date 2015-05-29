@@ -25,9 +25,11 @@
         <com.teamrouteme.routeme.adapter.CustomAutoCompleteView
             android:id="@+id/autoCompleteCities"
             android:layout_width="fill_parent"
+            android:popupBackground="#e0f2f1"
             android:textColor="@color/testo"
             android:textColorHint="@color/testo"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences">
         </com.teamrouteme.routeme.adapter.CustomAutoCompleteView>
 
         <TextView

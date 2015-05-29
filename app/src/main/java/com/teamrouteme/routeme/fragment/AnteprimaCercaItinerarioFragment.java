@@ -32,11 +32,10 @@ import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 /**
  * Created by daniele on 12/05/15.
  */
-public class AnteprimaCercaItinerarioFragment extends Fragment{
+public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
 
 
     public static final int PRICEROUTE = 10;
-
 
     private View view;
     private Itinerario itinerario;
@@ -143,7 +142,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
         btnAcquistaItinerario.setVisibility(View.VISIBLE);
         btnDesideraItinerario.setVisibility(View.VISIBLE);
 
-        final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
+        dialog = ProgressDialog.show(getActivity(), "",
                 "Caricamento in corso...", true);
 
 
@@ -251,28 +250,28 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                     if (list.size() != 0) {
                         ArrayList<String> alFeedback = new ArrayList<String>();
                         int feedbackCount = 1;
-                        for(int i=0; i<list.size(); i++){
+                        for (int i = 0; i < list.size(); i++) {
                             ParseObject parseObject = list.get(i);
                             String feedback = parseObject.getString("feedback");
-                            if(feedback != null && feedback.length() > 0) {
-                                alFeedback.add(feedbackCount+". "+feedback);
-                                Log.d("Recensione "+feedbackCount, feedback);
+                            if (feedback != null && feedback.length() > 0) {
+                                alFeedback.add(feedbackCount + ". " + feedback);
+                                Log.d("Recensione " + feedbackCount, feedback);
                                 feedbackCount++;
                             }
 
                         }
-                        adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, alFeedback);
-                        for(int i=0; i<alFeedback.size();i++){
+                        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, alFeedback);
+                        for (int i = 0; i < alFeedback.size(); i++) {
                             TextView t = new TextView(getActivity());
                             t.setText(alFeedback.get(i));
-                            t.setTextSize(TypedValue.COMPLEX_UNIT_PT,8);
+                            t.setTextSize(TypedValue.COMPLEX_UNIT_PT, 8);
                             t.setTextColor(getResources().getColor(R.color.black));
                             listViewRecensioni.addView(t);
                         }
                     }
 
                     queryCount++;
-                    if(queryCount==4)
+                    if (queryCount == 4)
                         dialog.hide();
                 } else {
                     Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
@@ -285,7 +284,10 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
             @Override
             public void onClick(View v) {
 
-                final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
+                ParseCall parseCall = new ParseCall();
+                String idItinerario = itinerario.getId();
+
+                dialog = ProgressDialog.show(getActivity(), "",
                         "Caricamento in corso...", true);
 
 
@@ -295,8 +297,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
 
                 if ((delta = crediti - PRICEROUTE) >= 0) {
 
-                    String idItinerario = itinerario.getId();
-                    ParseCall parseCall = new ParseCall();
+
                     parseCall.buyRoute(idItinerario, dialog, listaDesideriObject);
                     //scala i crediti a chi compra
                     parseCall.scaleCredit(delta);
@@ -307,9 +308,15 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                     btnAcquistaItinerario.setText("Già tuo");
                     btnAcquistaItinerario.setBackground(getResources().getDrawable(R.drawable.selector_disabled));
                     btnDesideraItinerario.setEnabled(false);
-                    btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.whisred));
+                    btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.wishred));
+
+                } else {
+
+                    buyCredit(delta, idItinerario, dialog,btnAcquistaItinerario);
+
 
                 }
+
             }
         });
 

@@ -2,7 +2,6 @@ package com.teamrouteme.routeme.fragment;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -11,22 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ms.square.android.expandabletextview.ExpandableTextView;
-import com.parse.DeleteCallback;
 import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
-import com.teamrouteme.routeme.activity.HomeActivity;
-import com.teamrouteme.routeme.activity.PayPalActivity;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.utility.ParseCall;
 
@@ -38,7 +31,7 @@ import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 /**
  * Created by ginofarisano on 27/05/15.
  */
-public class AnteprimaListaDesideriFragment extends Fragment{
+public class AnteprimaListaDesideriFragment extends BaseFragmentPayPalResult{
 
     private View view;
     private Itinerario itinerario;
@@ -58,6 +51,7 @@ public class AnteprimaListaDesideriFragment extends Fragment{
     private TextView numFeedbackText;
     private ArrayAdapter<String> adapter;
     private LinearLayout listViewRecensioni;
+
 
     public AnteprimaListaDesideriFragment(){
         // Required empty public constructor
@@ -126,7 +120,7 @@ public class AnteprimaListaDesideriFragment extends Fragment{
         tags = (TextView)view.findViewById(R.id.tag_anteprima);
         tags.setText(tagsItinerario);
 
-        final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
+        dialog = ProgressDialog.show(getActivity(), "",
                 "Caricamento in corso...", true);
 
         // Carica e mette a video le recensioni dell'itinerario
@@ -180,7 +174,10 @@ public class AnteprimaListaDesideriFragment extends Fragment{
             @Override
             public void onClick(View v) {
 
-                final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
+                ParseCall parseCall = new ParseCall();
+                String idItinerario = itinerario.getId();
+
+                dialog = ProgressDialog.show(getActivity(), "",
                         "Caricamento in corso...", true);
 
 
@@ -191,13 +188,15 @@ public class AnteprimaListaDesideriFragment extends Fragment{
                 if ((delta = crediti - AnteprimaCercaItinerarioFragment.PRICEROUTE) >= 0) {
 
 
-
-                    String idItinerario = itinerario.getId();
-                    ParseCall parseCall = new ParseCall();
                     //scala i crediti a chi compra
                     parseCall.scaleCredit(delta);
 
-                    parseCall.buyRoute(idItinerario, dialog);
+                    /**
+                     * va aggiustato
+                     */
+                    Button button = null;
+
+                    parseCall.buyRoute(idItinerario,dialog,button);
 
                     //UNA VOLTA EFFETTUATA L'OPERAZIONE DI PAGAMENTO VENGONO DISATTIVATI I BOTTONI
 
@@ -206,12 +205,7 @@ public class AnteprimaListaDesideriFragment extends Fragment{
                     btnAcquistaItinerario.setText("Già tuo");
                 } else {
 
-                    Intent intent = new Intent(getActivity(), PayPalActivity.class);
-
-                    //for sending data to the activity home
-                    //intent.putExtra(EXTRA_MESSAGE, message);
-
-                    startActivity(intent);
+                    buyCredit(delta,idItinerario, dialog, btnAcquistaItinerario);
 
 
                 }
@@ -240,5 +234,7 @@ public class AnteprimaListaDesideriFragment extends Fragment{
 
         return view;
     }
+
+
 
 }

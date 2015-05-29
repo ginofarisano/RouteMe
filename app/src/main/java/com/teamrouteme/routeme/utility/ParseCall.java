@@ -2,6 +2,7 @@ package com.teamrouteme.routeme.utility;
 
 import android.app.ProgressDialog;
 import android.util.Log;
+import android.widget.Button;
 
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
@@ -11,6 +12,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
 
@@ -92,7 +94,7 @@ public class ParseCall {
 
     }
 
-    public void buyRoute(final String idItinerario, final ProgressDialog dialog) {
+    public void buyRoute(final String idItinerario, final ProgressDialog dialog, final Button btnAcquistaItinerario) {
 
 
         ParseObject toAddWishList = new ParseObject("itinerari_acquistati");
@@ -104,6 +106,14 @@ public class ParseCall {
         toAddWishList.saveInBackground(new SaveCallback() {
             public void done(ParseException e) {
                 if (e == null) {
+
+                    if(btnAcquistaItinerario!=null){
+                        //UNA VOLTA EFFETTUATA L'OPERAZIONE DI PAGAMENTO VENGONO DISATTIVATI I BOTTONI
+                        btnAcquistaItinerario.setEnabled(false);
+                        btnAcquistaItinerario.setText("Già tuo");
+                    }
+
+
                     ParseQuery query = ParseQuery.getQuery("lista_desideri");
 
                     query = query.whereEqualTo("idItinerario", idItinerario);
@@ -118,7 +128,7 @@ public class ParseCall {
                                     list.get(0).deleteInBackground(new DeleteCallback() {
                                         public void done(ParseException e) {
                                             if (e == null) {
-                                                dialog.hide();
+
                                             } else {
                                                 Log.d("ParseCall", "Error: " + e.getMessage());
                                             }
@@ -128,6 +138,9 @@ public class ParseCall {
                             } else {
                                 Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
                             }
+
+                            dialog.hide();
+
                         }
 
                     });
@@ -176,4 +189,15 @@ public class ParseCall {
 
     }
 
+    public void increasesCredit(int result, final String idItinerario, final ProgressDialog dialog, final Button btnAcquistaItinerario) {
+
+        user.put("crediti",result);
+        user.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                buyRoute(idItinerario,dialog,btnAcquistaItinerario);
+            }
+        });
+
+    }
 }

@@ -21,7 +21,7 @@ import android.view.WindowManager;
 import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.fragment.CercaItinerarioFragment;
-import com.teamrouteme.routeme.fragment.ItinerariScaricatiFragment;
+import com.teamrouteme.routeme.fragment.ItinerariAcquistatiFragment;
 import com.teamrouteme.routeme.fragment.ListaDesideriFragment;
 import com.teamrouteme.routeme.fragment.CreaItinerarioFragment;
 import com.teamrouteme.routeme.fragment.MieiItinerariFragment;
@@ -53,7 +53,6 @@ import it.neokree.materialnavigationdrawer.elements.listeners.MaterialSectionLis
 
 
 public class HomeActivity extends MaterialNavigationDrawer {
-
 
     private static final int LOGIN_REQUEST = 0;
 
@@ -102,8 +101,8 @@ public class HomeActivity extends MaterialNavigationDrawer {
         this.addSection(newSection("Crea Itinerario", R.drawable.marker, new CreaItinerarioFragment()));
         this.addDivisor();
         this.addSection(newSection("Miei Itinerari", R.drawable.list, new MieiItinerariFragment()));
-        this.addSection(newSection("Itinerari Scaricati", R.drawable.download_icon, new ItinerariScaricatiFragment()));
-        this.addSection(newSection("Lista Desideri", R.drawable.whishlist, new ListaDesideriFragment()));
+        this.addSection(newSection("Itinerari Acquistati", R.drawable.download_icon, new ItinerariAcquistatiFragment()));
+        this.addSection(newSection("Lista Desideri", R.drawable.wishlist, new ListaDesideriFragment()));
         this.addDivisor();
         this.addSection(newSection("Profilo", R.drawable.profilo, new ProfiloFragment()));
         this.addDivisor();

@@ -61,7 +61,7 @@ public class PayPalActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pay_pall);
+        setContentView(R.layout.activity_pay_pal);
 
         Bundle b = getIntent().getExtras();
 

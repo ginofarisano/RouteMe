@@ -1,17 +1,18 @@
 package com.teamrouteme.routeme.fragment;
 
-import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,10 +21,10 @@ import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
-import com.teamrouteme.routeme.utility.ParseCall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 /**
  * Created by massimo299 on 26/05/15.
  */
-public class AnteprimaItinerariScaricatiFragment extends  Fragment{
+public class AnteprimaItinerariAcquistatiFragment extends  Fragment{
 
     private View view;
     private Itinerario itinerario;
@@ -48,8 +49,11 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
     private TextView citta;
     private TextView durata;
     private TextView autoreItinerarioEdit;
+    private TextView numFeedbackText;
+    private ArrayAdapter<String> adapter;
+    private LinearLayout listViewRecensioni;
 
-    public AnteprimaItinerariScaricatiFragment(){
+    public AnteprimaItinerariAcquistatiFragment(){
         // Required empty public constructor
     }
 
@@ -57,9 +61,7 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_anteprima_itinerario, container, false);
 
-        /*recupero dei dati dal server
-        fare richiesta al server e riempire le variabili nomeItinerario, valutazione, feedback
-        */
+        listViewRecensioni = (LinearLayout)view.findViewById(R.id.listViewRecensioni);
 
         Bundle b = getArguments();
         if(b != null) {
@@ -97,6 +99,9 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
         else
             valutazioneBar.setRating(0);
 
+        numFeedbackText = (TextView) view.findViewById(R.id.textViewNumFeedback);
+        numFeedbackText.setText("("+itinerario.getNum_feedback()+")");
+
         descrizione = (ExpandableTextView)view.findViewById(R.id.expand_text_view);
         descrizione.setText(descrizioneItinerario);
 
@@ -117,6 +122,53 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
         btnFeedback= (Button) view.findViewById(R.id.btnInviaFeedback);
         btnFeedback.setVisibility(View.VISIBLE);
 
+        final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
+                "Caricamento in corso...", true);
+
+        // Carica e mette a video le recensioni dell'itinerario
+        ParseQuery query = ParseQuery.getQuery("itinerari_acquistati");
+        query.whereEqualTo("idItinerario", itinerario.getId());
+
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+            @Override
+            public void done(List<ParseObject> list, com.parse.ParseException e) {
+
+                if (e == null) {
+                    if (list.size() != 0) {
+                        ArrayList<String> alFeedback = new ArrayList<String>();
+                        int feedbackCount = 1;
+                        for (int i = 0; i < list.size(); i++) {
+                            ParseObject parseObject = list.get(i);
+                            String feedback = parseObject.getString("feedback");
+                            if(feedback!=null && ((ParseUser)parseObject.get("user")).getObjectId().equals(ParseUser.getCurrentUser().getObjectId())){
+                                btnFeedback.setEnabled(false);
+                                btnFeedback.setBackground(getResources().getDrawable(R.drawable.selector_disabled));
+                            }
+                            if(feedback != null && feedback.length() > 0) {
+                                alFeedback.add(feedbackCount + ". " + feedback);
+                                Log.d("Recensione " + feedbackCount, feedback);
+                                feedbackCount++;
+                            }
+
+                        }
+                        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, alFeedback);
+                        for(int i=0; i<alFeedback.size();i++){
+                            TextView t = new TextView(getActivity());
+                            t.setText(alFeedback.get(i));
+                            t.setTextSize(TypedValue.COMPLEX_UNIT_PT,8);
+                            t.setTextColor(getResources().getColor(R.color.black));
+                            listViewRecensioni.addView(t);
+                        }
+                    }
+                    dialog.hide();
+                } else {
+                    Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
+                }
+            }
+
+        });
+
         // Lancia il dialog per inserire la recensione
         btnFeedback.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -128,7 +180,7 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
                 feedbackDialog.setArguments(b);
 
                 feedbackDialog.show(fm, "fragment_feedback_dialog");
-                feedbackDialog.setTargetFragment(AnteprimaItinerariScaricatiFragment.this, 1);
+                feedbackDialog.setTargetFragment(AnteprimaItinerariAcquistatiFragment.this, 1);
             }
         });
 
@@ -209,7 +261,7 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
             @Override
             public void onClick(View v) {
 
-                Fragment itinerariScaricatiFragment = new ItinerariScaricatiFragment();
+                Fragment itinerariScaricatiFragment = new ItinerariAcquistatiFragment();
                 // Set new fragment on screen
                 MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
                 home.setFragment(itinerariScaricatiFragment, "Itinerari Scaricati");
@@ -226,7 +278,7 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
         if(resultCode==1) {
             Toast.makeText(getActivity().getBaseContext(), "Feedback rilasciato, grazie!", Toast.LENGTH_SHORT).show();
             btnFeedback.setEnabled(false);
-            btnFeedback.setText("Feedback rilasciato");
+            btnFeedback.setBackground(getResources().getDrawable(R.drawable.selector_disabled));
         }
     }
 }

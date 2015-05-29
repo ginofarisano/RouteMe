@@ -6,6 +6,19 @@
     android:background="@color/sfondo"
     android:descendantFocusability="blocksDescendants">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Non ci sono itinerari qui"
+        android:textSize="12pt"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold|italic"
+        android:textColor="@color/testo"
+        android:visibility="gone"
+        android:id="@+id/nessunItinerario"
+        />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

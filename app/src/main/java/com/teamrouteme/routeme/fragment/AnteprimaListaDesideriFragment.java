@@ -2,6 +2,7 @@ package com.teamrouteme.routeme.fragment;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
+import com.teamrouteme.routeme.activity.HomeActivity;
+import com.teamrouteme.routeme.activity.PayPalActivity;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.utility.ParseCall;
 
@@ -137,15 +140,38 @@ public class AnteprimaListaDesideriFragment extends Fragment{
                 final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
                         "Caricamento in corso...", true);
 
-                String idItinerario = itinerario.getId();
-                ParseCall parseCall = new ParseCall();
 
-                parseCall.buyRoute(idItinerario, dialog);
+                int crediti = (int) ParseUser.getCurrentUser().get("crediti");
 
-                //UNA VOLTA EFFETTUATA L'OPERAZIONE DI PAGAMENTO VENGONO DISATTIVATI I BOTTONI
+                int delta;
 
-                btnAcquistaItinerario.setEnabled(false);
-                btnAcquistaItinerario.setText("Già tuo");
+                if ((delta = crediti - AnteprimaCercaItinerarioFragment.PRICEROUTE) >= 0) {
+
+
+
+                    String idItinerario = itinerario.getId();
+                    ParseCall parseCall = new ParseCall();
+                    //scala i crediti a chi compra
+                    parseCall.scaleCredit(delta);
+
+                    parseCall.buyRoute(idItinerario, dialog);
+
+                    //UNA VOLTA EFFETTUATA L'OPERAZIONE DI PAGAMENTO VENGONO DISATTIVATI I BOTTONI
+
+                    btnAcquistaItinerario.setEnabled(false);
+                    btnAcquistaItinerario.setText("Già tuo");
+                } else {
+
+                    Intent intent = new Intent(getActivity(), PayPalActivity.class);
+
+                    //for sending data to the activity home
+                    //intent.putExtra(EXTRA_MESSAGE, message);
+
+                    startActivity(intent);
+
+
+                }
+
 
             }
         });

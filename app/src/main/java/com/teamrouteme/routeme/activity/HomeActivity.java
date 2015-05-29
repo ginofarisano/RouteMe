@@ -1,16 +1,19 @@
 package com.teamrouteme.routeme.activity;
 
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -35,10 +38,13 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Random;
+import java.util.Scanner;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 import it.neokree.materialnavigationdrawer.elements.MaterialAccount;
@@ -47,6 +53,7 @@ import it.neokree.materialnavigationdrawer.elements.listeners.MaterialSectionLis
 
 
 public class HomeActivity extends MaterialNavigationDrawer {
+
 
     private static final int LOGIN_REQUEST = 0;
 
@@ -82,7 +89,8 @@ public class HomeActivity extends MaterialNavigationDrawer {
         }
 
         profilo = BitmapFactory.decodeResource(getResources(), R.drawable.com_parse_ui_app_logo);
-        copertina = BitmapFactory.decodeResource(getResources(), R.drawable.copertina);
+
+        copertina = changeCopertinaAtRandom();
 
         account = new MaterialAccount(this.getResources(),ParseUser.getCurrentUser().getEmail(),currentUser.getString("name"),profilo,copertina);
         this.addAccount(account);
@@ -145,6 +153,41 @@ public class HomeActivity extends MaterialNavigationDrawer {
 
 
     }
+
+    private Bitmap changeCopertinaAtRandom()  {
+
+        InputStream bitmap=null;
+        Bitmap bit =null;
+
+        try {
+
+            String[] n=getAssets().list("Copertina");
+
+            Random random = new Random();
+
+            int myRandom = random.nextInt(n.length) +1 ;
+
+            bitmap=getAssets().open("Copertina/Copertina"+myRandom+".jpg");
+
+            bit=BitmapFactory.decodeStream(bitmap);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(bitmap!=null)
+                try {
+                    bitmap.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        }
+
+        return bit;
+
+    }
+
+
+
 
     /*public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);

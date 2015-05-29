@@ -42,4 +42,5 @@ dependencies {
     compile files('libs/PayPalAndroidSDK-2.9.5.jar')
     compile files('/Users/massimo299/AndroidStudioProjects/RouteMe/libs/PayPalAndroidSDK-2.9.5.jar')
     compile files('/Users/nicolopergola/Desktop/Universita/LaureaMagistrale/II_Anno/IUMMAD/RouteMe/libs/PayPalAndroidSDK-2.9.5.jar')
+    compile files('/Users/ginofarisano/Desktop/RouteMe/RouteMe/libs/PayPalAndroidSDK-2.9.5.jar')
 }

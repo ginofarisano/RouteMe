@@ -141,16 +141,16 @@ public class ParseCall {
 
     public void buyRoute(final String idItinerario, final ProgressDialog dialog, final ParseObject listaDesideriObject) {
 
-        ParseObject toAddWishList = new ParseObject("itinerari_acquistati");
+        ParseObject toAddBuyList = new ParseObject("itinerari_acquistati");
 
-        toAddWishList.put("user", user);
+        toAddBuyList.put("user", user);
 
-        toAddWishList.put("idItinerario", idItinerario);
+        toAddBuyList.put("idItinerario", idItinerario);
 
-        toAddWishList.saveInBackground(new SaveCallback() {
+        toAddBuyList.saveInBackground(new SaveCallback() {
             public void done(ParseException e) {
                 if (e == null) {
-                    if(listaDesideriObject != null)
+                    if (listaDesideriObject != null)
                         listaDesideriObject.deleteInBackground(new DeleteCallback() {
                             public void done(ParseException e) {
                                 if (e == null) {
@@ -167,6 +167,13 @@ public class ParseCall {
                 }
             }
         });
+    }
+
+    public void scaleCredit(int delta) {
+
+        user.put("crediti",delta);
+        user.saveInBackground();
+
     }
 
 }

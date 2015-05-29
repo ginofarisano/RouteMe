@@ -28,6 +28,7 @@ import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import android.widget.ImageView;
 
+
 import com.teamrouteme.routeme.R;
 
 import java.math.BigDecimal;
@@ -62,11 +63,11 @@ public class RangeSeekBar<T extends Number> extends ImageView {
     private static final int INITIAL_PADDING_IN_DP = 8;
     private final int LINE_HEIGHT_IN_DP = 1;
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private final Bitmap thumbImage = BitmapFactory.decodeResource(getResources(), R.drawable.seek_thumb_normal);
+    private final Bitmap thumbImage = BitmapFactory.decodeResource(getResources(), R.drawable.marker_range_bar);
     private final Bitmap thumbPressedImage = BitmapFactory.decodeResource(getResources(),
-                                                                          R.drawable.seek_thumb_pressed);
+                                                                          R.drawable.marker_range_bar);
     private final Bitmap thumbDisabledImage = BitmapFactory.decodeResource(getResources(),
-                                                                           R.drawable.seek_thumb_disabled);
+                                                                           R.drawable.marker);
     private final float thumbWidth = thumbImage.getWidth();
     private final float thumbHalfWidth = 0.5f * thumbWidth;
     private final float thumbHalfHeight = 0.5f * thumbImage.getHeight();
@@ -106,9 +107,9 @@ public class RangeSeekBar<T extends Number> extends ImageView {
     private int mDistanceToTop;
     private RectF mRect;
 
-    private static final int DEFAULT_TEXT_SIZE_IN_DP = 16;
-    private static final int DEFAULT_TEXT_DISTANCE_TO_BUTTON_IN_DP = 8;
-    private static final int DEFAULT_TEXT_DISTANCE_TO_TOP_IN_DP = 8;
+    private static final int DEFAULT_TEXT_SIZE_IN_DP = 14;
+    private static final int DEFAULT_TEXT_DISTANCE_TO_BUTTON_IN_DP = 2;
+    private static final int DEFAULT_TEXT_DISTANCE_TO_TOP_IN_DP = 5;
     private boolean mSingleThumb;
 
     public RangeSeekBar(Context context) {

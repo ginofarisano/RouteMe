@@ -32,6 +32,10 @@ import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
  */
 public class AnteprimaCercaItinerarioFragment extends Fragment{
 
+
+    public static final int PRICEROUTE = 10;
+
+
     private View view;
     private Itinerario itinerario;
     private ArrayList<String> tappeId;
@@ -264,19 +268,28 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                 final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
                         "Caricamento in corso...", true);
 
-                String idItinerario = itinerario.getId();
-                ParseCall parseCall = new ParseCall();
 
-                parseCall.buyRoute(idItinerario, dialog, listaDesideriObject);
+                int crediti = (int) ParseUser.getCurrentUser().get("crediti");
 
-                //UNA VOLTA EFFETTUATA L'OPERAZIONE DI PAGAMENTO VENGONO DISATTIVATI I BOTTONI
+                int delta;
 
-                btnAcquistaItinerario.setEnabled(false);
-                btnAcquistaItinerario.setText("Già tuo");
+                if ((delta = crediti - PRICEROUTE) >= 0) {
 
-                btnDesideraItinerario.setEnabled(false);
-                btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.whisred));
+                    String idItinerario = itinerario.getId();
+                    ParseCall parseCall = new ParseCall();
+                    parseCall.buyRoute(idItinerario, dialog, listaDesideriObject);
+                    //scala i crediti a chi compra
+                    parseCall.scaleCredit(delta);
 
+
+
+                    //UNA VOLTA EFFETTUATA L'OPERAZIONE DI PAGAMENTO VENGONO DISATTIVATI I BOTTONI
+                    btnAcquistaItinerario.setEnabled(false);
+                    btnAcquistaItinerario.setText("Già tuo");
+                    btnDesideraItinerario.setEnabled(false);
+                    btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.whisred));
+
+                }
             }
         });
 

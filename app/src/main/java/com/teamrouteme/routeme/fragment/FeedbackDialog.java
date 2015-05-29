@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 
 import com.parse.FindCallback;
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -27,6 +29,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.teamrouteme.routeme.R;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class FeedbackDialog extends DialogFragment {
@@ -83,7 +86,7 @@ public class FeedbackDialog extends DialogFragment {
                                 public void done(ParseException e) {
                                     if (e == null) {
                                         queryCount++;
-                                        if (queryCount == 2) {
+                                        if (queryCount == 3) {
                                             dialog.hide();
                                             backToAnteprimaItinerariScaricatiFragment();
                                         }
@@ -101,19 +104,65 @@ public class FeedbackDialog extends DialogFragment {
 
                 query2.whereEqualTo("objectId", idItinerario);
 
+                query2.include("user");
+
                 query2.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> list, ParseException e) {
                         if(e==null) {
                             ParseObject itinerarioAcquistato = list.get(0);
                             itinerarioAcquistato.put("num_feedback", itinerarioAcquistato.getNumber("num_feedback").intValue()+1);
-                            itinerarioAcquistato.put("rating", itinerarioAcquistato.getNumber("rating").floatValue()+rating);
+                            itinerarioAcquistato.put("rating", itinerarioAcquistato.getNumber("rating").floatValue() + rating);
+                            ParseUser parseUser = (ParseUser) itinerarioAcquistato.get("user");
+                            String userId = parseUser.getObjectId();
+                            int numCreditiToAdd = getNumCreditiToAdd(rating);
+                            if(numCreditiToAdd != 0) {
+
+                                final HashMap<String, Object> params = new HashMap<String, Object>();
+                                params.put("userId", userId);
+
+                                int crediti = parseUser.getInt("crediti") + numCreditiToAdd;
+
+                                params.put("newColText",crediti);
+
+                                ParseCloud.callFunctionInBackground("editUser", params, new FunctionCallback<ParseUser>() {
+
+                                    public void done(ParseUser parseUser, ParseException e) {
+                                        if (e == null) {
+                                            queryCount++;
+                                            if (queryCount == 3) {
+                                                dialog.hide();
+                                                backToAnteprimaItinerariScaricatiFragment();
+                                            }
+                                            Log.d("Change User credit", "OK");
+                                        } else {
+                                            Log.d("Change User credit", "Error: " + e.getMessage());
+                                        }
+                                    }
+                                });
+
+
+                                parseUser.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            queryCount++;
+                                            if (queryCount == 3) {
+                                                dialog.hide();
+                                                backToAnteprimaItinerariScaricatiFragment();
+                                            }
+                                        } else
+                                            Log.d("FeedbackDialog", "Error: " + e.getMessage());
+                                    }
+                                });
+                            }
+
                             itinerarioAcquistato.saveInBackground(new SaveCallback() {
                                 @Override
                                 public void done(ParseException e) {
                                     if(e==null) {
                                         queryCount++;
-                                        if(queryCount==2) {
+                                        if(queryCount==3) {
                                             dialog.hide();
                                             backToAnteprimaItinerariScaricatiFragment();
                                         }
@@ -131,6 +180,15 @@ public class FeedbackDialog extends DialogFragment {
         });
 
         return view;
+    }
+
+    public int getNumCreditiToAdd(float rating) {
+        if((rating<=2))
+            return 0;
+        else if(rating>2 && rating <=4)
+            return 5;
+        else
+            return 10;
     }
 
     private void backToAnteprimaItinerariScaricatiFragment(){

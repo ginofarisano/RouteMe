@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -48,6 +50,9 @@ public class AnteprimaListaDesideriFragment extends Fragment{
     private TextView citta;
     private TextView durata;
     private TextView autoreItinerarioEdit;
+    private TextView numFeedbackText;
+    private ArrayAdapter<String> adapter;
+    private ListView listViewRecensioni;
 
     public AnteprimaListaDesideriFragment(){
         // Required empty public constructor
@@ -57,9 +62,7 @@ public class AnteprimaListaDesideriFragment extends Fragment{
 
         view = inflater.inflate(R.layout.fragment_anteprima_itinerario, container, false);
 
-        /*recupero dei dati dal server
-        fare richiesta al server e riempire le variabili nomeItinerario, valutazione, feedback
-        */
+        listViewRecensioni = (ListView)view.findViewById(R.id.listViewRecensioni);
 
         Bundle b = getArguments();
         if(b != null) {
@@ -98,6 +101,9 @@ public class AnteprimaListaDesideriFragment extends Fragment{
         else
             valutazioneBar.setRating(0);
 
+        numFeedbackText = (TextView) view.findViewById(R.id.textViewNumFeedback);
+        numFeedbackText.setText("("+itinerario.getNum_feedback()+")");
+
         descrizione = (ExpandableTextView)view.findViewById(R.id.expand_text_view);
         descrizione.setText(descrizioneItinerario);
 
@@ -115,12 +121,41 @@ public class AnteprimaListaDesideriFragment extends Fragment{
         tags = (TextView)view.findViewById(R.id.tag_anteprima);
         tags.setText(tagsItinerario);
 
-        Button btnFeedback= (Button) view.findViewById(R.id.btnInviaFeedback);
+        final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
+                "Caricamento in corso...", true);
 
-        btnFeedback.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // invio a server del feedback rilasciato
+        // Carica e mette a video le recensioni dell'itinerario
+        ParseQuery query = ParseQuery.getQuery("itinerari_acquistati");
+        query.whereEqualTo("idItinerario", itinerario.getId());
+
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+            @Override
+            public void done(List<ParseObject> list, com.parse.ParseException e) {
+
+                if (e == null) {
+                    if (list.size() != 0) {
+                        ArrayList<String> alFeedback = new ArrayList<String>();
+                        int feedbackCount = 1;
+                        for (int i = 0; i < list.size(); i++) {
+                            ParseObject parseObject = list.get(i);
+                            String feedback = parseObject.getString("feedback");
+                            if (feedback != null) {
+                                alFeedback.add(feedbackCount + ". " + feedback);
+                                feedbackCount++;
+                                Log.d("Recensione " + feedbackCount, feedback);
+                            }
+
+                        }
+                        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, alFeedback);
+                        listViewRecensioni.setAdapter(adapter);
+                    }
+                    dialog.hide();
+                } else {
+                    Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
+                }
             }
+
         });
 
         btnAvviaItinerario = (Button) view.findViewById(R.id.btnAvviaItinerario);

@@ -51,6 +51,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
     private TextView autoreItinerarioEdit;
     private ArrayAdapter<String> adapter;
     private ListView listViewRecensioni;
+    private TextView numFeedbackText;
 
     public AnteprimaCercaItinerarioFragment(){
         // Required empty public constructor
@@ -99,16 +100,19 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
             valutazioneBar.setRating(itinerario.getRating()/itinerario.getNum_feedback());
         else
             valutazioneBar.setRating(0);
-        
+
+        numFeedbackText = (TextView) view.findViewById(R.id.textViewNumFeedback);
+        numFeedbackText.setText("("+itinerario.getNum_feedback()+")");
+
         descrizione = (ExpandableTextView)view.findViewById(R.id.expand_text_view);
         descrizione.setText(descrizioneItinerario);
-        
+
         durata = (TextView) view.findViewById(R.id.durata_anteprima);
         durata.setText(durataMinItinerario+"-"+durataMaxItinerario+" ore");
 
         citta = (TextView)view.findViewById(R.id.citta_anteprima);
         citta.setText(cittaItinerario);
-        
+
         tagsItinerario = itinerario.getTags().get(0);
 
         for(int i=1; i<itinerario.getTags().size(); i++)
@@ -203,6 +207,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
         query = ParseQuery.getQuery("lista_desideri");
 
         query = query.whereEqualTo("idItinerario", itinerario.getId());
+        query.whereEqualTo("user", ParseUser.getCurrentUser());
         query.findInBackground(new FindCallback<ParseObject>() {
 
             @Override
@@ -225,7 +230,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
 
         });
 
-        // Carica le recensioni dell'itinerario
+        // Carica e mette a video le recensioni dell'itinerario
         query = ParseQuery.getQuery("itinerari_acquistati");
         query.whereEqualTo("idItinerario", itinerario.getId());
 
@@ -237,11 +242,16 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                 if (e == null) {
                     if (list.size() != 0) {
                         ArrayList<String> alFeedback = new ArrayList<String>();
+                        int feedbackCount = 1;
                         for(int i=0; i<list.size(); i++){
                             ParseObject parseObject = list.get(i);
                             String feedback = parseObject.getString("feedback");
-                            if(feedback != null)
-                                alFeedback.add(feedback);
+                            if(feedback != null) {
+                                alFeedback.add(feedbackCount+". "+feedback);
+                                feedbackCount++;
+                                Log.d("Recensione "+feedbackCount, feedback);
+                            }
+
                         }
                         adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, alFeedback);
                         listViewRecensioni.setAdapter(adapter);

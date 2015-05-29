@@ -73,6 +73,13 @@
                     style="?android:attr/ratingBarStyleSmall"
                     android:id="@+id/valutazione" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="8pt"
+                    android:id="@+id/textViewNumFeedback"/>
+
                 <Button
                     style="@style/MyButton"
                     android:background="@drawable/whishgrey"
@@ -176,7 +183,7 @@
                     android:id="@+id/btnAcquistaItinerario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Acquista"
+                    android:text="Acquista(10)"
                     android:textStyle="bold"
                     android:visibility="gone"
                     android:layout_gravity="center" />
@@ -223,6 +230,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:textSize="8pt"
                     android:text="Recensioni"
                     android:id="@+id/textViewRecensioni"/>

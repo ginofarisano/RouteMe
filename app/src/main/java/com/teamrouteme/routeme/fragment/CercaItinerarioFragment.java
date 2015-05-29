@@ -371,4 +371,13 @@ public class CercaItinerarioFragment extends Fragment {
         mgr.hideSoftInputFromWindow(windowToken, 0);
     }
 
+    public void onResume(){
+        super.onResume();
+        for(int i=0;i<listTags.size();i++){
+            for(int j=0;j<alArcLayoutButtons.size();j++)
+                if(alArcLayoutButtons.get(j).getText().equals(listTags.get(i)))
+                    alArcLayoutButtons.get(j).setPressed(true);
+        }
+    }
+
 }

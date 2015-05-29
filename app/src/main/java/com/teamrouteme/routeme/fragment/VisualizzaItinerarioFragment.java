@@ -260,6 +260,9 @@ public class VisualizzaItinerarioFragment extends Fragment implements LocationLi
         // Getting name
         String name = t.getNome();
 
+        // Getting description
+        String description = t.getDescrizione();
+
         LatLng latLng = new LatLng(lat, lng);
 
         // Setting the position for the marker
@@ -267,6 +270,9 @@ public class VisualizzaItinerarioFragment extends Fragment implements LocationLi
 
         // Setting the title for the marker
         markerOptions.title(name);
+
+        // Setting the snippet for the marker
+        markerOptions.snippet(description);
 
         return markerOptions;
     }

@@ -307,7 +307,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                     btnAcquistaItinerario.setText("Già tuo");
                     btnAcquistaItinerario.setBackground(getResources().getDrawable(R.drawable.selector_disabled));
                     btnDesideraItinerario.setEnabled(false);
-                    btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.whisred));
+                    btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.wishred));
 
                 }
             }

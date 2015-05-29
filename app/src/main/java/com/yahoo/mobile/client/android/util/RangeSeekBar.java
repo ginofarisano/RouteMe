@@ -59,7 +59,7 @@ public class RangeSeekBar<T extends Number> extends ImageView {
     public static final Integer DEFAULT_MINIMUM = 0;
     public static final Integer DEFAULT_MAXIMUM = 100;
     public static final int HEIGHT_IN_DP = 30;
-    public static final int TEXT_LATERAL_PADDING_IN_DP = 3;
+    public static final int TEXT_LATERAL_PADDING_IN_DP = 0;
     private static final int INITIAL_PADDING_IN_DP = 8;
     private final int LINE_HEIGHT_IN_DP = 1;
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -107,7 +107,7 @@ public class RangeSeekBar<T extends Number> extends ImageView {
     private int mDistanceToTop;
     private RectF mRect;
 
-    private static final int DEFAULT_TEXT_SIZE_IN_DP = 14;
+    private static final int DEFAULT_TEXT_SIZE_IN_DP = 18;
     private static final int DEFAULT_TEXT_DISTANCE_TO_BUTTON_IN_DP = 2;
     private static final int DEFAULT_TEXT_DISTANCE_TO_TOP_IN_DP = 5;
     private boolean mSingleThumb;

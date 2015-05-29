@@ -70,6 +70,7 @@
                 <RatingBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     style="?android:attr/ratingBarStyleSmall"
                     android:id="@+id/valutazione" />
 
@@ -77,19 +78,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
+                    android:paddingLeft="10dp"
                     android:textSize="8pt"
                     android:id="@+id/textViewNumFeedback"/>
 
                 <Button
                     style="@style/MyButton"
-                    android:background="@drawable/whishgrey"
+                    android:background="@drawable/wishgrey"
                     android:layout_width="80dp"
                     android:layout_height="40dp"
                     android:textStyle="bold"
                     android:id="@+id/btn_desidera"
-                    android:visibility="gone"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="0dp"
+                    android:visibility="invisible"
+                    android:layout_marginLeft="50dp"
                     />
 
             </LinearLayout>
@@ -183,6 +184,8 @@
                     android:id="@+id/btnAcquistaItinerario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
                     android:text="Acquista(10)"
                     android:textStyle="bold"
                     android:visibility="gone"
@@ -191,7 +194,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
@@ -210,6 +213,7 @@
                     android:layout_width="300dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
                     expandableTextView:maxCollapsedLines="4"
                     expandableTextView:animDuration="200">
                     <TextView
@@ -226,35 +230,43 @@
                         android:layout_gravity="right|bottom"
                         android:background="@color/transparent"/>
                 </com.ms.square.android.expandabletextview.ExpandableTextView>
-
-                <TextView
+                <Button
+                    style="@style/MyButton"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/selector_button"
+                    android:id="@+id/btnInviaFeedback"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="8pt"
-                    android:text="Recensioni"
-                    android:id="@+id/textViewRecensioni"/>
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:text="Feedback"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
 
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/listViewRecensioni"
-                    android:layout_gravity="center_horizontal" />
 
             </LinearLayout>
 
-            <Button
-                style="@style/MyButton"
-                android:background="@drawable/selector_button"
-                android:id="@+id/btnInviaFeedback"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Invia feedback"
-                android:textStyle="bold"
-                android:layout_gravity="center_horizontal"
-                android:visibility="gone"/>
+                android:layout_marginTop="10dp"
+                android:textSize="8pt"
+                android:text="Recensioni:"
+                android:id="@+id/textViewRecensioni"/>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:orientation="vertical"
+                android:id="@+id/listViewRecensioni">
+
+            </LinearLayout>
 
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>

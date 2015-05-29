@@ -41,12 +41,12 @@ import java.util.List;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 
-public class ItinerariScaricatiFragment extends Fragment {
+public class ItinerariAcquistatiFragment extends Fragment {
 
     private MaterialListView listView;
     private List myList;
 
-    public ItinerariScaricatiFragment() {
+    public ItinerariAcquistatiFragment() {
         // Required empty public constructor
     }
 

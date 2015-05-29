@@ -1,39 +1,25 @@
 package com.teamrouteme.routeme.activity;
 
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.fragment.CercaItinerarioFragment;
-import com.teamrouteme.routeme.fragment.ItinerariScaricatiFragment;
+import com.teamrouteme.routeme.fragment.ItinerariAcquistatiFragment;
 import com.teamrouteme.routeme.fragment.ListaDesideriFragment;
 import com.teamrouteme.routeme.fragment.CreaItinerarioFragment;
 import com.teamrouteme.routeme.fragment.MieiItinerariFragment;
 import com.teamrouteme.routeme.fragment.ProfiloFragment;
-import com.teamrouteme.routeme.fragment.RisultatiRicercaFragment;
-import com.teamrouteme.routeme.utility.JsonReader;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -94,8 +80,8 @@ public class HomeActivity extends MaterialNavigationDrawer {
         this.addSection(newSection("Crea Itinerario", R.drawable.marker, new CreaItinerarioFragment()));
         this.addDivisor();
         this.addSection(newSection("Miei Itinerari", R.drawable.list, new MieiItinerariFragment()));
-        this.addSection(newSection("Itinerari Scaricati", R.drawable.download_icon, new ItinerariScaricatiFragment()));
-        this.addSection(newSection("Lista Desideri", R.drawable.whishlist, new ListaDesideriFragment()));
+        this.addSection(newSection("Itinerari Acquistati", R.drawable.download_icon, new ItinerariAcquistatiFragment()));
+        this.addSection(newSection("Lista Desideri", R.drawable.wishlist, new ListaDesideriFragment()));
         this.addDivisor();
         this.addSection(newSection("Profilo", R.drawable.profilo, new ProfiloFragment()));
         this.addDivisor();

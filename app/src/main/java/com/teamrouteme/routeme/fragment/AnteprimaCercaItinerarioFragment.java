@@ -4,12 +4,13 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -50,7 +51,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
     private TextView durata;
     private TextView autoreItinerarioEdit;
     private ArrayAdapter<String> adapter;
-    private ListView listViewRecensioni;
+    private LinearLayout listViewRecensioni;
     private TextView numFeedbackText;
 
     public AnteprimaCercaItinerarioFragment(){
@@ -61,7 +62,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
 
         view = inflater.inflate(R.layout.fragment_anteprima_itinerario, container, false);
 
-        listViewRecensioni = (ListView)view.findViewById(R.id.listViewRecensioni);
+        listViewRecensioni = (LinearLayout)view.findViewById(R.id.listViewRecensioni);
         queryCount = 0;
 
         Bundle b = getArguments();
@@ -157,9 +158,10 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                         listaAcquistatiObject = list.get(0);
                         btnAcquistaItinerario.setEnabled(false);
                         btnAcquistaItinerario.setText("Già tuo");
+                        btnAcquistaItinerario.setBackground(getResources().getDrawable(R.drawable.selector_disabled));
 
                         btnDesideraItinerario.setEnabled(false);
-                        btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.whisred));
+                        btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.wishred));
                     }
 
                     queryCount++;
@@ -188,9 +190,10 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                         listaAcquistatiObject = list.get(0);
                         btnAcquistaItinerario.setEnabled(false);
                         btnAcquistaItinerario.setText("Già tuo");
+                        btnAcquistaItinerario.setBackground(getResources().getDrawable(R.drawable.selector_disabled));
 
                         btnDesideraItinerario.setEnabled(false);
-                        btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.whisred));
+                        btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.wishred));
                     }
 
                     queryCount++;
@@ -217,7 +220,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                     if (list.size() != 0) {
                         listaDesideriObject = list.get(0);
                         btnDesideraItinerario.setEnabled(false);
-                        btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.whisred));
+                        btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.wishred));
                     }
 
                     queryCount++;
@@ -246,7 +249,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                         for(int i=0; i<list.size(); i++){
                             ParseObject parseObject = list.get(i);
                             String feedback = parseObject.getString("feedback");
-                            if(feedback != null) {
+                            if(feedback != null && feedback.length() > 0) {
                                 alFeedback.add(feedbackCount+". "+feedback);
                                 feedbackCount++;
                                 Log.d("Recensione "+feedbackCount, feedback);
@@ -254,7 +257,13 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
 
                         }
                         adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, alFeedback);
-                        listViewRecensioni.setAdapter(adapter);
+                        for(int i=0; i<alFeedback.size();i++){
+                            TextView t = new TextView(getActivity());
+                            t.setText(alFeedback.get(i));
+                            t.setTextSize(TypedValue.COMPLEX_UNIT_PT,8);
+                            t.setTextColor(getResources().getColor(R.color.black));
+                            listViewRecensioni.addView(t);
+                        }
                     }
 
                     queryCount++;
@@ -283,9 +292,10 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
 
                 btnAcquistaItinerario.setEnabled(false);
                 btnAcquistaItinerario.setText("Già tuo");
+                btnAcquistaItinerario.setBackground(getResources().getDrawable(R.drawable.selector_disabled));
 
                 btnDesideraItinerario.setEnabled(false);
-                btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.whisred));
+                btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.wishred));
 
             }
         });
@@ -299,7 +309,7 @@ public class AnteprimaCercaItinerarioFragment extends Fragment{
                 parseCall.addWishList(idItinerario);
 
                 btnDesideraItinerario.setEnabled(false);
-                btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.whisred));
+                btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.wishred));
             }
         });
 

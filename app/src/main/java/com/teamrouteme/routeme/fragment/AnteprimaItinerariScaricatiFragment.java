@@ -1,19 +1,18 @@
 package com.teamrouteme.routeme.fragment;
 
-import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +24,6 @@ import com.parse.ParseQuery;
 import com.teamrouteme.routeme.R;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
-import com.teamrouteme.routeme.utility.ParseCall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +50,7 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
     private TextView autoreItinerarioEdit;
     private TextView numFeedbackText;
     private ArrayAdapter<String> adapter;
-    private ListView listViewRecensioni;
+    private LinearLayout listViewRecensioni;
 
     public AnteprimaItinerariScaricatiFragment(){
         // Required empty public constructor
@@ -62,7 +60,7 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_anteprima_itinerario, container, false);
 
-        listViewRecensioni = (ListView)view.findViewById(R.id.listViewRecensioni);
+        listViewRecensioni = (LinearLayout)view.findViewById(R.id.listViewRecensioni);
 
         Bundle b = getArguments();
         if(b != null) {
@@ -142,7 +140,7 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
                         for (int i = 0; i < list.size(); i++) {
                             ParseObject parseObject = list.get(i);
                             String feedback = parseObject.getString("feedback");
-                            if (feedback != null) {
+                            if(feedback != null && feedback.length() > 0) {
                                 alFeedback.add(feedbackCount + ". " + feedback);
                                 feedbackCount++;
                                 Log.d("Recensione " + feedbackCount, feedback);
@@ -150,7 +148,13 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
 
                         }
                         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, alFeedback);
-                        listViewRecensioni.setAdapter(adapter);
+                        for(int i=0; i<alFeedback.size();i++){
+                            TextView t = new TextView(getActivity());
+                            t.setText(alFeedback.get(i));
+                            t.setTextSize(TypedValue.COMPLEX_UNIT_PT,8);
+                            t.setTextColor(getResources().getColor(R.color.black));
+                            listViewRecensioni.addView(t);
+                        }
                     }
                     dialog.hide();
                 } else {
@@ -252,7 +256,7 @@ public class AnteprimaItinerariScaricatiFragment extends  Fragment{
             @Override
             public void onClick(View v) {
 
-                Fragment itinerariScaricatiFragment = new ItinerariScaricatiFragment();
+                Fragment itinerariScaricatiFragment = new ItinerariAcquistatiFragment();
                 // Set new fragment on screen
                 MaterialNavigationDrawer home = (MaterialNavigationDrawer) getActivity();
                 home.setFragment(itinerariScaricatiFragment, "Itinerari Scaricati");

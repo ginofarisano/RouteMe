@@ -4,12 +4,14 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -52,7 +54,7 @@ public class AnteprimaListaDesideriFragment extends Fragment{
     private TextView autoreItinerarioEdit;
     private TextView numFeedbackText;
     private ArrayAdapter<String> adapter;
-    private ListView listViewRecensioni;
+    private LinearLayout listViewRecensioni;
 
     public AnteprimaListaDesideriFragment(){
         // Required empty public constructor
@@ -62,7 +64,7 @@ public class AnteprimaListaDesideriFragment extends Fragment{
 
         view = inflater.inflate(R.layout.fragment_anteprima_itinerario, container, false);
 
-        listViewRecensioni = (ListView)view.findViewById(R.id.listViewRecensioni);
+        listViewRecensioni = (LinearLayout)view.findViewById(R.id.listViewRecensioni);
 
         Bundle b = getArguments();
         if(b != null) {
@@ -140,7 +142,7 @@ public class AnteprimaListaDesideriFragment extends Fragment{
                         for (int i = 0; i < list.size(); i++) {
                             ParseObject parseObject = list.get(i);
                             String feedback = parseObject.getString("feedback");
-                            if (feedback != null) {
+                            if(feedback != null && feedback.length() > 0) {
                                 alFeedback.add(feedbackCount + ". " + feedback);
                                 feedbackCount++;
                                 Log.d("Recensione " + feedbackCount, feedback);
@@ -148,7 +150,13 @@ public class AnteprimaListaDesideriFragment extends Fragment{
 
                         }
                         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, alFeedback);
-                        listViewRecensioni.setAdapter(adapter);
+                        for(int i=0; i<alFeedback.size();i++){
+                            TextView t = new TextView(getActivity());
+                            t.setText(alFeedback.get(i));
+                            t.setTextSize(TypedValue.COMPLEX_UNIT_PT,8);
+                            t.setTextColor(getResources().getColor(R.color.black));
+                            listViewRecensioni.addView(t);
+                        }
                     }
                     dialog.hide();
                 } else {

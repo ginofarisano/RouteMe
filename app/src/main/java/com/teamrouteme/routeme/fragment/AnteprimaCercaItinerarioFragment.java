@@ -45,19 +45,20 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
     private Button btnAvviaItinerario, btnAcquistaItinerario, btnDesideraItinerario;
     private int queryCount;
     private ParseObject listaDesideriObject, listaAcquistatiObject;
-    private TextView nomeItinerarioEdit;
+    private TextView nomeItinerarioTextView;
     private RatingBar valutazioneBar;
     private String nomeItinerario, tagsItinerario, cittaItinerario, descrizioneItinerario, autoreItinerario;
     private int durataMinItinerario, durataMaxItinerario;
     private TextView tags;
     private ExpandableTextView descrizione;
     private TextView citta;
-    private TextView durata;
-    private TextView autoreItinerarioEdit;
+    private TextView durata, numTappeTextView;
+    private TextView autoreItinerarioTextView;
     private ArrayAdapter<String> adapter;
     private LinearLayout listViewRecensioni;
     private TextView numFeedbackText;
     private boolean connectionError;
+    private int numTappe;
 
     public AnteprimaCercaItinerarioFragment(){
         // Required empty public constructor
@@ -84,6 +85,8 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
             durataMaxItinerario = itinerario.getDurataMax();
             tappeId = itinerario.getTappeId();
             autoreItinerario = itinerario.getAutore();
+            numTappe = itinerario.getTappeId().size();
+
 
             Log.d("","Nome itinerario ricevuto: "+ nomeItinerario);
             Log.d("","Autore itinerario ricevuto: "+ autoreItinerario);
@@ -97,11 +100,11 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
         }
 
         //settaggio delle variabili prese dal server
-        nomeItinerarioEdit = (TextView) view.findViewById(R.id.nomeItinerarioCard);
-        nomeItinerarioEdit.setText(nomeItinerario);
+        nomeItinerarioTextView = (TextView) view.findViewById(R.id.nomeItinerarioCard);
+        nomeItinerarioTextView.setText(nomeItinerario);
 
-        autoreItinerarioEdit = (TextView) view.findViewById(R.id.autore);
-        autoreItinerarioEdit.setText(autoreItinerario);
+        autoreItinerarioTextView = (TextView) view.findViewById(R.id.autore);
+        autoreItinerarioTextView.append(autoreItinerario);
 
         valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
         if(itinerario.getNum_feedback()!=0)
@@ -117,6 +120,10 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
 
         durata = (TextView) view.findViewById(R.id.durata_anteprima);
         durata.setText(durataMinItinerario+"-"+durataMaxItinerario+" ore");
+
+        numTappeTextView = (TextView) view.findViewById(R.id.num_tappe_anteprima);
+        Log.e("", ""+numTappe);
+        numTappeTextView.setText(""+numTappe);
 
         citta = (TextView)view.findViewById(R.id.citta_anteprima);
         citta.setText(cittaItinerario);

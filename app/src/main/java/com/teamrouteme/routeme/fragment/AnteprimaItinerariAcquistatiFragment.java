@@ -41,17 +41,19 @@ public class AnteprimaItinerariAcquistatiFragment extends  Fragment{
     private ArrayList<String> tappeId;
     private Button btnIndietro, btnAvviaItinerario, btnFeedback;
     private RatingBar valutazioneBar;
-    private TextView nomeItinerarioEdit;
+    private TextView nomeItinerarioTextView;
     private String nomeItinerario, tagsItinerario, cittaItinerario, descrizioneItinerario, autoreItinerario;
     private int durataMinItinerario, durataMaxItinerario;
     private TextView tags;
     private ExpandableTextView descrizione;
     private TextView citta;
     private TextView durata;
-    private TextView autoreItinerarioEdit;
+    private TextView autoreItinerarioTextView;
     private TextView numFeedbackText;
     private ArrayAdapter<String> adapter;
     private LinearLayout listViewRecensioni;
+    private TextView numTappeTextView;
+    private int numTappe;
 
     public AnteprimaItinerariAcquistatiFragment(){
         // Required empty public constructor
@@ -74,6 +76,7 @@ public class AnteprimaItinerariAcquistatiFragment extends  Fragment{
             durataMaxItinerario = itinerario.getDurataMax();
             tappeId = itinerario.getTappeId();
             autoreItinerario = itinerario.getAutore();
+            numTappe = itinerario.getTappeId().size();
 
             Log.d("","Nome itinerario ricevuto: "+ nomeItinerario);
             Log.d("","Autore itinerario ricevuto: "+ autoreItinerario);
@@ -87,11 +90,11 @@ public class AnteprimaItinerariAcquistatiFragment extends  Fragment{
         }
 
         //settaggio delle variabili prese dal server
-        nomeItinerarioEdit = (TextView) view.findViewById(R.id.nomeItinerarioCard);
-        nomeItinerarioEdit.setText(nomeItinerario);
+        nomeItinerarioTextView = (TextView) view.findViewById(R.id.nomeItinerarioCard);
+        nomeItinerarioTextView.setText(nomeItinerario);
 
-        autoreItinerarioEdit = (TextView) view.findViewById(R.id.autore);
-        autoreItinerarioEdit.setText(autoreItinerario);
+        autoreItinerarioTextView = (TextView) view.findViewById(R.id.autore);
+        autoreItinerarioTextView.append(autoreItinerario);
 
         valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
         if(itinerario.getNum_feedback()!=0)
@@ -107,6 +110,9 @@ public class AnteprimaItinerariAcquistatiFragment extends  Fragment{
 
         durata = (TextView) view.findViewById(R.id.durata_anteprima);
         durata.setText(durataMinItinerario+"-"+durataMaxItinerario+" ore");
+
+        numTappeTextView = (TextView) view.findViewById(R.id.num_tappe_anteprima);
+        numTappeTextView.setText(""+numTappe);
 
         citta = (TextView)view.findViewById(R.id.citta_anteprima);
         citta.setText(cittaItinerario);

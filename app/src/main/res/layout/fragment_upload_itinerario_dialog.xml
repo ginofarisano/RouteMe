@@ -40,7 +40,7 @@
 
         <TextView
             android:id="@+id/lbl_durata_itinerario"
-            android:text="Durata"
+            android:text="Durata (ore)"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

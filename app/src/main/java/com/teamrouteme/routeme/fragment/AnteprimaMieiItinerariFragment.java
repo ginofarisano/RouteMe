@@ -56,6 +56,8 @@ public class AnteprimaMieiItinerariFragment extends Fragment{
     private TextView numFeedbackText;
     private ArrayAdapter<String> adapter;
     private LinearLayout listViewRecensioni;
+    private TextView numTappeTextView;
+    private int numTappe;
 
     public AnteprimaMieiItinerariFragment(){
         // Required empty public constructor
@@ -77,6 +79,7 @@ public class AnteprimaMieiItinerariFragment extends Fragment{
             durataMinItinerario = itinerario.getDurataMin();
             durataMaxItinerario = itinerario.getDurataMax();
             tappeId = itinerario.getTappeId();
+            numTappe = itinerario.getTappeId().size();
 
             Log.d("","Nome itinerario ricevuto: "+ nomeItinerario);
             Log.d("","Descrizione itinerario ricevuto: "+ descrizioneItinerario);
@@ -109,6 +112,9 @@ public class AnteprimaMieiItinerariFragment extends Fragment{
 
         durata = (TextView) view.findViewById(R.id.durata_anteprima);
         durata.setText(durataMinItinerario+"-"+durataMaxItinerario+" ore");
+
+        numTappeTextView = (TextView) view.findViewById(R.id.num_tappe_anteprima);
+        numTappeTextView.setText(""+numTappe);
 
         citta = (TextView)view.findViewById(R.id.citta_anteprima);
         citta.setText(cittaItinerario);

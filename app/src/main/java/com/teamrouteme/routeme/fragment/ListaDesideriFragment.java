@@ -1,23 +1,11 @@
-/*
- * Copyright 2014 Niek Haarman
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.teamrouteme.routeme.fragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -32,7 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dexafree.materialList.controller.MaterialListAdapter;
+import com.dexafree.materialList.controller.OnDismissCallback;
 import com.dexafree.materialList.controller.RecyclerItemClickListener;
+import com.dexafree.materialList.events.DismissEvent;
 import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.model.CardItemView;
 import com.dexafree.materialList.view.MaterialListView;
@@ -86,7 +76,7 @@ public class ListaDesideriFragment extends Fragment {
 
         ParseQuery<ParseObject> query2 = ParseQuery.getQuery("itinerario");
 
-        query2.whereMatchesKeyInQuery("objectId","idItinerario",query);
+        query2.whereMatchesKeyInQuery("objectId", "idItinerario", query);
 
         query2.findInBackground(new FindCallback<ParseObject>() {
 
@@ -143,6 +133,7 @@ public class ListaDesideriFragment extends Fragment {
                         else
                             card.setRatingBar(0);
                         card.setNumFeedback(it.getNum_feedback());
+                        card.setDismissible(true);
                         cardsList.add(card);
                         listView.add(card);
                     }
@@ -174,76 +165,78 @@ public class ListaDesideriFragment extends Fragment {
 
             @Override
             public void onItemLongClick(CardItemView cardItemView, int i) {
-                FragmentManager fm = getFragmentManager();
-                final CancellazioneItinerarioListaDesideriDialog cancellazioneItinerarioListaDesideriDialog = new CancellazioneItinerarioListaDesideriDialog();
-                Bundle b = new Bundle();
-                Itinerario it = (Itinerario)myList.get(i);
-                b.putString("idItinerario", it.getId());
-                b.putString("nomeItinerario", it.getNome());
-                b.putInt("cardItemNumber", i);
-                cancellazioneItinerarioListaDesideriDialog.setArguments(b);
-                cancellazioneItinerarioListaDesideriDialog.show(fm, "fragment_cancellazione_lista_desideri_dialog");
-                cancellazioneItinerarioListaDesideriDialog.setTargetFragment(ListaDesideriFragment.this, 0);
             }
 
+        });
+
+        listView.setOnDismissCallback(new OnDismissCallback() {
+            @Override
+            public void onDismiss(final Card card, final int i) {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                //Yes button clicked
+                                cancella(i);
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                listView.add(card);
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Eliminare dalla lista dei desideri?").setPositiveButton("Si", dialogClickListener).setNegativeButton("No", dialogClickListener).show();
+            }
         });
 
         return view;
 
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent i) {
-        if (resultCode == 0) {
-            // Cancellazione itinerario dalla lista dei desideri
-            String idItinerario = i.getStringExtra("idItinerario");
-            final int cardItemNumber = i.getIntExtra("cardItemNumber", -1);
+    private void cancella(int position){
+        // Cancellazione itinerario dalla lista dei desideri
+        Itinerario it = (Itinerario) myList.get(position);
+        String idItinerario = it.getId();
 
-            Log.d("ListaDesideriFragment", "Elimino itinerario con id: " + idItinerario);
+        Log.d("ListaDesideriFragment", "Elimino itinerario con id: " + idItinerario);
 
-            final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
-                    "Caricamento in corso...", true);
+        final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
+                "Caricamento in corso...", true);
 
-            ParseQuery query = ParseQuery.getQuery("lista_desideri");
-            query = query.whereEqualTo("idItinerario", idItinerario);
-            query.whereEqualTo("user", ParseUser.getCurrentUser());
+        ParseQuery query = ParseQuery.getQuery("lista_desideri");
+        query = query.whereEqualTo("idItinerario", idItinerario);
+        query.whereEqualTo("user", ParseUser.getCurrentUser());
 
-            query.findInBackground(new FindCallback<ParseObject>() {
+        query.findInBackground(new FindCallback<ParseObject>() {
 
-                @Override
-                public void done(final List<ParseObject> list, com.parse.ParseException e) {
+            @Override
+            public void done(final List<ParseObject> list, com.parse.ParseException e) {
 
-                    if (e == null) {
-                        if (list.size() == 1) {
-                            list.get(0).deleteInBackground(new DeleteCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if (e == null) {
-
-                                        // BUG QUI RISOLVERE
-                                        MaterialListAdapter mla = (MaterialListAdapter) listView.getAdapter();
-                                        mla.remove(cardsList.get(cardItemNumber), true);
-                                        mla.notifyDataSetChanged();
-                                        /*Log.e("", "" + listView.getAdapter());
-                                        listView.remove(cardsList.get(cardItemNumber));
-                                        listView.getAdapter().notifyDataSetChanged();*/
-                                        /*listView.removeAllViewsInLayout();
-                                        cardsList.remove(cardItemNumber);
-                                        for(int i=0;i<cardsList.size();i++)
-                                            listView.add(cardsList.get(i));
-                                        listView.getAdapter().notifyDataSetChanged();*/
-                                        dialog.hide();
-                                        Toast.makeText(getActivity().getBaseContext(), "Itinerario eliminato", Toast.LENGTH_SHORT).show();
-                                    } else
-                                        Log.d("ListaDesideriFragment", "Error: " + e.getMessage());
-                                }
-                            });
-                        }
-                    } else {
-                        Log.d("ListaDesideriFragment", "Error: " + e.getMessage());
+                if (e == null) {
+                    if (list.size() == 1) {
+                        list.get(0).deleteInBackground(new DeleteCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    if(listView.getChildCount()==0)
+                                        nessunItineario.setVisibility(View.VISIBLE);
+                                    dialog.hide();
+                                    Toast.makeText(getActivity().getBaseContext(), "Itinerario eliminato", Toast.LENGTH_SHORT).show();
+                                } else
+                                    Log.d("ListaDesideriFragment", "Error: " + e.getMessage());
+                            }
+                        });
                     }
+                } else {
+                    Log.d("ListaDesideriFragment", "Error: " + e.getMessage());
                 }
+            }
 
-            });
-        }
+        });
     }
+
 }

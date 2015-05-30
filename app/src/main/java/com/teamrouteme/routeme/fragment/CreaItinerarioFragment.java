@@ -430,7 +430,7 @@ public class CreaItinerarioFragment extends Fragment {
         else if(resultCode==2){
             // Upload itinerario
 
-            ParseCall parseCall =new ParseCall();
+            ParseCall parseCall =new ParseCall(getActivity());
 
             String citta = i.getStringExtra("citta_itinerario");
             String nome = i.getStringExtra("nome_itinerario");

@@ -31,12 +31,14 @@ import com.teamrouteme.routeme.R;
 
 public class RouteMeApplication extends Application {
 
+ 
 
 
   @Override
   public void onCreate() {
     super.onCreate();
     // Required - Initialize the Parse SDK
+
     Parse.initialize(this);
 
     Parse.setLogLevel(Parse.LOG_LEVEL_DEBUG);
@@ -48,7 +50,10 @@ public class RouteMeApplication extends Application {
     ParseTwitterUtils.initialize(getString(R.string.twitter_consumer_key),
         getString(R.string.twitter_consumer_secret));
 
-
-
   }
+
+
+
+
+
 }

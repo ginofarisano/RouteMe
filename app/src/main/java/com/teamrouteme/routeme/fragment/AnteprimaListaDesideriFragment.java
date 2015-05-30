@@ -174,7 +174,7 @@ public class AnteprimaListaDesideriFragment extends BaseFragmentPayPalResult{
             @Override
             public void onClick(View v) {
 
-                ParseCall parseCall = new ParseCall();
+                ParseCall parseCall = new ParseCall(getActivity());
                 String idItinerario = itinerario.getId();
 
                 dialog = ProgressDialog.show(getActivity(), "",
@@ -205,7 +205,7 @@ public class AnteprimaListaDesideriFragment extends BaseFragmentPayPalResult{
                     btnAcquistaItinerario.setText("Già tuo");
                 } else {
 
-                    buyCredit(delta,idItinerario, dialog, btnAcquistaItinerario);
+                    buyCredit(delta, idItinerario, dialog, btnAcquistaItinerario);
 
 
                 }

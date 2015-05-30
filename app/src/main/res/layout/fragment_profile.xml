@@ -47,6 +47,7 @@
                 android:text="Mario"
                 android:textColor="@color/black"
                 android:textSize="10pt"
+                android:tag="nome"
                 android:id="@+id/textViewNameProf"
                 android:layout_marginTop="25dp"/>
 
@@ -70,6 +71,7 @@
                 android:text="mario.rossi@gmail.com"
                 android:id="@+id/textViewEmailModProf"
                 android:layout_marginTop="25dp"
+                android:tag="email"
                 android:textColor="@color/black"
                 android:textSize="10pt" />
 
@@ -95,6 +97,7 @@
                 android:text="Modifica Password"
                 android:id="@+id/textViewPasswordModProf"
                 android:textColor="@color/black"
+                android:tag="password"
                 android:textSize="10pt"
                 />
 

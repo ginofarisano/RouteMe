@@ -1,6 +1,8 @@
 package com.teamrouteme.routeme.fragment;
 
 
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.speech.tts.TextToSpeech;
@@ -8,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
@@ -57,14 +61,48 @@ public class ProfiloFragment extends Fragment {
             textViewFacebook.setVisibility(View.VISIBLE);
         }
 
-        textViewCredito.setText(""+currentUser.getInt("crediti"));
+        textViewCredito.setText("" + currentUser.getInt("crediti"));
 
 
+        View.OnClickListener ocl = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                FragmentManager fm = getFragmentManager();
+                final ModificaProfiloDialog modificaProfiloDialog = new ModificaProfiloDialog();
 
+                LinearLayout ll = (LinearLayout) v.getParent();
+                TextView campoProfilo  = (TextView) ll.getChildAt(0);
 
+                Bundle b = new Bundle();
+                b.putString("idCampoProfilo", (String) campoProfilo.getTag());
+                b.putString("campoProfilo", campoProfilo.getText().toString());
+                modificaProfiloDialog.setArguments(b);
 
+                modificaProfiloDialog.show(fm, "fragment_modifica_profilo_dialog");
+                modificaProfiloDialog.setTargetFragment(ProfiloFragment.this, 1);
+
+            }
+        };
+
+        modNome.setOnClickListener(ocl);
+        modEmail.setOnClickListener(ocl);
+        modPassword.setOnClickListener(ocl);
         return view;
+    }
+
+
+
+    //Gestisce ciò che restituisce il Dialog
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent i){
+        if(resultCode==1) {
+            Boolean modificaEffettuata = i.getExtras().getBoolean("modificaEffettuata");
+            if (modificaEffettuata)
+                Toast.makeText(getActivity().getBaseContext(), "Nessuna modifica effettuata", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(getActivity().getBaseContext(), "Modifica effettuata", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

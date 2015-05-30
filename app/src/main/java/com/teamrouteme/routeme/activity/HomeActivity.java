@@ -2,8 +2,10 @@ package com.teamrouteme.routeme.activity;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,6 +22,7 @@ import android.view.WindowManager;
 
 import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
+import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.fragment.CercaItinerarioFragment;
 import com.teamrouteme.routeme.fragment.ItinerariAcquistatiFragment;
 import com.teamrouteme.routeme.fragment.ListaDesideriFragment;
@@ -62,6 +65,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
     private Bitmap copertina;
     private View mDecorView;
     private MaterialSection cercaItinerarioSection;
+    private MaterialSection toReturn;
 
     @Override
     public void init(Bundle bundle) {
@@ -118,7 +122,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
             }
         }));
 
-        this.addSection(newSection("Pagami una birra!", R.drawable.beer, new MaterialSectionListener() {
+        this.addSection(newSection("Offrimi una birra!", R.drawable.beer, new MaterialSectionListener() {
             @Override
             public void onClick(MaterialSection materialSection) {
 
@@ -132,9 +136,9 @@ public class HomeActivity extends MaterialNavigationDrawer {
 
 
                 //esempio pagamento un euro
-                intent.putExtra(PayPalActivity.KEY_BUNDLE,1);
+                intent.putExtra(PayPalActivity.KEY_BUNDLE, 1);
 
-                intent.putExtra(PayPalActivity.KEY_DONATE,"BEEEER");
+                intent.putExtra(PayPalActivity.KEY_DONATE, "BEEEER");
 
                 startActivity(intent);
 
@@ -148,7 +152,27 @@ public class HomeActivity extends MaterialNavigationDrawer {
             }
         }));
 
+    }
 
+    @Override
+    public void onBackPressed() {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //Yes button clicked
+                        HomeActivity.super.onBackPressed();
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Sei sicuro di voler uscire?").setPositiveButton("Si", dialogClickListener).setNegativeButton("No", dialogClickListener).show();
     }
 
     private Bitmap changeCopertinaAtRandom()  {
@@ -185,9 +209,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
 
     }
 
-
-
-
+    //Codice per mettere l'activity in modalità full screen
     /*public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
             mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE

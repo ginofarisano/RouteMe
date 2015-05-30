@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.parse.FindCallback;
@@ -157,6 +158,8 @@ public class AnteprimaMieiItinerariFragment extends Fragment{
                     }
                     dialog.hide();
                 } else {
+                    dialog.hide();
+                    Toast.makeText(getActivity().getBaseContext(), "Impossibile caricare le recensioni", Toast.LENGTH_SHORT).show();
                     Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
                 }
             }
@@ -225,6 +228,8 @@ public class AnteprimaMieiItinerariFragment extends Fragment{
                                 }
 
                             } else {
+                                dialog.hide();
+                                Toast.makeText(getActivity().getBaseContext(), "Errore di connessione. Riprova", Toast.LENGTH_SHORT).show();
                                 Log.d("Itinerari", "Error: " + e.getMessage());
                             }
                         }

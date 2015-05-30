@@ -48,6 +48,7 @@ import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 
 public class CercaItinerarioFragment extends Fragment {
 
+    private final String TAG = "CercaItinerarioLog";
     private View rootLayout;
     private ClipRevealFrame menuLayout;
     private ArcLayout arcLayout;
@@ -131,16 +132,14 @@ public class CercaItinerarioFragment extends Fragment {
 
 
                             for(Map.Entry<String,ParseObject> entry : listToSet.entrySet()){
-
-                                //Log.d("Città", (String) parseObject.getValue().get("citta"));
-                                Log.d("Città", (String) entry.getValue().getString("citta"));
+                                Log.d(TAG, "Città: "+(String) entry.getValue().getString("citta"));
                                 //autoCompleteAdapter.add((String) parseObject.getString("citta"));
                                 autoCompleteAdapter.add(entry.getValue().getString("citta"));
 
                             }
 
                         } else {
-                            Log.d("Itinerari", "Error: " + e.getMessage());
+                            Log.d(TAG, "Error: " + e.getMessage());
                         }
                     }
 
@@ -213,7 +212,9 @@ public class CercaItinerarioFragment extends Fragment {
 
                 } else {
                     //error
-                    Log.d("Tags", "Error: " + e.getMessage());
+                    Toast.makeText(getActivity().getBaseContext(), "Nessun tag trovato. Errore di connessione", Toast.LENGTH_SHORT).show();
+
+                    Log.d(TAG, "Error: " + e.getMessage());
                 }
 
 
@@ -228,8 +229,8 @@ public class CercaItinerarioFragment extends Fragment {
                 int durataMin = rangeSeekBar.getSelectedMinValue();
                 int durataMax = rangeSeekBar.getSelectedMaxValue();
 
-                Log.d("Min", ""+durataMin);
-                Log.d("Max", ""+durataMax);
+                Log.d(TAG, "Min "+durataMin);
+                Log.d(TAG, "Max "+durataMax);
 
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("itinerario");
                 //ParseQuery<ParseObject> listQuery = query;
@@ -251,7 +252,7 @@ public class CercaItinerarioFragment extends Fragment {
                     @Override
                     public void done(List<ParseObject> list, com.parse.ParseException e) {
                         if (e == null) {
-                            Log.d("NumRis", ""+list.size());
+                            Log.d(TAG, "Numero risultati: "+list.size());
                             myList = new LinkedList();
                             Itinerario itinerario;
 
@@ -312,7 +313,9 @@ public class CercaItinerarioFragment extends Fragment {
 
                         } else {
                             //error
-                            Log.d("Tags", "Error: " + e.getMessage());
+                            dialog.hide();
+                            Toast.makeText(getActivity().getBaseContext(), "Ricerca fallita. Errore di connessione", Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "Error: " + e.getMessage());
                         }
 
 

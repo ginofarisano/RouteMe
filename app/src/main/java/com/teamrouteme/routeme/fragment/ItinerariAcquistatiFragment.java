@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dexafree.materialList.controller.RecyclerItemClickListener;
 import com.dexafree.materialList.model.CardItemView;
@@ -135,6 +136,8 @@ public class ItinerariAcquistatiFragment extends Fragment {
 
 
                 } else {
+                    dialog.hide();
+                    Toast.makeText(getActivity().getBaseContext(), "Errore di connessione. Riprova", Toast.LENGTH_SHORT).show();
                     Log.d("Itinerari", "Error: " + e.getMessage());
                 }
             }

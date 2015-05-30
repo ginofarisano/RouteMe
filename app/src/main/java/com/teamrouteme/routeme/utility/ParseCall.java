@@ -3,6 +3,7 @@ package com.teamrouteme.routeme.utility;
 import android.app.ProgressDialog;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
@@ -25,6 +26,8 @@ import java.util.List;
  */
 public class ParseCall {
 
+    private final String TAG = "ParseCallLog";
+
     ParseUser user;
 
     public ParseCall(){
@@ -33,7 +36,7 @@ public class ParseCall {
 
     public void uploadRoute(String citta, String[] tags, String nome, String descrizione, int min, int max, Itinerario itinerario, String autore) {
 
-        ParseObject toUploadItinerario = new ParseObject("itinerario");
+        final ParseObject toUploadItinerario = new ParseObject("itinerario");
 
         toUploadItinerario.put("user", user);
 
@@ -75,20 +78,42 @@ public class ParseCall {
 
         toUploadItinerario.put("tappe",jsonTappe);
 
-        toUploadItinerario.saveInBackground();
+        toUploadItinerario.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null){
+                }
+                else{
+                    toUploadItinerario.saveEventually();
+                    Log.d(TAG, "Error: " + e.getMessage());
+                    Log.d(TAG, "saveEventually");
+                }
+            }
+        });
 
 
     }
 
     public void addWishList(String idItinerario) {
 
-        ParseObject toAddWishList = new ParseObject("lista_desideri");
+        final ParseObject toAddWishList = new ParseObject("lista_desideri");
 
         toAddWishList.put("user", user);
 
         toAddWishList.put("idItinerario", idItinerario);
 
-        toAddWishList.saveInBackground();
+        toAddWishList.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null){
+                }
+                else{
+                    toAddWishList.saveEventually();
+                    Log.d(TAG, "Error: " + e.getMessage());
+                    Log.d(TAG, "saveEventually");
+                }
+            }
+        });
 
 
 

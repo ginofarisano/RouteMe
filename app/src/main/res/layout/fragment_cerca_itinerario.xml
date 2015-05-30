@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10pt"
-            android:text="Durata:"
+            android:text="Durata (ore):"
             android:id="@+id/textViewDurata" />
 
         <LinearLayout android:id="@+id/seekbar_placeholder"

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.parse.FindCallback;
@@ -157,6 +158,8 @@ public class AnteprimaListaDesideriFragment extends BaseFragmentPayPalResult{
                     }
                     dialog.hide();
                 } else {
+                    dialog.hide();
+                    Toast.makeText(getActivity().getBaseContext(), "Impossibile caricare le recensioni", Toast.LENGTH_SHORT).show();
                     Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
                 }
             }

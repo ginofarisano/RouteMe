@@ -57,6 +57,7 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
     private ArrayAdapter<String> adapter;
     private LinearLayout listViewRecensioni;
     private TextView numFeedbackText;
+    private boolean connectionError;
 
     public AnteprimaCercaItinerarioFragment(){
         // Required empty public constructor
@@ -65,6 +66,8 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_anteprima_itinerario, container, false);
+
+        connectionError = false;
 
         listViewRecensioni = (LinearLayout)view.findViewById(R.id.listViewRecensioni);
         queryCount = 0;
@@ -146,7 +149,7 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
                 "Caricamento in corso...", true);
 
 
-        // CONTROLLA SE L'ITINERARIO RISULSTA CREATO DA L'UTENTE ATTUALE
+        // CONTROLLA SE L'ITINERARIO RISULSTA CREATO DALL'UTENTE ATTUALE
         ParseQuery<ParseObject> query = ParseQuery.getQuery("itinerario");
 
         query = query.whereEqualTo("user", ParseUser.getCurrentUser());
@@ -172,6 +175,12 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
                     if (queryCount == 4)
                         dialog.hide();
                 } else {
+                    dialog.hide();
+                    if(!connectionError) {
+                        connectionError = true;
+                        Toast.makeText(getActivity().getBaseContext(), "Errore di connessione. Riprova", Toast.LENGTH_SHORT).show();
+                        btnIndietro.callOnClick();
+                    }
                     Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
                 }
             }
@@ -204,6 +213,12 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
                     if(queryCount==4)
                         dialog.hide();
                 } else {
+                    dialog.hide();
+                    if(!connectionError) {
+                        connectionError = true;
+                        Toast.makeText(getActivity().getBaseContext(), "Errore di connessione. Riprova", Toast.LENGTH_SHORT).show();
+                        btnIndietro.callOnClick();
+                    }
                     Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
                 }
             }
@@ -231,6 +246,12 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
                     if(queryCount==4)
                         dialog.hide();
                 } else {
+                    dialog.hide();
+                    if(!connectionError) {
+                        connectionError = true;
+                        Toast.makeText(getActivity().getBaseContext(), "Errore di connessione. Riprova", Toast.LENGTH_SHORT).show();
+                        btnIndietro.callOnClick();
+                    }
                     Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
                 }
             }
@@ -274,6 +295,11 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
                     if (queryCount == 4)
                         dialog.hide();
                 } else {
+                    queryCount++;
+                    if (queryCount == 4)
+                        dialog.hide();
+                    if(!connectionError)
+                        Toast.makeText(getActivity().getBaseContext(), "Impossibile caricare le recensioni", Toast.LENGTH_SHORT).show();
                     Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
                 }
             }

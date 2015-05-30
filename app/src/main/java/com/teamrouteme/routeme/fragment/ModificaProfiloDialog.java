@@ -27,17 +27,22 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.teamrouteme.routeme.R;
+import com.teamrouteme.routeme.activity.HomeActivity;
 
 import java.util.HashMap;
 import java.util.List;
 
+import it.neokree.materialnavigationdrawer.elements.MaterialAccount;
+
 
 public class ModificaProfiloDialog extends DialogFragment {
 
+    private final String TAG = "ModificaProfiloDialog";
     private String campoProfilo, tagCampoProfilo;
     private Button btnInviaCampoProfilo;
     private EditText editTextCampoProfilo;
     private String emailPattern;
+
     public ModificaProfiloDialog() {
         // Empty constructor required for DialogFragment
     }
@@ -71,23 +76,53 @@ public class ModificaProfiloDialog extends DialogFragment {
                 final String nuovoCampoProfilo = editTextCampoProfilo.getText().toString();
 
                 if(nuovoCampoProfilo.equals(campoProfilo))
-                    backToProfiloFragment(true);
+                    backToProfiloFragment(2);
                 else {
 
+                    final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
+                            "Caricamento in corso...", true);
                     ParseUser parseUser = ParseUser.getCurrentUser();
 
                     if (tagCampoProfilo.equals("nome")) {
                         parseUser.put("name", nuovoCampoProfilo);
-                        parseUser.saveInBackground();
-                        backToProfiloFragment(false);
+                        parseUser.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    backToProfiloFragment(1);
+                                    MaterialAccount myAccount = ((HomeActivity)getActivity()).getCurrentAccount();
+                                    myAccount.setSubTitle(nuovoCampoProfilo);
+                                    ((HomeActivity)getActivity()).notifyAccountDataChanged();
+                                }
+                                else{
+                                    backToProfiloFragment(0);
+                                    Log.d(TAG, "Error: " + e.getMessage());
+                                }
+                                dialog.hide();
+                            }
+                        });
                     }
 
                     if (tagCampoProfilo.equals("email")) {
                         if(tagCampoProfilo.matches(emailPattern)) {
                             parseUser.put("email", nuovoCampoProfilo);
                             parseUser.put("username", nuovoCampoProfilo);
-                            parseUser.saveInBackground();
-                            backToProfiloFragment(false);
+                            parseUser.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e == null) {
+                                        backToProfiloFragment(1);
+                                        MaterialAccount myAccount = ((HomeActivity)getActivity()).getCurrentAccount();
+                                        myAccount.setTitle(nuovoCampoProfilo);
+                                        ((HomeActivity)getActivity()).notifyAccountDataChanged();
+                                    }
+                                    else {
+                                        backToProfiloFragment(0);
+                                        Log.d(TAG, "Error: " + e.getMessage());
+                                    }
+                                    dialog.hide();
+                                }
+                            });
                         }
                         else
                             Toast.makeText(getActivity().getBaseContext(), "Formato email non corretto", Toast.LENGTH_SHORT).show();
@@ -95,8 +130,18 @@ public class ModificaProfiloDialog extends DialogFragment {
 
                     if (tagCampoProfilo.equals("password")) {
                         parseUser.put("password", nuovoCampoProfilo);
-                        parseUser.saveInBackground();
-                        backToProfiloFragment(false);
+                        parseUser.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if (e == null)
+                                    backToProfiloFragment(1);
+                                else {
+                                    backToProfiloFragment(0);
+                                    Log.d(TAG, "Error: " + e.getMessage());
+                                }
+                                dialog.hide();
+                            }
+                        });
                     }
 
                 }
@@ -107,7 +152,7 @@ public class ModificaProfiloDialog extends DialogFragment {
     }
 
 
-    private void backToProfiloFragment(boolean valoreMod){
+    private void backToProfiloFragment(int valoreMod){
         Intent i = new Intent();
         i.putExtra("modificaEffettuata", valoreMod);
         getTargetFragment().onActivityResult(getTargetRequestCode(), getTargetRequestCode(), i);

@@ -121,6 +121,7 @@ public class UploadItinerarioDialog extends DialogFragment{
 
                 } else {
                     //error
+                    Toast.makeText(getActivity().getBaseContext(), "Nessun tag trovato. Errore di connessione", Toast.LENGTH_SHORT).show();
                     Log.d("Tags", "Error: " + e.getMessage());
                 }
 

@@ -22,10 +22,15 @@
 package com.teamrouteme.routeme.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import com.parse.ParseUser;
@@ -61,13 +66,22 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
 
-                currentUser = ParseUser.getCurrentUser();
-
-                if (currentUser != null) {
-                    showProfileLoggedIn();
-                    SplashActivity.this.finish();
-                } else {
+                if(!isConnected()) {
                     showProfileLoggedOut();
+                    if(ParseUser.getCurrentUser()!= null) {
+                        Toast.makeText(SplashActivity.this, "Errore di connessione. Riprova", Toast.LENGTH_SHORT).show();
+                        ParseUser.logOut();
+                    }
+                }
+                else {
+                    currentUser = ParseUser.getCurrentUser();
+
+                    if (currentUser != null) {
+                        showProfileLoggedIn();
+                        SplashActivity.this.finish();
+                    } else {
+                        showProfileLoggedOut();
+                    }
                 }
 
             }
@@ -111,5 +125,17 @@ public class SplashActivity extends Activity {
 
         SplashActivity.this.finish();
 
+    }
+
+    public boolean isConnected(){
+        ConnectivityManager conMgr = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo i = conMgr.getActiveNetworkInfo();
+        if (i == null)
+            return false;
+        if (!i.isConnected())
+            return false;
+        if (!i.isAvailable())
+            return false;
+        return true;
     }
 }

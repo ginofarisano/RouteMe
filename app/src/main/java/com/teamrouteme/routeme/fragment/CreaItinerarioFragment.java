@@ -2,6 +2,7 @@ package com.teamrouteme.routeme.fragment;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -348,54 +349,55 @@ public class CreaItinerarioFragment extends Fragment {
         @Override
         protected void onPostExecute(List<HashMap<String,String>> list){
 
-            int size = list.size();
+            if(list != null) {
+                int size = list.size();
 
-            if(writing) {
-                if (size > 0) {
+                if (writing) {
+                    if (size > 0) {
 
-                    String[] tmpPlacesList = new String[size];
-                    Log.d(TAG, "List size: " + size);
-                    for (int i = 0; i < size; i++) {
-                        tmpPlacesList[i] = list.get(i).get("formatted_address");
-                        Log.d(TAG, "Indirizzo " + i + ": " + list.get(i).get("formatted_address"));
+                        String[] tmpPlacesList = new String[size];
+                        Log.d(TAG, "List size: " + size);
+                        for (int i = 0; i < size; i++) {
+                            tmpPlacesList[i] = list.get(i).get("formatted_address");
+                            Log.d(TAG, "Indirizzo " + i + ": " + list.get(i).get("formatted_address"));
+                        }
+
+                        foundPlaces = new ArrayAdapter<String>(getActivity(),
+                                android.R.layout.simple_dropdown_item_1line,
+                                tmpPlacesList
+                        );
+                        Log.d(TAG, "FoundPlaces count: " + foundPlaces.getCount());
+                        etPlace.setAdapter(foundPlaces);
+                        etPlace.showDropDown();
+                    }
+                } else {
+                    // Getting a place from the places list
+                    HashMap<String, String> hmPlace = list.get(0);
+
+                    // Creating a marker
+                    MarkerOptions markerOptions = createMarkerHmPlace(hmPlace);
+
+                    // Adding the position to the addedPlaces list, if not present
+                    if (placeAlreadyPresent(markerOptions.getPosition()))
+                        Toast.makeText(getActivity().getBaseContext(), "Tappa già presente", Toast.LENGTH_SHORT).show();
+                    else {
+                        // Placing a marker on the touched position
+                        Marker tmp = mMap.addMarker(markerOptions);
+
+                        addedPlaces.add(tmp);
+                        Log.d(TAG, "AddedPlaces " + addedPlaces.toString());
+                        // Locate the location
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(markerOptions.getPosition(), 15));
+
+                        canModificaCancellazione = false;
+                        closeKeyboard(getActivity(), etPlace.getWindowToken());
+                        btnConferma.setVisibility(View.VISIBLE);
+                        btnAnnulla.setVisibility(View.VISIBLE);
+                        btnFatto.setVisibility(View.INVISIBLE);
+
                     }
 
-                    foundPlaces = new ArrayAdapter<String>(getActivity(),
-                            android.R.layout.simple_dropdown_item_1line,
-                            tmpPlacesList
-                    );
-                    Log.d(TAG, "FoundPlaces count: " + foundPlaces.getCount());
-                    etPlace.setAdapter(foundPlaces);
-                    etPlace.showDropDown();
                 }
-            }
-            else{
-                // Getting a place from the places list
-                HashMap<String, String> hmPlace = list.get(0);
-
-                // Creating a marker
-                MarkerOptions markerOptions = createMarkerHmPlace(hmPlace);
-
-                // Adding the position to the addedPlaces list, if not present
-                if(placeAlreadyPresent(markerOptions.getPosition()))
-                    Toast.makeText(getActivity().getBaseContext(), "Tappa già presente", Toast.LENGTH_SHORT).show();
-                else {
-                    // Placing a marker on the touched position
-                    Marker tmp = mMap.addMarker(markerOptions);
-
-                    addedPlaces.add(tmp);
-                    Log.d(TAG, "AddedPlaces " + addedPlaces.toString());
-                    // Locate the location
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(markerOptions.getPosition(), 15));
-
-                    canModificaCancellazione = false;
-                    closeKeyboard(getActivity(), etPlace.getWindowToken());
-                    btnConferma.setVisibility(View.VISIBLE);
-                    btnAnnulla.setVisibility(View.VISIBLE);
-                    btnFatto.setVisibility(View.INVISIBLE);
-
-                }
-
             }
         }
 
@@ -442,8 +444,6 @@ public class CreaItinerarioFragment extends Fragment {
             String autore = (String) ParseUser.getCurrentUser().get("name");
 
             parseCall.uploadRoute(citta, tags, nome, descrizione, min, max, itinerario, autore);
-
-
 
             Toast.makeText(getActivity().getBaseContext(), "Itinerario creato", Toast.LENGTH_SHORT).show();
             //Call it when all is saved on the db

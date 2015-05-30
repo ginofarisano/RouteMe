@@ -136,6 +136,8 @@ public class ListaDesideriFragment extends Fragment {
 
 
                 } else {
+                    dialog.hide();
+                    Toast.makeText(getActivity().getBaseContext(), "Errore di connessione. Riprova", Toast.LENGTH_SHORT).show();
                     Log.d("Itinerari", "Error: " + e.getMessage());
                 }
             }

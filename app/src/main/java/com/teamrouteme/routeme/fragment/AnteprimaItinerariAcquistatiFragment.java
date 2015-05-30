@@ -163,6 +163,8 @@ public class AnteprimaItinerariAcquistatiFragment extends  Fragment{
                     }
                     dialog.hide();
                 } else {
+                    dialog.hide();
+                    Toast.makeText(getActivity().getBaseContext(), "Impossibile caricare le recensioni", Toast.LENGTH_SHORT).show();
                     Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
                 }
             }
@@ -247,6 +249,8 @@ public class AnteprimaItinerariAcquistatiFragment extends  Fragment{
                                 }
 
                             } else {
+                                dialog.hide();
+                                Toast.makeText(getActivity().getBaseContext(), "Errore di connessione. Riprova", Toast.LENGTH_SHORT).show();
                                 Log.d("Itinerari", "Error: " + e.getMessage());
                             }
                         }

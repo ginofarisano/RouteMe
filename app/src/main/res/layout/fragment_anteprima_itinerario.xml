@@ -42,7 +42,6 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textStyle="bold"
                     android:text="Nome itinerario"
-                    android:layout_gravity="center"
                     android:id="@+id/nomeItinerarioCard" />
 
                 <TextView

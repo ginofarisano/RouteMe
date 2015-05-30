@@ -19,6 +19,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
@@ -134,7 +135,6 @@ public class HomeActivity extends MaterialNavigationDrawer {
                 Intent intent = new Intent(HomeActivity.this, PayPalActivity.class);
 
 
-
                 //esempio pagamento un euro
                 intent.putExtra(PayPalActivity.KEY_BUNDLE, 1);
 
@@ -172,7 +172,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
             }
         };
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Sei sicuro di voler uscire?").setPositiveButton("Si", dialogClickListener).setNegativeButton("No", dialogClickListener).show();
+        builder.setMessage("Sei sicuro di voler uscire dall'app?").setPositiveButton("Si", dialogClickListener).setNegativeButton("No", dialogClickListener).show();
     }
 
     private Bitmap changeCopertinaAtRandom()  {
@@ -253,7 +253,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
 
                 /*
 
-                decomment this code for view cover's image
+                decomment this code to view cover's image
 
                 String urlCover = String.format(
                         "https://graph.facebook.com/%s?fields=cover&access_token=%s",
@@ -270,7 +270,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
                 try {
                     inputStream = new URL(urlProfile).openStream();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Toast.makeText(HomeActivity.this, "Caricamento immagine del profilo non riuscito", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -280,7 +280,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
                 try {
                     inputStream.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Toast.makeText(HomeActivity.this, "Caricamento immagine del profilo non riuscito", Toast.LENGTH_SHORT).show();
                 }
 
                 /*

@@ -2,10 +2,12 @@ package com.teamrouteme.routeme.fragment;
 
 
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,11 +99,18 @@ public class ProfiloFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent i){
         if(resultCode==1) {
-            Boolean modificaEffettuata = i.getExtras().getBoolean("modificaEffettuata");
-            if (modificaEffettuata)
-                Toast.makeText(getActivity().getBaseContext(), "Nessuna modifica effettuata", Toast.LENGTH_SHORT).show();
-            else
+            int modificaEffettuata = i.getExtras().getInt("modificaEffettuata");
+            if (modificaEffettuata == 0)
+                Toast.makeText(getActivity().getBaseContext(), "Errore di connessione. Riprova", Toast.LENGTH_SHORT).show();
+            else if(modificaEffettuata == 1) {
                 Toast.makeText(getActivity().getBaseContext(), "Modifica effettuata", Toast.LENGTH_SHORT).show();
+                // Reload current fragment
+                Fragment frg = this;
+                final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.detach(frg);
+                ft.attach(frg);
+                ft.commit();
+            }
         }
     }
 

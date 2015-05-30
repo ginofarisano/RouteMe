@@ -47,7 +47,6 @@ public class ListaDesideriFragment extends Fragment {
     private MaterialListView listView;
     private List myList;
     private TextView nessunItineario;
-    private ArrayList<Card> cardsList;
 
     public ListaDesideriFragment() {
         // Required empty public constructor
@@ -64,8 +63,6 @@ public class ListaDesideriFragment extends Fragment {
         listView = (MaterialListView) view.findViewById(R.id.material_listview);
 
         myList = new LinkedList();
-
-        cardsList = new ArrayList<>();
 
         final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
                 "Caricamento in corso...", true);
@@ -134,7 +131,6 @@ public class ListaDesideriFragment extends Fragment {
                             card.setRatingBar(0);
                         card.setNumFeedback(it.getNum_feedback());
                         card.setDismissible(true);
-                        cardsList.add(card);
                         listView.add(card);
                     }
 
@@ -175,7 +171,7 @@ public class ListaDesideriFragment extends Fragment {
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
+                        switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
                                 //Yes button clicked
                                 cancella(i);
@@ -183,6 +179,8 @@ public class ListaDesideriFragment extends Fragment {
 
                             case DialogInterface.BUTTON_NEGATIVE:
                                 //No button clicked
+                                Itinerario it = (Itinerario) myList.remove(i);
+                                myList.add(it);
                                 listView.add(card);
                                 break;
                         }
@@ -199,7 +197,7 @@ public class ListaDesideriFragment extends Fragment {
 
     private void cancella(int position){
         // Cancellazione itinerario dalla lista dei desideri
-        Itinerario it = (Itinerario) myList.get(position);
+        Itinerario it = (Itinerario) myList.remove(position);
         String idItinerario = it.getId();
 
         Log.d("ListaDesideriFragment", "Elimino itinerario con id: " + idItinerario);

@@ -96,8 +96,11 @@ public class HomeActivity extends MaterialNavigationDrawer {
 
         copertina = changeCopertinaAtRandom();
 
+
+
         account = new MaterialAccount(this.getResources(),ParseUser.getCurrentUser().getEmail(),currentUser.getString("name"),profilo,copertina);
         this.addAccount(account);
+
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         this.addSection(newSection("Cerca Itinerario", R.drawable.search, new CercaItinerarioFragment()));
@@ -202,8 +205,6 @@ public class HomeActivity extends MaterialNavigationDrawer {
                     e.printStackTrace();
                 }
         }
-
-
 
         return bit;
 
@@ -327,7 +328,15 @@ public class HomeActivity extends MaterialNavigationDrawer {
                         && !isChangingConfigurations()
                         && !isFinishing()){
 
-                    account.setPhoto(bitmaps[0]);
+                    profilo = bitmaps[0];
+
+
+                    account.setPhoto(profilo);
+
+
+                    notifyAccountDataChanged();
+
+
                     //account.setBackground(bitmaps[1]);
 
                 }

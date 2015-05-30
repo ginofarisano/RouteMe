@@ -1,6 +1,9 @@
 package com.teamrouteme.routeme.utility;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,12 +17,17 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.teamrouteme.routeme.R;
+import com.teamrouteme.routeme.application.RouteMeApplication;
 import com.teamrouteme.routeme.bean.Itinerario;
 import com.teamrouteme.routeme.bean.Tappa;
+
+import com.teamrouteme.routeme.R;
 
 import org.json.JSONArray;
 
 import java.util.List;
+
+import static com.teamrouteme.routeme.R.drawable.selector_disabled;
 
 /**
  * Created by ginofarisano on 15/05/15.
@@ -30,7 +38,13 @@ public class ParseCall {
 
     ParseUser user;
 
-    public ParseCall(){
+    Context context;
+
+    public ParseCall(Activity activity)
+    {
+
+        context = activity;
+
         user= ParseUser.getCurrentUser();
     }
 
@@ -136,6 +150,9 @@ public class ParseCall {
                         //UNA VOLTA EFFETTUATA L'OPERAZIONE DI PAGAMENTO VENGONO DISATTIVATI I BOTTONI
                         btnAcquistaItinerario.setEnabled(false);
                         btnAcquistaItinerario.setText("Già tuo");
+                        btnAcquistaItinerario.setBackground(context.getResources().getDrawable(R.drawable.selector_disabled));;
+
+
                     }
 
 

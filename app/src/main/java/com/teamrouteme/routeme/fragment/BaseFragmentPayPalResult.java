@@ -35,7 +35,7 @@ public class BaseFragmentPayPalResult extends Fragment {
 
                 int result=data.getIntExtra(PayPalActivity.INCREASE_CREDIT,0);
 
-                ParseCall parseCall = new ParseCall();
+                ParseCall parseCall = new ParseCall(getActivity());
                 parseCall.increasesCredit((result + delta), idItinerario, dialog,btnAcquistaItinerario);
 
             }

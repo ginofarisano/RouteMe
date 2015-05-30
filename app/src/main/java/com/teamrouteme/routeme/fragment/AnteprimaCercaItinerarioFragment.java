@@ -310,7 +310,7 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
             @Override
             public void onClick(View v) {
 
-                ParseCall parseCall = new ParseCall();
+                ParseCall parseCall = new ParseCall(getActivity());
                 String idItinerario = itinerario.getId();
 
                 dialog = ProgressDialog.show(getActivity(), "",
@@ -338,6 +338,9 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
 
                 } else {
 
+                    btnDesideraItinerario.setEnabled(false);
+                    btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.wishred));
+
                     buyCredit(delta, idItinerario, dialog, btnAcquistaItinerario);
 
 
@@ -349,7 +352,7 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
             @Override
             public void onClick(View v) {
                 String idItinerario = itinerario.getId();
-                ParseCall parseCall = new ParseCall();
+                ParseCall parseCall = new ParseCall(getActivity());
 
                 parseCall.addWishList(idItinerario);
 

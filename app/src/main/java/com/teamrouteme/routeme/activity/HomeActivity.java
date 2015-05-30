@@ -94,8 +94,6 @@ public class HomeActivity extends MaterialNavigationDrawer {
         account = new MaterialAccount(this.getResources(),ParseUser.getCurrentUser().getEmail(),currentUser.getString("name"),profilo,copertina);
         this.addAccount(account);
 
-
-
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         this.addSection(newSection("Cerca Itinerario", R.drawable.search, new CercaItinerarioFragment()));
         this.addSection(newSection("Crea Itinerario", R.drawable.marker, new CreaItinerarioFragment()));
@@ -180,6 +178,8 @@ public class HomeActivity extends MaterialNavigationDrawer {
                     e.printStackTrace();
                 }
         }
+
+
 
         return bit;
 

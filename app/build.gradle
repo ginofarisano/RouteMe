@@ -5,7 +5,7 @@ android {
     buildToolsVersion '22.0.1'
     defaultConfig {
         applicationId "com.teamrouteme.routeme"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -43,4 +43,5 @@ dependencies {
     compile files('/Users/massimo299/AndroidStudioProjects/RouteMe/libs/PayPalAndroidSDK-2.9.5.jar')
     compile files('/Users/nicolopergola/Desktop/Universita/LaureaMagistrale/II_Anno/IUMMAD/RouteMe/libs/PayPalAndroidSDK-2.9.5.jar')
     compile files('/Users/ginofarisano/Desktop/RouteMe/RouteMe/libs/PayPalAndroidSDK-2.9.5.jar')
+    compile files('/home/daniele/Scrivania/RouteMe/libs/PayPalAndroidSDK-2.9.5.jar')
 }

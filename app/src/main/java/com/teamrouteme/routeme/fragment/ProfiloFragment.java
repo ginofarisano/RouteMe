@@ -4,6 +4,9 @@ package com.teamrouteme.routeme.fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.speech.tts.TextToSpeech;
@@ -12,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,10 +33,14 @@ public class ProfiloFragment extends Fragment {
     private TextView textViewEmail;
     private TextView textViewCredito, textViewPassword, textViewFacebook;
     private ImageButton modNome, modEmail, modPassword;
+    private ImageView profImage;
+    private Bitmap profilo;
+    private BitmapDrawable profiloDrawable;
 
 
-    public ProfiloFragment() {
+    public ProfiloFragment(Bitmap profilo) {
         // Required empty public constructor
+        this.profilo = profilo;
     }
 
 
@@ -51,8 +59,13 @@ public class ProfiloFragment extends Fragment {
         modNome = (ImageButton) view.findViewById(R.id.imageButtonModNameProf);
         modEmail = (ImageButton) view.findViewById(R.id.imageButtonModEmailProf);
         modPassword = (ImageButton) view.findViewById(R.id.imageButtonModPasswordProf);
+        profImage = (ImageView)view.findViewById(R.id.profile_image);
 
         textViewName.setText(currentUser.getString("name"));
+        if(profilo != null){
+            profiloDrawable = new BitmapDrawable(getResources(), profilo);
+            profImage.setBackground(profiloDrawable);
+        }
         if(currentUser.getEmail()!=null)
             textViewEmail.setText(currentUser.getEmail());
         else{

@@ -14,9 +14,9 @@
         android:layout_gravity="right">
         <Button
             style="@style/MyButton"
-            android:layout_width="25dp"
-            android:background="@drawable/arrow3"
-            android:layout_height="25dp"
+            android:layout_width="30dp"
+            android:background="@drawable/arrownew"
+            android:layout_height="30dp"
             android:id="@+id/btn_indietro"
             />
     </LinearLayout>

@@ -401,7 +401,7 @@ public class VisualizzaItinerarioFragment extends Fragment implements LocationLi
 
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
-                lineOptions.width(4);
+                lineOptions.width(8);
                 lineOptions.color(Color.BLUE);
             }
 

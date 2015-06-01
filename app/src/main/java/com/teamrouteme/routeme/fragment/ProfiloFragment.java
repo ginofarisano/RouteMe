@@ -11,9 +11,11 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,8 +38,6 @@ public class ProfiloFragment extends Fragment {
     private TextView textViewCredito, textViewPassword, textViewFacebook;
     private ImageButton modNome, modEmail, modPassword;
     private ImageView profImage;
-    private Bitmap profilo;
-    private BitmapDrawable profiloDrawable;
     private MaterialNavigationDrawer home;
 
 
@@ -67,7 +67,6 @@ public class ProfiloFragment extends Fragment {
 
         textViewName.setText(currentUser.getString("name"));
 
-      //  profiloDrawable = new BitmapDrawable(getResources(), profilo);
         profImage.setBackground(home.getCurrentAccount().getCircularPhoto());
 
         if(currentUser.getEmail()!=null)

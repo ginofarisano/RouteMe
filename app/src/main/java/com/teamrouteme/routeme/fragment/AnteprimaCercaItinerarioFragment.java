@@ -2,7 +2,11 @@ package com.teamrouteme.routeme.fragment;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -107,6 +111,7 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
         autoreItinerarioTextView.append(autoreItinerario);
 
         valutazioneBar = (RatingBar) view.findViewById(R.id.valutazione);
+
         if(itinerario.getNum_feedback()!=0)
             valutazioneBar.setRating(itinerario.getRating()/itinerario.getNum_feedback());
         else

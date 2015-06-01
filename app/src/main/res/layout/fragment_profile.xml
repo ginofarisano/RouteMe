@@ -42,8 +42,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:adjustViewBounds="false"
                 android:background="@drawable/routemelogo"
-                android:scaleType="matrix"
                 android:id="@+id/profile_image" />
 
             <TextView

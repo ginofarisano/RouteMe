@@ -13,11 +13,6 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="MyRatingBarBig">
-        <item name="android:minHeight">40dip</item>
-        <item name="android:maxHeight">40dip</item>
-    </style>
-
     <style name="MyButton">
         <item name="android:textColor">#FFF</item>
         <item name="android:focusable">true</item>

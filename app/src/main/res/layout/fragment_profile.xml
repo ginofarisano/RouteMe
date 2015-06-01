@@ -1,47 +1,28 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/sfondo"
     android:layout_height="match_parent"
-    android:paddingLeft="15dp"
-    android:paddingTop="15dp"
-    android:background="#e0f2f1"
-    tools:context=".HomeActivity$PlaceholderFragment">
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <include
+        layout="@layout/sfondo"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/testo"
-            android:textSize="12pt"
-            android:text="Riepilogo Profilo"
-            android:textStyle="bold"
-            android:id="@+id/textViewProfilo"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/routemelogo"
-            android:id="@+id/profile_image" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Registrato con social network"
-            android:textColor="@color/black"
-            android:textSize="10pt"
-            android:id="@+id/textViewFacebook"
-            android:layout_marginTop="25dp"
-            android:visibility="gone"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        tools:context=".HomeActivity$PlaceholderFragment">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
@@ -49,101 +30,138 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/testo"
+                android:textSize="12pt"
+                android:text="Riepilogo Profilo"
+                android:textStyle="bold"
+                android:id="@+id/textViewProfilo"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/routemelogo"
+                android:scaleType="matrix"
+                android:id="@+id/profile_image" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Mario"
+                android:text="Registrato con social network"
                 android:textColor="@color/black"
                 android:textSize="10pt"
-                android:tag="nome"
-                android:id="@+id/textViewNameProf"
-                android:layout_marginTop="25dp"/>
-
-            <ImageButton
-                android:background="@drawable/mod"
-                android:layout_marginTop="28dp"
-                android:layout_marginLeft="20dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:id="@+id/imageButtonModNameProf"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="mario.rossi@gmail.com"
-                android:id="@+id/textViewEmailModProf"
+                android:id="@+id/textViewFacebook"
                 android:layout_marginTop="25dp"
-                android:tag="email"
-                android:textColor="@color/black"
-                android:textSize="10pt" />
+                android:visibility="gone"/>
 
-            <ImageButton
-                android:background="@drawable/mod"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="28dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:id="@+id/imageButtonModEmailProf" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_marginTop="25dp"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Modifica Password"
-                android:id="@+id/textViewPasswordModProf"
-                android:textColor="@color/black"
-                android:tag="password"
-                android:textSize="10pt"
-                />
+                >
 
-            <ImageButton
-                android:background="@drawable/mod"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="28dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:id="@+id/imageButtonModPasswordProf"
-                android:layout_alignLeft="@+id/textViewEmailProf"
-                android:layout_alignStart="@+id/textViewEmailProf" />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Mario"
+                    android:textColor="@color/black"
+                    android:textSize="10pt"
+                    android:tag="nome"
+                    android:id="@+id/textViewNameProf"
+                    android:layout_marginTop="25dp"/>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <ImageButton
+                    android:background="@drawable/mod"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/imageButtonModNameProf"/>
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="10pt"
-                android:text="Credito: "
-                android:layout_marginTop="25dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="10pt"
-                android:text=""
-                android:id="@+id/textViewCreditoModProf"
-                android:layout_marginTop="25dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="mario.rossi@gmail.com"
+                    android:id="@+id/textViewEmailModProf"
+                    android:layout_marginTop="25dp"
+                    android:tag="email"
+                    android:textColor="@color/black"
+                    android:textSize="10pt" />
 
+                <ImageButton
+                    android:background="@drawable/mod"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/imageButtonModEmailProf" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_height="wrap_content"
+                    android:text="Modifica Password"
+                    android:id="@+id/textViewPasswordModProf"
+                    android:textColor="@color/black"
+                    android:tag="password"
+                    android:textSize="10pt"
+                    />
+
+                <ImageButton
+                    android:background="@drawable/mod"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/imageButtonModPasswordProf"
+                    android:layout_alignLeft="@+id/textViewEmailProf"
+                    android:layout_alignStart="@+id/textViewEmailProf" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="10pt"
+                    android:text="Credito: "
+                    android:layout_marginTop="25dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="10pt"
+                    android:text=""
+                    android:id="@+id/textViewCreditoModProf"
+                    android:layout_marginTop="25dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

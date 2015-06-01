@@ -1,293 +1,318 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/sfondo"
     android:layout_height="match_parent"
-    android:background="#e0f2f1"
-    android:orientation="vertical"
-    tools:context=".HomeActivity$PlaceholderFragment">
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:paddingRight="5dp"
-        android:layout_gravity="right">
-        <Button
-            style="@style/MyButton"
-            android:layout_width="30dp"
-            android:background="@drawable/arrownew"
-            android:layout_height="30dp"
-            android:id="@+id/btn_indietro"
-            />
-    </LinearLayout>
-
-    <ScrollView
+    <include
+        layout="@layout/sfondo"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        />
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".HomeActivity$PlaceholderFragment">
+
         <LinearLayout
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textStyle="bold"
-                    android:text="Nome itinerario"
-                    android:id="@+id/nomeItinerarioCard" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="by "
-                    android:id="@+id/autore" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Valutazione: "
-                    android:textSize="8pt"
-                    android:id="@+id/textViewValutazione"/>
-
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:id="@+id/valutazione" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:paddingLeft="10dp"
-                    android:textSize="8pt"
-                    android:id="@+id/textViewNumFeedback"/>
-
-                <Button
-                    style="@style/MyButton"
-                    android:background="@drawable/wishgrey"
-                    android:layout_width="80dp"
-                    android:layout_height="40dp"
-                    android:textStyle="bold"
-                    android:id="@+id/btn_desidera"
-                    android:visibility="invisible"
-                    android:layout_marginLeft="50dp"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Città: "
-                    android:textSize="8pt" />
-
-                <TextView
-                    android:id="@+id/citta_anteprima"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:text=""
-                    android:textSize="8pt" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tags: "
-                    android:textSize="8pt" />
-
-                <TextView
-                    android:id="@+id/tag_anteprima"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:text=""
-                    android:textSize="8pt" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Durata: "
-                    android:textSize="8pt" />
-
-                <TextView
-                    android:id="@+id/durata_anteprima"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:text=""
-                    android:textSize="8pt" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Numero tappe: "
-                    android:textSize="8pt" />
-
-                <TextView
-                    android:id="@+id/num_tappe_anteprima"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:text=""
-                    android:textSize="8pt" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-
-                <Button
-                    style="@style/MyButton"
-                    android:background="@drawable/selector_button"
-                    android:id="@+id/btnAvviaItinerario"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Avvia"
-                    android:textStyle="bold"
-                    android:layout_gravity="center" />
-
-                <Button
-                    style="@style/MyButton"
-                    android:background="@drawable/selector_button"
-                    android:id="@+id/btnAcquistaItinerario"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
-                    android:text="Acquista(10)"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    android:layout_gravity="center" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="8pt"
-                    android:text="Descrizione: "
-                    android:id="@+id/textViewDescrizioneAnteprima"/>
-
-                <com.ms.square.android.expandabletextview.ExpandableTextView
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/expand_text_view"
-                    android:layout_width="300dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    expandableTextView:maxCollapsedLines="4"
-                    expandableTextView:animDuration="200">
-                    <TextView
-                        android:id="@id/expandable_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="8pt"
-                        android:textColor="#000" />
-                    <ImageButton
-                        android:id="@id/expand_collapse"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:layout_gravity="right|bottom"
-                        android:background="@color/transparent"/>
-                </com.ms.square.android.expandabletextview.ExpandableTextView>
-                <Button
-                    style="@style/MyButton"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/selector_button"
-                    android:id="@+id/btnInviaFeedback"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
-                    android:text="Feedback"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"
-                    android:visibility="gone"/>
-
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textSize="8pt"
-                android:text="Recensioni:"
-                android:id="@+id/textViewRecensioni"/>
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:orientation="vertical"
-                android:id="@+id/listViewRecensioni">
-
-            </LinearLayout>
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:paddingRight="5dp"
+            android:layout_gravity="right">
+            <Button
+                style="@style/MyButton"
+                android:layout_width="30dp"
+                android:background="@drawable/arrownew"
+                android:layout_height="30dp"
+                android:id="@+id/btn_indietro"
+                />
         </LinearLayout>
 
-    </ScrollView>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-</LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"
+                        android:text="Nome itinerario"
+                        android:id="@+id/nomeItinerarioCard" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="by "
+                        android:id="@+id/autore" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Valutazione: "
+                            android:textSize="8pt"
+                            android:id="@+id/textViewValutazione"/>
+
+                        <RatingBar
+                            android:layout_toRightOf="@+id/textViewValutazione"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:id="@+id/valutazione" />
+
+                        <TextView
+                            android:layout_toRightOf="@+id/valutazione"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:paddingLeft="10dp"
+                            android:textSize="8pt"
+                            android:id="@+id/textViewNumFeedback"/>
+
+                        <Button
+                            style="@style/MyButton"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/wishgrey"
+                            android:layout_width="80dp"
+                            android:layout_height="40dp"
+                            android:textStyle="bold"
+                            android:id="@+id/btn_desidera"
+                            android:visibility="invisible"
+                            />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Città: "
+                        android:textSize="8pt" />
+
+                    <TextView
+                        android:id="@+id/citta_anteprima"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:text=""
+                        android:textSize="8pt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tags: "
+                        android:textSize="8pt" />
+
+                    <TextView
+                        android:id="@+id/tag_anteprima"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:text=""
+                        android:textSize="8pt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Durata: "
+                        android:textSize="8pt" />
+
+                    <TextView
+                        android:id="@+id/durata_anteprima"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:text=""
+                        android:textSize="8pt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Numero tappe: "
+                        android:textSize="8pt" />
+
+                    <TextView
+                        android:id="@+id/num_tappe_anteprima"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:text=""
+                        android:textSize="8pt" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+
+                    <Button
+                        style="@style/MyButton"
+                        android:background="@drawable/selector_button"
+                        android:id="@+id/btnAvviaItinerario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Avvia"
+                        android:textStyle="bold"
+                        android:layout_gravity="center" />
+
+                    <Button
+                        style="@style/MyButton"
+                        android:background="@drawable/selector_button"
+                        android:id="@+id/btnAcquistaItinerario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        android:text="Acquista(10)"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        android:layout_gravity="center" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="8pt"
+                        android:text="Descrizione: "
+                        android:id="@+id/textViewDescrizioneAnteprima"/>
+
+                    <com.ms.square.android.expandabletextview.ExpandableTextView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/expand_text_view"
+                        android:layout_width="300dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp"
+                        expandableTextView:maxCollapsedLines="4"
+                        expandableTextView:animDuration="200">
+                        <TextView
+                            android:id="@id/expandable_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="8pt"
+                            android:textColor="#000" />
+                        <ImageButton
+                            android:id="@id/expand_collapse"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:layout_gravity="right|bottom"
+                            android:background="@color/transparent"/>
+                    </com.ms.square.android.expandabletextview.ExpandableTextView>
+                    <Button
+                        style="@style/MyButton"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/selector_button"
+                        android:id="@+id/btnInviaFeedback"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="3dp"
+                        android:text="Feedback"
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:visibility="gone"/>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="8pt"
+                    android:text="Recensioni:"
+                    android:id="@+id/textViewRecensioni"/>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:orientation="vertical"
+                    android:id="@+id/listViewRecensioni">
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+</RelativeLayout>

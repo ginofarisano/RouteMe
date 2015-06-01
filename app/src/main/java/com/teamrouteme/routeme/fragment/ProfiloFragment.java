@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
 
+import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -36,11 +38,11 @@ public class ProfiloFragment extends Fragment {
     private ImageView profImage;
     private Bitmap profilo;
     private BitmapDrawable profiloDrawable;
+    private MaterialNavigationDrawer home;
 
 
-    public ProfiloFragment(Bitmap profilo) {
+    public ProfiloFragment() {
         // Required empty public constructor
-        this.profilo = profilo;
     }
 
 
@@ -61,11 +63,13 @@ public class ProfiloFragment extends Fragment {
         modPassword = (ImageButton) view.findViewById(R.id.imageButtonModPasswordProf);
         profImage = (ImageView)view.findViewById(R.id.profile_image);
 
+        home = (MaterialNavigationDrawer)getActivity();
+
         textViewName.setText(currentUser.getString("name"));
-        if(profilo != null){
-            profiloDrawable = new BitmapDrawable(getResources(), profilo);
-            profImage.setBackground(profiloDrawable);
-        }
+
+      //  profiloDrawable = new BitmapDrawable(getResources(), profilo);
+        profImage.setBackground(home.getCurrentAccount().getCircularPhoto());
+
         if(currentUser.getEmail()!=null)
             textViewEmail.setText(currentUser.getEmail());
         else{

@@ -110,7 +110,7 @@ public class HomeActivity extends MaterialNavigationDrawer {
         this.addSection(newSection("Itinerari Acquistati", R.drawable.download_icon, new ItinerariAcquistatiFragment()));
         this.addSection(newSection("Lista Desideri", R.drawable.wishlist, new ListaDesideriFragment()));
         this.addDivisor();
-        this.addSection(newSection("Profilo", R.drawable.profilo, new ProfiloFragment(profilo)));
+        this.addSection(newSection("Profilo", R.drawable.profilo, new ProfiloFragment()));
         this.addDivisor();
         this.addSection(newSection("Logout", R.drawable.logout, new MaterialSectionListener() {
             @Override

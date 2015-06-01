@@ -26,6 +26,7 @@ import com.parse.ParseUser;
 import com.teamrouteme.routeme.R;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
+import it.sephiroth.android.library.tooltip.TooltipManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -106,6 +107,7 @@ public class ProfiloFragment extends Fragment {
         modNome.setOnClickListener(ocl);
         modEmail.setOnClickListener(ocl);
         modPassword.setOnClickListener(ocl);
+
         return view;
     }
 

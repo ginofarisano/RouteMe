@@ -44,4 +44,7 @@ dependencies {
     compile files('/Users/nicolopergola/Desktop/Universita/LaureaMagistrale/II_Anno/IUMMAD/RouteMe/libs/PayPalAndroidSDK-2.9.5.jar')
     compile files('/Users/ginofarisano/Desktop/RouteMe/RouteMe/libs/PayPalAndroidSDK-2.9.5.jar')
     compile files('/home/daniele/Scrivania/RouteMe/libs/PayPalAndroidSDK-2.9.5.jar')
+    compile('it.sephiroth.android.library.targettooltip:target-tooltip-library:1.2.2@aar'){
+        transitive=true
+    }
 }

@@ -3,28 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e0f2f1"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:id="@+id/layout_fragment_crea_itinerario">
 
-     <AutoCompleteTextView
-         android:id="@+id/et_place"
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-         android:textColorHint="#009688"
-         android:hint="Inserisci Tappa"
-         android:textColor="#009688"
-         android:inputType="textCapSentences"
-         android:popupBackground="#e0f2f1"
-         />
+    <AutoCompleteTextView
+        android:id="@+id/et_place"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#009688"
+        android:hint="Inserisci Tappa"
+        android:textColor="#009688"
+        android:inputType="textCapSentences"
+        android:popupBackground="#e0f2f1"
+        />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-         xmlns:tools="http://schemas.android.com/tools"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:background="#e0f2f1"
-         android:id="@+id/map"
-         android:layout_below="@id/et_place"
-         tools:context=".MapsActivity"
-         android:name="com.google.android.gms.maps.SupportMapFragment" />
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#e0f2f1"
+        android:id="@+id/map"
+        android:layout_below="@id/et_place"
+        tools:context=".MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
 
     <Button style="@style/MyButton"
         android:background="@drawable/selector_button"
@@ -63,4 +64,4 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
- </RelativeLayout>
+</RelativeLayout>

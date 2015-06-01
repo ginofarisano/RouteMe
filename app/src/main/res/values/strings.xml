@@ -58,6 +58,8 @@
 
     <!--star listViewAnaimation -->
 
+    <string name="pref_previously_started">firstLaunch</string>
+    <string name="pref_previously_started2">firstLaunch2</string>
 
 
 </resources>

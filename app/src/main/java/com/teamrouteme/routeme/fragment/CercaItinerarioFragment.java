@@ -2,6 +2,9 @@ package com.teamrouteme.routeme.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.IBinder;
@@ -18,6 +21,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ogaclejapan.arclayout.ArcLayout;
@@ -45,6 +49,8 @@ import java.util.List;
 import java.util.Map;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
+import it.sephiroth.android.library.tooltip.Tooltip;
+import it.sephiroth.android.library.tooltip.TooltipManager;
 
 public class CercaItinerarioFragment extends Fragment {
 
@@ -89,7 +95,6 @@ public class CercaItinerarioFragment extends Fragment {
         btn_cercaItinerario = (Button) view.findViewById(R.id.btn_cercaItinerario);
 
         seekbar_placeholder_layout = (LinearLayout) view.findViewById(R.id.seekbar_placeholder);
-
 
         autoCompleteAdapter = new ArrayAdapter<String>(CercaItinerarioFragment.this.getActivity(), android.R.layout.simple_dropdown_item_1line);
         autoCompleteAdapter.setNotifyOnChange(true); // This is so I don't have to manually sync whenever changed
@@ -229,19 +234,19 @@ public class CercaItinerarioFragment extends Fragment {
                 int durataMin = rangeSeekBar.getSelectedMinValue();
                 int durataMax = rangeSeekBar.getSelectedMaxValue();
 
-                Log.d(TAG, "Min "+durataMin);
-                Log.d(TAG, "Max "+durataMax);
+                Log.d(TAG, "Min " + durataMin);
+                Log.d(TAG, "Max " + durataMax);
 
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("itinerario");
                 //ParseQuery<ParseObject> listQuery = query;
 
-                if(citta.length()!=0)
+                if (citta.length() != 0)
                     query = query.whereEqualTo("citta", citta);
 
                 query = query.whereGreaterThanOrEqualTo("durata_min", durataMin);
                 query = query.whereLessThanOrEqualTo("durata_max", durataMax);
 
-                if(listTags.size()!=0)
+                if (listTags.size() != 0)
                     query = query.whereContainedIn("tags", listTags);
 
                 final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
@@ -252,7 +257,7 @@ public class CercaItinerarioFragment extends Fragment {
                     @Override
                     public void done(List<ParseObject> list, com.parse.ParseException e) {
                         if (e == null) {
-                            Log.d(TAG, "Numero risultati: "+list.size());
+                            Log.d(TAG, "Numero risultati: " + list.size());
                             myList = new LinkedList();
                             Itinerario itinerario;
 
@@ -281,24 +286,23 @@ public class CercaItinerarioFragment extends Fragment {
                                 myList.add(itinerario);
 
                             }
-                            if (myList.size()==0) {
-                                for(int i=0;i<listTags.size();i++){
-                                    for(int j=0;j<alArcLayoutButtons.size();j++)
-                                        if(alArcLayoutButtons.get(j).getText().equals(listTags.get(i)))
+                            if (myList.size() == 0) {
+                                for (int i = 0; i < listTags.size(); i++) {
+                                    for (int j = 0; j < alArcLayoutButtons.size(); j++)
+                                        if (alArcLayoutButtons.get(j).getText().equals(listTags.get(i)))
                                             alArcLayoutButtons.get(j).setPressed(true);
                                 }
                                 dialog.hide();
                                 Toast.makeText(getActivity().getBaseContext(), "Nessuna corrispondenza trovata", Toast.LENGTH_SHORT).show();
-                            }
-                            else{
+                            } else {
                                 dialog.hide();
 
                                 Fragment risultatiRicercaFragment = new RisultatiRicercaFragment();
                                 Bundle b = new Bundle();
 
                                 ArrayList<Itinerario> mL = new ArrayList<Itinerario>();
-                                for(int i=0;i<myList.size();i++)
-                                    mL.add(i,(Itinerario)myList.get(i));
+                                for (int i = 0; i < myList.size(); i++)
+                                    mL.add(i, (Itinerario) myList.get(i));
 
                                 closeKeyboard(getActivity(), autoCompleteCitta.getWindowToken());
 

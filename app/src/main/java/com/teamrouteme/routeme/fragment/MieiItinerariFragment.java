@@ -19,7 +19,9 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,6 +51,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
+import it.sephiroth.android.library.tooltip.TooltipManager;
 
 public class MieiItinerariFragment extends Fragment {
 
@@ -56,6 +59,7 @@ public class MieiItinerariFragment extends Fragment {
     private List myList;
     private TextView nessunItineario;
     private int queryCount, subQueryDesideri, subQueryAcquistati, subQueryTappe;
+    private TextView tooltipHelper;
 
     public MieiItinerariFragment() {
         // Required empty public constructor
@@ -133,6 +137,26 @@ public class MieiItinerariFragment extends Fragment {
                         card.setNumFeedback(it.getNum_feedback());
                         card.setDismissible(true);
                         listView.add(card);
+
+                        tooltipHelper = (TextView) view.findViewById(R.id.tooltip_helper);
+                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                        boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
+                        if(myList.size()!=0) {
+                            if (!previouslyStarted) {
+                                SharedPreferences.Editor edit = prefs.edit();
+                                edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
+                                edit.commit();
+                                TooltipManager.getInstance(getActivity())
+                                        .create(R.id.layout_fragment_crea_itinerario)
+                                        .anchor(tooltipHelper, TooltipManager.Gravity.CENTER)
+                                        .closePolicy(TooltipManager.ClosePolicy.TouchOutside, 3000)
+                                        .activateDelay(0)
+                                        .text("Scorri per eliminare!")
+                                        .maxWidth(500)
+                                        .withStyleId(R.style.ToolTipLayoutCustomStyle)
+                                        .show();
+                            }
+                        }
                     }
 
 

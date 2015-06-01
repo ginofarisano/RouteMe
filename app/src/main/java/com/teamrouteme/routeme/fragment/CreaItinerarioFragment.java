@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -51,6 +52,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
+import it.sephiroth.android.library.tooltip.TooltipManager;
 
 public class CreaItinerarioFragment extends Fragment {
 
@@ -179,7 +182,18 @@ public class CreaItinerarioFragment extends Fragment {
             }
         });
 
-        // Inflate the layout for this fragment
+
+        if(addedPlaces.size()==0)
+            TooltipManager.getInstance(getActivity())
+                    .create(R.id.layout_fragment_crea_itinerario)
+                    .anchor(etPlace, TooltipManager.Gravity.BOTTOM)
+                    .closePolicy(TooltipManager.ClosePolicy.TouchOutside, 3000)
+                    .activateDelay(0)
+                    .text("Scrivi qui per aggiungere la tua prima tappa!")
+                    .maxWidth(500)
+                    .withStyleId(R.style.ToolTipLayoutCustomStyle)
+                    .show();
+
         return view;
     }
 

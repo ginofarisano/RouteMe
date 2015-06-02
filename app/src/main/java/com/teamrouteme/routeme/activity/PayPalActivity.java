@@ -29,6 +29,8 @@ import java.math.BigDecimal;
  */
 public class PayPalActivity extends Activity {
 
+    public static final String TEXT_DONATE = "Mi stai offrendo %d euro";
+
     public static final String INCREASE_CREDIT = "INCREASE_CREDIT";
 
     public static final String SELLER = "routeme@gmail.com";
@@ -41,7 +43,7 @@ public class PayPalActivity extends Activity {
 
     private static final String DONATE = "Offerta di %s euro da %s (%s) :-)";
 
-    private static final String MESSAGE_PAYPAL = "Per %s.\n Pagamento di %s euro da %s (%s)";
+    private static final String MESSAGE_PAYPAL = "Per %s.\n Da %s (%s)";
 
 
     private static final String CLIENT_ID_PAYPALL = "AUs9mMZKDuWPwR4bqpQPiW91ybKKubyuk_YMVpmH8K6YvK_2qn0H7oDu8csEHXFkd_gaBeb-lTydtMtJ";
@@ -92,10 +94,10 @@ public class PayPalActivity extends Activity {
             tvCreditToBuy.setText(String.format(TO_BUY, ParseUser.getCurrentUser().get("name"), ParseUser.getCurrentUser().get("username")));
         else{
             //mi stai offrendo una birra
-            tvCreditToBuy.setText( String.format(DONATE, creditToBuy, ParseUser.getCurrentUser().get("name"), ParseUser.getCurrentUser().get("username")));
-            btnAcquista100.setVisibility(View.GONE);
-            btnAcquista250.setVisibility(View.GONE);
-            btnAcquista500.setVisibility(View.GONE);
+            //tvCreditToBuy.setText( String.format(DONATE, creditToBuy, ParseUser.getCurrentUser().get("name"), ParseUser.getCurrentUser().get("username")));
+            btnAcquista100.setText(String.format(TEXT_DONATE,1));
+            btnAcquista250.setText(String.format(TEXT_DONATE, 2));
+            btnAcquista500.setText(String.format(TEXT_DONATE, 3));
 
 
         }
@@ -151,7 +153,7 @@ public class PayPalActivity extends Activity {
 
 
 
-        PayPalPayment payment = new PayPalPayment(bdCreditToBuy, "EUR", String.format(MESSAGE_PAYPAL,SELLER,creditToBuy, ParseUser.getCurrentUser().get("name"),ParseUser.getCurrentUser().get("username")),
+        PayPalPayment payment = new PayPalPayment(bdCreditToBuy, "EUR", String.format(MESSAGE_PAYPAL,SELLER, ParseUser.getCurrentUser().get("name"),ParseUser.getCurrentUser().get("username")),
                 PayPalPayment.PAYMENT_INTENT_SALE);
 
         Intent intent = new Intent(this, PaymentActivity.class);

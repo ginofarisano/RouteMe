@@ -136,7 +136,7 @@ public class ParseCall {
     public void buyRoute(final String idItinerario, final ProgressDialog dialog, final Button btnAcquistaItinerario) {
 
 
-        ParseObject toAddWishList = new ParseObject("itinerari_acquistati");
+        final ParseObject toAddWishList = new ParseObject("itinerari_acquistati");
 
         toAddWishList.put("user", user);
 
@@ -150,9 +150,7 @@ public class ParseCall {
                         //UNA VOLTA EFFETTUATA L'OPERAZIONE DI PAGAMENTO VENGONO DISATTIVATI I BOTTONI
                         btnAcquistaItinerario.setEnabled(false);
                         btnAcquistaItinerario.setText("Già tuo");
-                        btnAcquistaItinerario.setBackground(context.getResources().getDrawable(R.drawable.selector_disabled));;
-
-
+                        btnAcquistaItinerario.setBackground(context.getResources().getDrawable(R.drawable.selector_disabled));
                     }
 
 
@@ -163,7 +161,7 @@ public class ParseCall {
                     query.findInBackground(new FindCallback<ParseObject>() {
 
                         @Override
-                        public void done(List<ParseObject> list, com.parse.ParseException e) {
+                        public void done(final List<ParseObject> list, com.parse.ParseException e) {
 
                             if (e == null) {
                                 if (list.size() != 0) {
@@ -172,7 +170,9 @@ public class ParseCall {
                                             if (e == null) {
 
                                             } else {
-                                                Log.d("ParseCall", "Error: " + e.getMessage());
+                                                list.get(0).deleteEventually();
+                                                Log.d(TAG, "Error: " + e.getMessage());
+                                                Log.d(TAG, "deleteEventually");
                                             }
                                         }
                                     });
@@ -187,7 +187,49 @@ public class ParseCall {
 
                     });
                 } else {
-                    Log.d("ParseCall", "Error: " + e.getMessage());
+                    toAddWishList.saveEventually();
+                    if(btnAcquistaItinerario!=null){
+                        //UNA VOLTA EFFETTUATA L'OPERAZIONE DI PAGAMENTO VENGONO DISATTIVATI I BOTTONI
+                        btnAcquistaItinerario.setEnabled(false);
+                        btnAcquistaItinerario.setText("Già tuo");
+                        btnAcquistaItinerario.setBackground(context.getResources().getDrawable(R.drawable.selector_disabled));
+                    }
+
+
+                    ParseQuery query = ParseQuery.getQuery("lista_desideri");
+
+                    query = query.whereEqualTo("idItinerario", idItinerario);
+
+                    query.findInBackground(new FindCallback<ParseObject>() {
+
+                        @Override
+                        public void done(final List<ParseObject> list, com.parse.ParseException e) {
+
+                            if (e == null) {
+                                if (list.size() != 0) {
+                                    list.get(0).deleteInBackground(new DeleteCallback() {
+                                        public void done(ParseException e) {
+                                            if (e == null) {
+
+                                            } else {
+                                                list.get(0).deleteEventually();
+                                                Log.d(TAG, "Error: " + e.getMessage());
+                                                Log.d(TAG, "deleteEventually");
+                                            }
+                                        }
+                                    });
+                                }
+                            } else {
+                                Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
+                            }
+
+                            dialog.hide();
+
+                        }
+
+                    });
+                    Log.d(TAG, "Error: " + e.getMessage());
+                    Log.d(TAG, "saveEventually");
                 }
             }
         });
@@ -196,7 +238,7 @@ public class ParseCall {
 
     public void buyRoute(final String idItinerario, final ProgressDialog dialog, final ParseObject listaDesideriObject) {
 
-        ParseObject toAddBuyList = new ParseObject("itinerari_acquistati");
+        final ParseObject toAddBuyList = new ParseObject("itinerari_acquistati");
 
         toAddBuyList.put("user", user);
 
@@ -211,14 +253,20 @@ public class ParseCall {
                                 if (e == null) {
                                     dialog.hide();
                                 } else {
-                                    Log.d("ParseCall", "Error: " + e.getMessage());
+                                    listaDesideriObject.deleteEventually();
+                                    Log.d(TAG, "Error: " + e.getMessage());
+                                    Log.d(TAG, "deleteEventually");
                                 }
                             }
                         });
                     else
                         dialog.hide();
                 } else {
-                    Log.d("ParseCall", "Error: " + e.getMessage());
+                    toAddBuyList.saveEventually();
+                    if(listaDesideriObject != null)
+                        listaDesideriObject.deleteEventually();
+                    Log.d(TAG, "Error: " + e.getMessage());
+                    Log.d(TAG, "itinerario acquistato saveEventually, lista desideri object deleteEventually");
                 }
             }
         });
@@ -227,7 +275,18 @@ public class ParseCall {
     public void scaleCredit(int delta) {
 
         user.put("crediti",delta);
-        user.saveInBackground();
+        user.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null){
+                }
+                else{
+                    user.saveEventually();
+                    Log.d(TAG, "Error: " + e.getMessage());
+                    Log.d(TAG, "saveEventually");
+                }
+            }
+        });
 
     }
 
@@ -237,7 +296,15 @@ public class ParseCall {
         user.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                buyRoute(idItinerario,dialog,btnAcquistaItinerario);
+                if(e == null){
+                    buyRoute(idItinerario,dialog,btnAcquistaItinerario);
+                }
+                else{
+                    user.saveEventually();
+                    Log.d(TAG, "Error: " + e.getMessage());
+                    Log.d(TAG, "saveEventually");
+                    buyRoute(idItinerario,dialog,btnAcquistaItinerario);
+                }
             }
         });
 

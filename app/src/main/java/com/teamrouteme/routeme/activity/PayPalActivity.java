@@ -46,7 +46,7 @@ public class PayPalActivity extends Activity {
     private static final String MESSAGE_PAYPAL = "Per %s.\n Da %s (%s)";
 
 
-    private static final String CLIENT_ID_PAYPALL = "AUs9mMZKDuWPwR4bqpQPiW91ybKKubyuk_YMVpmH8K6YvK_2qn0H7oDu8csEHXFkd_gaBeb-lTydtMtJ";
+    private static final String CLIENT_ID_PAYPAL = "AUs9mMZKDuWPwR4bqpQPiW91ybKKubyuk_YMVpmH8K6YvK_2qn0H7oDu8csEHXFkd_gaBeb-lTydtMtJ";
 
     private static PayPalConfiguration config = new PayPalConfiguration()
 
@@ -54,7 +54,7 @@ public class PayPalActivity extends Activity {
             // or live (ENVIRONMENT_PRODUCTION)
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
 
-            .clientId(CLIENT_ID_PAYPALL);
+            .clientId(CLIENT_ID_PAYPAL);
 
     private int creditToBuy;
 

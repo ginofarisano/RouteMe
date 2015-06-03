@@ -1,41 +1,70 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context="com.teamrouteme.routeme.activity.PayPalActivity">
+<RelativeLayout
+    android:background="@color/sfondo"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/tv_credit_to_buy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:layout_width="wrap_content"
+    <include
+        layout="@layout/sfondo"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Compra 100 crediti a 1 euro"
-        android:onClick="onBuyPressed"
-        android:id="@+id/button100"
         />
 
-    <Button
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Compra 250 crediti a 2 euro"
-        android:onClick="onBuyPressed"
-        android:id="@+id/button250"
-       />
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        tools:context="com.teamrouteme.routeme.activity.PayPalActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Compra 500 crediti a 3 euro"
-        android:onClick="onBuyPressed"
-        android:id="@+id/button500"
-        />
+        <TextView
+            android:id="@+id/tv_credit_to_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
+        <Button
+            style="@style/MyButton"
+            android:background="@drawable/selector_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Compra 100 crediti a 1 euro"
+            android:onClick="onBuyPressed"
+            android:id="@+id/button100"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textStyle="bold"
+            />
 
+        <Button
+            android:layout_marginTop="10dp"
+            style="@style/MyButton"
+            android:background="@drawable/selector_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Compra 250 crediti a 2 euro"
+            android:onClick="onBuyPressed"
+            android:id="@+id/button250"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textStyle="bold"
+            />
 
-</LinearLayout>
+        <Button
+            android:layout_marginTop="10dp"
+            style="@style/MyButton"
+            android:background="@drawable/selector_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Compra 500 crediti a 3 euro"
+            android:onClick="onBuyPressed"
+            android:id="@+id/button500"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+</RelativeLayout>

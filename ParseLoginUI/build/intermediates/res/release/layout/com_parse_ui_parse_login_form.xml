@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/ParseLoginUI.EditText"
+        android:backgroundTint="@color/lista"
         android:hint="@string/com_parse_ui_username_input_hint" />
 
     <EditText
@@ -23,6 +24,7 @@
         android:fontFamily="sans-serif"
         android:hint="@string/com_parse_ui_password_input_hint"
         android:inputType="textPassword"
+        android:backgroundTint="@color/lista"
         android:selectAllOnFocus="true" />
 
     <LinearLayout
@@ -52,4 +54,4 @@
         android:layout_marginBottom="@dimen/com_parse_ui_small_vertical_spacing"
         android:text="@string/com_parse_ui_forgot_password_button_label" />
 </LinearLayout>
-<!-- From: file:/Users/nicolopergola/Desktop/Universita/LaureaMagistrale/II_Anno/IUMMAD/RouteMe/ParseLoginUI/res/layout/com_parse_ui_parse_login_form.xml -->
+<!-- From: file:/Users/massimo299/AndroidStudioProjects/RouteMe/ParseLoginUI/res/layout/com_parse_ui_parse_login_form.xml -->

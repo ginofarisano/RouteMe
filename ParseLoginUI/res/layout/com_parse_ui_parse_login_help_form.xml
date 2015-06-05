@@ -21,6 +21,7 @@
         android:hint="@string/com_parse_ui_login_help_email_input_hint"
         android:textColorHint="@color/testo"
         android:textColor="@color/testo"
+        android:backgroundTint="@color/lista"
         android:inputType="textEmailAddress"></EditText>
 
     <Button

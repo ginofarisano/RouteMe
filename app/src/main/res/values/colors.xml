@@ -11,7 +11,7 @@
   <color name="green_500">#4CAF50</color>
   <color name="light_green_500">#8BC34A</color>
 
-  <color name="tumblr_primary">#e0f2f1</color>
+  <color name="tumblr_primary">#FFFFFF</color>
   <color name="tumblr_orange">#F2992E</color>
   <color name="tumblr_green">#56BC8A</color>
   <color name="tumblr_white">#FFFFFF</color>
@@ -27,7 +27,7 @@
   <color name="path_purple">#49098A</color>
   <color name="disabled">#bdbdbd</color>
 
-  <color name="sfondo">#e0f2f1</color>
+  <color name="sfondo">#FFFFFF</color>
   <color name="lista">#80cbc4</color>
   <color name="testo">#009688</color>
   <color name="seekbar">#b2ebf2</color>

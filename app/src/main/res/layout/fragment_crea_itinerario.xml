@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e0f2f1"
+    android:background="@color/sfondo"
     tools:context=".MainActivity"
     android:id="@+id/layout_fragment_crea_itinerario">
 
@@ -10,11 +10,12 @@
         android:id="@+id/et_place"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="#009688"
+        android:textColorHint="@color/lista"
         android:hint="Inserisci Tappa"
-        android:textColor="#009688"
+        android:textColor="@color/testo"
         android:inputType="textCapSentences"
-        android:popupBackground="#e0f2f1"
+        android:backgroundTint="@color/lista"
+        android:popupBackground="@color/sfondo"
         />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"

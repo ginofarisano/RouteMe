@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/sfondo">
+    android:background="#e0f2f1">
 
 
     <RatingBar
@@ -19,7 +19,8 @@
         android:textColorHint="@color/testo"
         android:inputType="textCapSentences"
         android:hint="Scrivi la tua recensione (opzionale)"
-        android:id="@+id/editTextInvioFeedback" />
+        android:id="@+id/editTextInvioFeedback"
+        android:backgroundTint="@color/lista"/>
 
     <Button
         style="@style/MyButton"

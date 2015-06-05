@@ -19,6 +19,7 @@
         android:inputType="textCapSentences"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
+        android:backgroundTint="@color/lista"
         android:textColor="#009688"/>
 
     <TextView
@@ -35,6 +36,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textCapSentences"
+        android:backgroundTint="@color/lista"
         android:maxLength="50"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"

@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/ParseLoginUI.EditText"
+        android:backgroundTint="@color/lista"
         android:hint="@string/com_parse_ui_username_input_hint"></EditText>
 
     <EditText
@@ -20,6 +21,7 @@
         android:fontFamily="sans-serif"
         android:hint="@string/com_parse_ui_password_input_hint"
         android:inputType="textPassword"
+        android:backgroundTint="@color/lista"
         android:selectAllOnFocus="true" />
 
     <EditText
@@ -31,6 +33,7 @@
         android:fontFamily="sans-serif"
         android:hint="@string/com_parse_ui_confirm_password_input_hint"
         android:inputType="textPassword"
+        android:backgroundTint="@color/lista"
         android:selectAllOnFocus="true" />
 
     <EditText
@@ -40,6 +43,7 @@
         style="@style/ParseLoginUI.EditText"
         android:layout_marginTop="@dimen/com_parse_ui_small_vertical_spacing"
         android:hint="@string/com_parse_ui_email_input_hint"
+        android:backgroundTint="@color/lista"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -49,6 +53,7 @@
         style="@style/ParseLoginUI.EditText"
         android:layout_marginTop="@dimen/com_parse_ui_small_vertical_spacing"
         android:hint="@string/com_parse_ui_name_input_hint"
+        android:backgroundTint="@color/lista"
         android:inputType="textPersonName" />
 
     <Button
@@ -58,4 +63,4 @@
         android:text="@string/com_parse_ui_create_account_button_label" />
 
 </LinearLayout>
-<!-- From: file:/Users/nicolopergola/Desktop/Universita/LaureaMagistrale/II_Anno/IUMMAD/RouteMe/ParseLoginUI/res/layout/com_parse_ui_parse_signup_form.xml -->
+<!-- From: file:/Users/massimo299/AndroidStudioProjects/RouteMe/ParseLoginUI/res/layout/com_parse_ui_parse_signup_form.xml -->

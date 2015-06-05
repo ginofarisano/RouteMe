@@ -259,8 +259,40 @@ public class ParseCall {
                                 }
                             }
                         });
-                    else
-                        dialog.hide();
+                    else {
+                        ParseQuery query = ParseQuery.getQuery("lista_desideri");
+
+                        query = query.whereEqualTo("idItinerario", idItinerario);
+
+                        query.findInBackground(new FindCallback<ParseObject>() {
+
+                            @Override
+                            public void done(final List<ParseObject> list, com.parse.ParseException e) {
+
+                                if (e == null) {
+                                    if (list.size() != 0) {
+                                        list.get(0).deleteInBackground(new DeleteCallback() {
+                                            public void done(ParseException e) {
+                                                if (e == null) {
+
+                                                } else {
+                                                    list.get(0).deleteEventually();
+                                                    Log.d(TAG, "Error: " + e.getMessage());
+                                                    Log.d(TAG, "deleteEventually");
+                                                }
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    Log.d("AnteprimaItinerario", "Error: " + e.getMessage());
+                                }
+
+                                dialog.hide();
+
+                            }
+
+                        });
+                    }
                 } else {
                     toAddBuyList.saveEventually();
                     if(listaDesideriObject != null)

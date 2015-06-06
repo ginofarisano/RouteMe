@@ -90,8 +90,10 @@ public class PayPalActivity extends Activity {
         tvCreditToBuy = (TextView)findViewById(R.id.tv_credit_to_buy);
 
         //sto comprando crediti
-        if(b.getString(KEY_DONATE,"").length()==0)
+        if(b.getString(KEY_DONATE,"").length()==0) {
             tvCreditToBuy.setText(String.format(TO_BUY, ParseUser.getCurrentUser().get("name"), ParseUser.getCurrentUser().get("username")));
+            tvCreditToBuy.setVisibility(View.VISIBLE);
+        }
         else{
             //mi stai offrendo una birra
             //tvCreditToBuy.setText( String.format(DONATE, creditToBuy, ParseUser.getCurrentUser().get("name"), ParseUser.getCurrentUser().get("username")));

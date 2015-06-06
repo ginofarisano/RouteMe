@@ -350,8 +350,8 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
 
                 } else {
 
-                    btnDesideraItinerario.setEnabled(false);
-                    btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.wishred));
+                    //btnDesideraItinerario.setEnabled(false);
+                    //btnDesideraItinerario.setBackground(getResources().getDrawable(R.drawable.wishred));
 
                     buyCredit(delta, idItinerario, dialog, btnAcquistaItinerario);
 

@@ -127,7 +127,7 @@ public class AnteprimaCercaItinerarioFragment extends BaseFragmentPayPalResult{
         durata.setText(durataMinItinerario+"-"+durataMaxItinerario+" ore");
 
         numTappeTextView = (TextView) view.findViewById(R.id.num_tappe_anteprima);
-        Log.e("", ""+numTappe);
+
         numTappeTextView.setText(""+numTappe);
 
         citta = (TextView)view.findViewById(R.id.citta_anteprima);

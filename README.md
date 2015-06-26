@@ -14,4 +14,11 @@ https://github.com/ogaclejapan/ArcLayout
 
 per le librerie e il codice messo a disposizione.
 
+Un fork di questo progetto è presente all'indirizzo:
+https://github.com/danielePiracci/RouteMe
+
+dove sono state aggiunte ulteriori funzionalità.
+
+
+
 

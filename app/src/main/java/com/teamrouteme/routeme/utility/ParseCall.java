@@ -156,6 +156,7 @@ public class ParseCall {
 
                     ParseQuery query = ParseQuery.getQuery("lista_desideri");
 
+
                     query = query.whereEqualTo("idItinerario", idItinerario);
 
                     query.findInBackground(new FindCallback<ParseObject>() {

@@ -31,7 +31,6 @@ import com.teamrouteme.routeme.fragment.CreaItinerarioFragment;
 import com.teamrouteme.routeme.fragment.MieiItinerariFragment;
 import com.teamrouteme.routeme.fragment.ProfiloFragment;
 import com.teamrouteme.routeme.fragment.RisultatiRicercaFragment;
-import com.teamrouteme.routeme.utility.JsonReader;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
